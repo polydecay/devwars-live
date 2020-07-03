@@ -1,0 +1,35 @@
+{
+    "name": "devwars-live-client",
+    "version": "0.0.0",
+    "author": "Kim Simonsen",
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "core-js": "^3.6.5",
+        "lodash": "^4.17.15",
+        "socket.io-client": "^2.3.0",
+        "vue": "^2.6.11",
+        "vue-router": "^3.2.0",
+        "vue-select": "^3.10.5",
+        "vuex": "^3.5.1"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^4.4.6",
+        "@vue/cli-plugin-router": "^4.4.6",
+        "@vue/cli-plugin-vuex": "^4.4.6",
+        "@vue/cli-service": "^4.4.6",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^9.0.0",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "browserslist": [
+        "chrome >= 70",
+        "edge >= 18",
+        "firefox >= 70",
+        "safari >= 12"
+    ]
+}

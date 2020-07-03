@@ -3,7 +3,7 @@
         <div class="row header">
             <h1>{{ `${editor.id}. ${editor.language}` }}</h1>
             <h2>
-                <a :href="fileUrl" target="_blank">{{ editor.filename }}</a>
+                <a :href="fileUrl" target="_blank">{{ editor.fileName }}</a>
             </h2>
         </div>
         <div class="row actions">
@@ -29,13 +29,15 @@ export default {
 
     computed: {
         editor() {
-            return this.$store.state.game.editors[this.editorId];
+            return this.$store.getters['game/editorById'](this.editorId);
         },
+
         player() {
-            return this.$store.state.game.players[this.editor.player];
+            return this.$store.getters['game/playerById'](this.editor.playerId);
         },
+
         fileUrl() {
-            return `/api/editors/files/${this.editor.team}/${this.editor.filename}`;
+            return `/api/teams/${this.editor.teamId}/files/${this.editor.fileName}`;
         },
     },
 
@@ -43,17 +45,18 @@ export default {
         async onToggleLocked() {
             await api.patchEditor(this.editorId, { locked: !this.editor.locked });
         },
+
         async onReset() {
             await api.resetEditor(this.editorId);
         },
+
         async onSelectUser(player) {
-            if (player && !this.$store.state.game.players[player.id]) {
-                await api.addPlayer({ ...player, team: this.editor.team });
+            if (!player) {
+                return await api.deleteEditorPlayer(this.editorId);
             }
 
-            await api.patchEditor(this.editorId, {
-                player: player ? player.id : null,
-            });
+            await api.createPlayer({ ...player, teamId: this.editor.teamId });
+            await api.setEditorPlayer(this.editorId, player.id);
         },
     },
 };

@@ -24,7 +24,7 @@ export default {
         async onCreate() {
             await api.createGame({
                 mode: this.mode,
-                title: 'Game Title',
+                title: 'Title',
                 runtime: 30 * 60 * 1000,
                 objectives: [
                     { id: 1, description: 'first' },

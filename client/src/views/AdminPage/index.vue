@@ -1,6 +1,6 @@
 <template>
     <div class="MainPage">
-        <CreateGame v-if="!gameActive"/>
+        <CreateGame v-if="!isActive"/>
         <div v-else>
             <EditGame/>
             <div class="teams">
@@ -22,7 +22,7 @@ export default {
 
     computed: {
         ...mapState('game', ['teams']),
-        ...mapGetters('game', ['gameActive']),
+        ...mapGetters('game', ['isActive']),
     }
 };
 </script>

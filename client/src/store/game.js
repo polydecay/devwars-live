@@ -3,9 +3,15 @@ import merge from 'lodash/merge';
 
 function mergeMap(source, target) {
     Object.keys(source).forEach((key) => {
-        if (!target[key]) Vue.delete(source, key);
-        else Object.assign(source, target);
-        // else merge(source, target);
+        if (!target[key]) {
+            return Vue.delete(source, key);
+        }
+
+        if (typeof source[key] === 'object') {
+            return Vue.set(source, key, target[key]);
+        }
+
+        Object.assign(source, target);
     });
 
     Object.keys(target).forEach((key) => {
@@ -25,23 +31,35 @@ const initialState = Object.freeze({
     stageStartAt: 0,
     stageEndAt: 0,
 
-    objectives: Object.freeze({}),
-    teams: Object.freeze({}),
-    editors: Object.freeze({}),
-    players: Object.freeze({}),
+    objectives: [],
+    teams: [],
+    editors: [],
+    players: [],
 });
 
 const state = merge({}, initialState);
 
 const getters = {
-    gameActive(state) {
+    isActive(state) {
         return state.id !== null;
     },
 
-    getEditorsByTeam(state){
-        return (id) => {
-            return Object.values(state.editors).filter(e => e.team === id);
-        };
+    teamById(state) {
+        return (id) => state.teams.find(x => x.id === id);
+    },
+
+    editorById(state) {
+        return (id) => state.editors.find(x => x.id === id);
+    },
+
+    playerById(state) {
+        return (id) => state.players.find(x => x.id === id);
+    },
+
+    editorsByTeam(state){
+        return (id) => state.editors
+            .filter(e => e.teamId === id)
+            .sort((a, b) => a.id - b.id);
     },
 };
 

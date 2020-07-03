@@ -28,11 +28,10 @@ export default {
 
     computed: {
         completeObjectives() {
-            return this.$store.state.game.teams[this.teamId].completeObjectives;
+            return this.$store.getters['game/teamById'](this.teamId).completeObjectives;
         },
         objectives() {
-            const objectives = this.$store.state.game.objectives;
-            return Object.values(objectives).map((objective) => ({
+            return this.$store.state.game.objectives.map(objective => ({
                 ...objective,
                 complete: this.completeObjectives.some(id => id === objective.id),
             }));
@@ -46,7 +45,6 @@ export default {
                 : [...this.completeObjectives, objective.id];
 
             await api.patchTeam(this.teamId, { completeObjectives });
-            console.log(`team: ${this.teamId} objective:`, objective);
         },
     },
 };

@@ -29,15 +29,14 @@ export default {
     methods: {
         async onDestroy() {
             await api.destroyGame();
-            // const res = await fetch('/game', { method: 'DELETE' });
         },
+
         async onPrevStage() {
             await api.gamePrevStage();
-            // this.$ws.send('game.prevStage');
         },
+
         async onNextStage() {
             await api.gameNextStage();
-            // this.$ws.send('game.nextStage');
         },
     },
 };

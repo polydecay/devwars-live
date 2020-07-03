@@ -4,10 +4,10 @@
             <h1>
                 {{ team.id }}. <span :class="team.name">{{ team.name }}</span>
             </h1>
-            <button @click="onToggleHidden">{{ team.hidden ? 'Enable' : 'Disable' }}</button>
+            <button @click="onToggleEnabled">{{ team.hidden ? 'Enable' : 'Disable' }}</button>
         </header>
         <main>
-            <EditTeamObjectives v-if="objectivesCount > 0" :teamId="teamId"/>
+            <EditTeamObjectives v-if="objectives.length > 0" :teamId="teamId"/>
             <EditTeamEditors :teamId="teamId"/>
         </main>
     </section>
@@ -25,20 +25,19 @@ export default {
     props: { teamId: { type: Number, required: true } },
 
     computed: {
+        ...mapState('game', ['objectives']),
+
         team() {
-            return this.$store.state.game.teams[this.teamId];
+            return this.$store.getters['game/teamById'](this.teamId);
         },
+
         editors() {
-            window.$store = this.$store;
-            return this.$store.getters['game/getEditorsByTeam'](this.teamId);
-        },
-        objectivesCount() {
-            return Object.keys(this.$store.state.game.objectives).length;
+            return this.$store.getters['game/editorsByTeam'](this.teamId);
         },
     },
 
     methods: {
-        onToggleHidden() {
+        onToggleEnabled() {
 
         },
     },

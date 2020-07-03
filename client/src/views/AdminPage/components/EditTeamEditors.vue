@@ -20,7 +20,7 @@ export default {
 
     computed: {
         editors() {
-            return this.$store.getters['game/getEditorsByTeam'](this.teamId);
+            return this.$store.getters['game/editorsByTeam'](this.teamId);
         },
     },
 };

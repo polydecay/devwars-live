@@ -1,6 +1,6 @@
 <template>
     <div class="PlayPage" v-if="!isLoading">
-        <NoGameView v-if="!gameActive"/>
+        <NoGameView v-if="!isActive"/>
         <GameApplicationView v-else/>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     components: { GameApplicationView, NoGameView },
     computed: {
         ...mapState('user', ['user', 'socketId']),
-        ...mapGetters('game', ['gameActive']),
+        ...mapGetters('game', ['isActive']),
         isLoading() {
             return !this.socketId && !this.user;
         },

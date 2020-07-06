@@ -1,6 +1,7 @@
 import * as http from 'http';
 import * as io from 'socket.io';
 import gameService from '../game/game.service';
+import applicationService from '../application/application.service';
 
 class WSService {
     server!: io.Server;
@@ -23,6 +24,11 @@ class WSService {
 
             socket.emit('game.state', game);
         });
+
+        socket.on('admin.refresh', async () => {
+            const applications = await applicationService.getAll();
+            socket.emit('admin.state', { applications });
+        });
     }
 
     async updateGame() {
@@ -30,6 +36,11 @@ class WSService {
             .catch(() => null);
 
         this.server.emit('game.state', game);
+    }
+
+    async updateAdmin() {
+        const applications = await applicationService.getAll();
+        this.server.emit('admin.state', { applications });
     }
 }
 

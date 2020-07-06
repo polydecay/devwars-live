@@ -5,25 +5,25 @@
 
             <fieldset>
                 <h2>Language Preferences</h2>
-                <p>We'll try our best to match you to your preferd languages. Choose "<strong>UNLISTED</strong>" to ensure that you won't be picked for that language.</p>
+                <p>We'll try our best to match you to your preferd languages. Choose "<strong>NEVER</strong>" to ensure that you won't be picked for that language.</p>
                 <div class="languages">
                     <label>HTML</label>
                     <select>
-                        <option value="unlisted">UNLISTED</option>
+                        <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
                         <option value="best">Best</option>
                     </select>
                     <label>CSS</label>
                     <select>
-                        <option value="unlisted">UNLISTED</option>
+                        <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
                         <option value="best">Best</option>
                     </select>
                     <label>JS</label>
                     <select>
-                        <option value="unlisted">UNLISTED</option>
+                        <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
                         <option value="best">Best</option>

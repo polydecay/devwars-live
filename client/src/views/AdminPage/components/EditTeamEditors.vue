@@ -4,7 +4,7 @@
             <h1>Editors</h1>
         </header>
         <main>
-            <EditEditor v-for="editor in editors" :key="editor.id" :editorId="editor.id"/>
+            <EditEditor v-for="editor in editors" :key="editor.id" :editor="editor"/>
         </main>
     </section>
 </template>
@@ -16,11 +16,11 @@ import EditEditor from './EditEditor';
 export default {
     components: { EditEditor },
 
-    props: { teamId: { type: Number, required: true } },
+    props: { team: { type: Object, required: true } },
 
     computed: {
         editors() {
-            return this.$store.getters['game/editorsByTeam'](this.teamId);
+            return this.$store.getters['game/editorsByTeam'](this.team.id);
         },
     },
 };
@@ -42,6 +42,7 @@ export default {
 
         h1 {
             font-size: 1.25rem;
+            color: var(--fg20);
         }
     }
 

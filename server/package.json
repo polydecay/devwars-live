@@ -1,5 +1,7 @@
 {
-    "name": "devwars-db",
+    "name": "devwars-live-server",
+    "author": "Kim Simonsen",
+    "license": "UNLICENSED",
     "private": true,
     "scripts": {
         "start": "node ./dist",

@@ -1,13 +1,13 @@
 import { createValidator } from '../../../common/createValidator';
 
 export interface PatchTeamDto {
-    disabled?: boolean;
+    enabled?: boolean;
     completeObjectives?: number[];
 }
 
 export const validatePatchTeamDto = createValidator<PatchTeamDto>({
     properties: {
-        disabled: { type: 'boolean' },
+        enabled: { type: 'boolean' },
         completeObjectives: {
             type: 'array',
             items: { type: 'integer' },

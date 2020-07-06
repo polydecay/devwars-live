@@ -4,11 +4,11 @@
             <h1>
                 {{ team.id }}. <span :class="team.name">{{ team.name }}</span>
             </h1>
-            <button @click="onToggleEnabled">{{ team.hidden ? 'Enable' : 'Disable' }}</button>
+            <button @click="onToggleEnabled">{{ team.enabled ? 'Disable' : 'Enable' }}</button>
         </header>
         <main>
-            <EditTeamObjectives v-if="objectives.length > 0" :teamId="teamId"/>
-            <EditTeamEditors :teamId="teamId"/>
+            <EditTeamObjectives v-if="objectives.length > 0" :team="team"/>
+            <EditTeamEditors :team="team"/>
         </main>
     </section>
 </template>
@@ -16,29 +16,22 @@
 
 <script>
 import { mapState } from 'vuex';
+import * as api from '../../../api';
 import EditTeamEditors from './EditTeamEditors';
 import EditTeamObjectives from './EditTeamObjectives';
 
 export default {
     components: { EditTeamEditors, EditTeamObjectives },
 
-    props: { teamId: { type: Number, required: true } },
+    props: { team: { type: Object, required: true } },
 
     computed: {
         ...mapState('game', ['objectives']),
-
-        team() {
-            return this.$store.getters['game/teamById'](this.teamId);
-        },
-
-        editors() {
-            return this.$store.getters['game/editorsByTeam'](this.teamId);
-        },
     },
 
     methods: {
-        onToggleEnabled() {
-
+        async onToggleEnabled() {
+            await api.patchTeam(this.team.id, { enabled: !this.team.enabled });
         },
     },
 };

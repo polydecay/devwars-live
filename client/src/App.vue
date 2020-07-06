@@ -85,7 +85,6 @@ a {
 
     &:hover {
         color: var(--primaryHigh);
-        // text-decoration: underline;
     }
 }
 
@@ -108,6 +107,10 @@ button {
     padding: 0 1rem;
     cursor: pointer;
     border-radius: 2.5px;
+
+    &:active {
+        padding-top: 2px !important;
+    }
 }
 
 textarea {

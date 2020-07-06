@@ -73,6 +73,7 @@ export default {
             text-align: center;
             line-height: 2.5rem;
             font-size: 1.25rem;
+            color: var(--fg20);
         }
 
         .stage {

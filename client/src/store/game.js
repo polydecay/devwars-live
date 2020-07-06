@@ -1,21 +1,8 @@
 import Vue from 'vue';
-import merge from 'lodash/merge';
 
-function mergeMap(source, target) {
-    Object.keys(source).forEach((key) => {
-        if (!target[key]) {
-            return Vue.delete(source, key);
-        }
-
-        if (typeof source[key] === 'object') {
-            return Vue.set(source, key, target[key]);
-        }
-
-        Object.assign(source, target);
-    });
-
-    Object.keys(target).forEach((key) => {
-        if (!source[key]) Vue.set(source, key, target[key]);
+function merge(source, target) {
+    Object.entries(target).forEach(([key, value]) => {
+        if (source[key] !== value) Vue.set(source, key, value);
     });
 }
 
@@ -24,17 +11,17 @@ const initialState = Object.freeze({
     mode: '',
     title: '',
 
-    startAt: 0,
-    endAt: 0,
-
     stage: '',
-    stageStartAt: 0,
-    stageEndAt: 0,
+    stageEndsAt: null,
 
+    runtime: 0,
     objectives: [],
+
     teams: [],
     editors: [],
     players: [],
+
+    applications: [],
 });
 
 const state = merge({}, initialState);
@@ -69,12 +56,7 @@ const mutations = {
             return merge(state, initialState);
         }
 
-        const { objectives, teams, editors, players, ...gameState } = game;
-        merge(state, gameState);
-        mergeMap(state.objectives, objectives);
-        mergeMap(state.teams, teams);
-        mergeMap(state.editors, editors);
-        mergeMap(state.players, players);
+        merge(state, game);
     },
 };
 

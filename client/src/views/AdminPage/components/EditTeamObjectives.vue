@@ -5,7 +5,7 @@
         </header>
         <main>
             <div
-                v-for="objective in objectives"
+                v-for="objective in objectivesWithState"
                 :key="objective.id"
                 class="objective"
                 :class="{ complete: objective.complete, bonus: objective.bonus }"
@@ -21,19 +21,19 @@
 
 
 <script>
+import { mapState } from 'vuex';
 import * as api from '../../../api';
 
 export default {
-    props: { teamId: { type: Number, required: true } },
+    props: { team: { type: Object, required: true } },
 
     computed: {
-        completeObjectives() {
-            return this.$store.getters['game/teamById'](this.teamId).completeObjectives;
-        },
-        objectives() {
-            return this.$store.state.game.objectives.map(objective => ({
+        ...mapState('game', ['objectives']),
+
+        objectivesWithState() {
+            return this.objectives.map(objective => ({
                 ...objective,
-                complete: this.completeObjectives.some(id => id === objective.id),
+                complete: this.team.completeObjectives.some(id => id === objective.id),
             }));
         },
     },
@@ -41,10 +41,10 @@ export default {
     methods: {
         async onToggle(objective) {
             const completeObjectives = objective.complete
-                ? this.completeObjectives.filter(id => id !== objective.id)
-                : [...this.completeObjectives, objective.id];
+                ? this.team.completeObjectives.filter(id => id !== objective.id)
+                : [...this.team.completeObjectives, objective.id];
 
-            await api.patchTeam(this.teamId, { completeObjectives });
+            await api.patchTeam(this.team.id, { completeObjectives });
         },
     },
 };
@@ -65,6 +65,7 @@ export default {
 
         h1 {
             font-size: 1.25rem;
+            color: var(--fg20);
         }
     }
 

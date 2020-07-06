@@ -12,11 +12,11 @@ export class Team extends BaseEntity {
     @Column()
     name!: string;
 
-    @Column({ default: false })
-    disabled!: boolean;
-
     @Column({ type: 'simple-json' })
     completeObjectives!: number[];
+
+    @Column({ default: true })
+    enabled!: boolean;
 
 
     @ManyToOne(() => Game, game => game.id, { nullable: false, onDelete: 'CASCADE' })

@@ -25,13 +25,9 @@ import SelectUser from './SelectUser';
 export default {
     components: { SelectUser },
 
-    props: { editorId: { type: Number, required: true } },
+    props: { editor: { type: Object, required: true } },
 
     computed: {
-        editor() {
-            return this.$store.getters['game/editorById'](this.editorId);
-        },
-
         player() {
             return this.$store.getters['game/playerById'](this.editor.playerId);
         },
@@ -43,20 +39,20 @@ export default {
 
     methods: {
         async onToggleLocked() {
-            await api.patchEditor(this.editorId, { locked: !this.editor.locked });
+            await api.patchEditor(this.editor.id, { locked: !this.editor.locked });
         },
 
         async onReset() {
-            await api.resetEditor(this.editorId);
+            await api.resetEditor(this.editor.id);
         },
 
         async onSelectUser(player) {
             if (!player) {
-                return await api.deleteEditorPlayer(this.editorId);
+                return await api.deleteEditorPlayer(this.editor.id);
             }
 
             await api.createPlayer({ ...player, teamId: this.editor.teamId });
-            await api.setEditorPlayer(this.editorId, player.id);
+            await api.setEditorPlayer(this.editor.id, player.id);
         },
     },
 };
@@ -66,7 +62,6 @@ export default {
 <style lang="scss" scoped>
 .EditEditor {
     padding: 1rem;
-    background-color: var(--bg10);
 
     .row {
         display: flex;
@@ -83,6 +78,7 @@ export default {
             margin-right: auto;
             text-transform: uppercase;
             font-size: 1.25rem;
+            color: var(--fg20);
         }
 
         h2 {

@@ -1,8 +1,9 @@
-import { Entity, BaseEntity, PrimaryColumn, Column, OneToMany, AfterInsert, AfterUpdate, AfterRemove, BeforeRemove } from 'typeorm';
+import { Entity, BaseEntity, PrimaryColumn, Column, OneToMany, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { Team } from '../team/team.model';
 import { Player } from '../player/player.model';
 import { Editor } from '../editor/editor.model';
 import wsService from '../ws/ws.service';
+import { Application } from '../application/application.model';
 
 @Entity()
 export class Game extends BaseEntity {
@@ -34,11 +35,15 @@ export class Game extends BaseEntity {
     @OneToMany(() => Player, player => player.game, { cascade: true })
     players!: Player[];
 
+    @OneToMany(() => Application, app => app.game, { cascade: true })
+    applications!: Application[];
+
 
     @AfterInsert()
     @AfterUpdate()
     @AfterRemove()
     private afterChange() {
         wsService.updateGame();
+        wsService.updateAdmin();
     }
 }

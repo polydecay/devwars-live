@@ -1,4 +1,4 @@
-import { Entity, BaseEntity, PrimaryColumn, Column, ManyToOne, OneToMany, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import { Entity, BaseEntity, PrimaryColumn, Column, ManyToOne, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { Game } from '../game/game.model';
 import wsService from '../ws/ws.service';
 
@@ -25,6 +25,6 @@ export class Application extends BaseEntity {
     @AfterUpdate()
     @AfterRemove()
     private afterChange() {
-        wsService.updateAdmin();
+        wsService.updateAdminState();
     }
 }

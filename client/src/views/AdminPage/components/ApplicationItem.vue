@@ -43,7 +43,7 @@ export default {
     .preference {
         margin: 0 1rem;
         text-align: center;
-        line-height: 1.3;
+        // line-height: 1.3;
         color: var(--fg40);
 
         &.best {

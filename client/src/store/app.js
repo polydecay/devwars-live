@@ -1,4 +1,5 @@
 const state = {
+    init: false,
     user: null,
     socketId: null,
 }
@@ -8,7 +9,11 @@ const getters = {};
 const mutations = {
     WS_CONNECT(state, client) {
         state.socketId = client.id;
-        state.user = client.user ?? null;
+    },
+
+    WS_INIT(state, user) {
+        state.init = true;
+        state.user = user;
     },
 
     WS_DISCONNECT(state) {

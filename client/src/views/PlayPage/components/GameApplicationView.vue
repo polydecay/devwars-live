@@ -1,6 +1,6 @@
 <template>
     <div class="GameApplicationView">
-        <div class="form">
+        <div class="form" v-if="inQueue !== null">
             <h1>Game Application</h1>
 
             <fieldset>
@@ -8,21 +8,21 @@
                 <p>We'll try our best to match you to your preferd languages. Choose "<strong>NEVER</strong>" to ensure that you won't be picked for that language.</p>
                 <div class="languages">
                     <label>HTML</label>
-                    <select>
+                    <select v-model="preferences.html">
                         <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
                         <option value="best">Best</option>
                     </select>
                     <label>CSS</label>
-                    <select>
+                    <select v-model="preferences.css">
                         <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
                         <option value="best">Best</option>
                     </select>
                     <label>JS</label>
-                    <select>
+                    <select v-model="preferences.js">
                         <option value="never">NEVER</option>
                         <option value="bad">Bad</option>
                         <option value="good" selected>Good</option>
@@ -31,10 +31,12 @@
                 </div>
             </fieldset>
 
-            <textarea rows="3"  placeholder="Enter message here. (optional)"></textarea>
+            <textarea v-model="message" rows="3" placeholder="Enter short message here. (optional)"></textarea>
 
             <div class="actions">
-                <button>Apply</button>
+                <span class="status" v-if="inQueue">You're in queue, please hold...</span>
+                <button class="ghost" v-if="inQueue" @click="onCancel">Cancel</button>
+                <button class="primary" @click="onSubmit">{{ inQueue ? 'Update' : 'Submit' }}</button>
             </div>
         </div>
     </div>
@@ -42,8 +44,54 @@
 
 
 <script>
-export default {
+import * as api from '../../../api';
+import { mapState } from 'vuex';
 
+export default {
+    data: () => ({
+        inQueue: null,
+        message: '',
+        preferences: {
+            html: 'good',
+            css: 'good',
+            js: 'good',
+        },
+    }),
+
+    computed: mapState('app', ['user']),
+
+    mounted() {
+        this.fetchApplication();
+    },
+
+    methods: {
+        async fetchApplication() {
+            const res = await api.getApplication(this.user.id);
+            if (res.error) {
+                this.inQueue = false;
+                return;
+            }
+
+            this.inQueue = true;
+            this.preferences = res.body.preferences;
+            this.message = res.body.message;
+        },
+
+        async onSubmit() {
+            const { user, preferences, message } = this;
+            const res = await api.createApplication({ ...user, preferences, message });
+            if (res.error) return;
+
+            this.inQueue = true;
+        },
+
+        async onCancel() {
+            const res = await api.deleteApplication(this.user.id);
+            if (res.error) return;
+
+            this.inQueue = false;
+        },
+    },
 };
 </script>
 
@@ -111,10 +159,24 @@ export default {
             display: flex;
             justify-content: flex-end;
 
+            .status {
+                margin-right: auto;
+                align-self: center;
+                font-size: 1.125rem;
+            }
+
             button {
                 width: 6rem;
                 height: 2.5rem;
-                background-color: var(--primary);
+                margin-left: 1rem;
+
+                &.ghost {
+                    background-color: transparent;
+                }
+
+                &.primary {
+                    background-color: var(--primary);
+                }
             }
         }
     }

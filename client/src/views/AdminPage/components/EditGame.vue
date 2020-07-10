@@ -1,7 +1,7 @@
 <template>
     <div class="EditGame">
         <header>
-            <h1>{{ mode.toUpperCase() }} {{ title }}</h1>
+            <h1>{{ mode }}: {{ title }}</h1>
             <button style="background: var(--error)" @click="onDestroy">Destroy</button>
         </header>
         <main>

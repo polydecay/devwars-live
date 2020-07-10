@@ -1,5 +1,7 @@
 import * as Router from 'koa-router';
 import { RouterContext } from 'koa-router';
+import hasRole from '../../common/middleware/hasRole';
+import { UserRole } from '../devwars/devwars.service';
 import playerService from './player.service';
 import { validatePatchPlayerDto } from './dto/patchPlayer.dto';
 import { validateCreatePlayerDto } from './dto/createPlayer.dto';
@@ -17,13 +19,21 @@ router.get('/:id', async (ctx: RouterContext) => {
     ctx.body = await playerService.getById(id);
 });
 
-router.patch('/:id', async (ctx: RouterContext) => {
+router.patch('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
+    const { user } = ctx.state;
     const id = Number(ctx.params.id);
+
+    // TODO: Add a specific route for changing ready state instead?
+    // Users can only edit themselves.
+    if (user.role === 'user' && user.id !== id) {
+        ctx.throw(403);
+    }
+
     const patchDto = validatePatchPlayerDto(ctx.request.body);
     ctx.body = await playerService.patch(id, patchDto);
 });
 
-router.delete('/:id', async (ctx: RouterContext) => {
+router.delete('/:id', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);
     await playerService.delete(id);
     ctx.status = 204;

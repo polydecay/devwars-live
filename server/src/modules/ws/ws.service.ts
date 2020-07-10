@@ -1,5 +1,6 @@
 import * as http from 'http';
 import * as io from 'socket.io';
+import devWarsService, { UserRole } from '../devwars/devwars.service';
 import gameService from '../game/game.service';
 import applicationService from '../application/application.service';
 
@@ -19,28 +20,44 @@ class WSService {
         });
 
         socket.on('game.refresh', async () => {
-            const game = await gameService.getGame()
-                .catch(() => null);
-
-            socket.emit('game.state', game);
+            socket.emit('game.state', await this.getGameState());
         });
 
         socket.on('admin.refresh', async () => {
-            const applications = await applicationService.getAll();
-            socket.emit('admin.state', { applications });
+            if (this.isModerator(socket)) {
+                socket.emit('admin.state', await this.getAdminState());
+            }
+        });
+
+        devWarsService.getUserFromHeaders(socket.handshake.headers).then((user) => {
+            if (user) socket.client.user = user;
+            socket.emit('init', user);
         });
     }
 
-    async updateGame() {
-        const game = await gameService.getGame()
-            .catch(() => null);
-
-        this.server.emit('game.state', game);
+    private isModerator(socket: io.Socket): boolean {
+        const role = socket.client.user?.role;
+        return role === UserRole.MODERATOR || role === UserRole.ADMIN;
     }
 
-    async updateAdmin() {
+    private async getGameState() {
+        return gameService.getGame().catch(() => null);
+    }
+
+    private async getAdminState() {
         const applications = await applicationService.getAll();
-        this.server.emit('admin.state', { applications });
+        return { applications };
+    }
+
+    async updateGameState() {
+        this.server.emit('game.state', await this.getGameState());
+    }
+
+    async updateAdminState() {
+        const adminState = await this.getAdminState();
+        Object.values(this.server.sockets.sockets)
+            .filter(this.isModerator)
+            .forEach(socket => socket.emit('admin.state', adminState));
     }
 }
 

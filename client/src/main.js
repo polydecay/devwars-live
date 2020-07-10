@@ -1,13 +1,18 @@
 import 'core-js';
 import Vue from 'vue';
+import VueAwn from 'vue-awesome-notifications';
 import App from './App';
 import store from './store';
 import router from './router';
-import ws from './services/ws';
+import socket from './services/socket';
+import 'vue-awesome-notifications/dist/styles/style.css';
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$ws = ws;
+Vue.use(VueAwn);
+Vue.use(socket);
+
+document.getElementById('loading')?.remove();
 
 window.app = new Vue({
     el: '#app',

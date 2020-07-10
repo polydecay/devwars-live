@@ -108,8 +108,14 @@ button {
     cursor: pointer;
     border-radius: 2.5px;
 
-    &:active {
+    &:active:not(:disabled) {
         padding-top: 2px !important;
+    }
+
+    &:disabled {
+        cursor: default;
+        color: var(--fg40);
+        background-color: var(--bg20);
     }
 }
 

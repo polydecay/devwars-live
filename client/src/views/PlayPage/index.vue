@@ -14,7 +14,7 @@ import NoGameView from './components/NoGameView';
 export default {
     components: { GameApplicationView, NoGameView },
     computed: {
-        ...mapState('user', ['user', 'socketId']),
+        ...mapState('app', ['user', 'socketId']),
         ...mapGetters('game', ['isActive']),
         isLoading() {
             return !this.socketId && !this.user;

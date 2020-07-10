@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as Router from 'koa-router';
+import authenticate from './common/middleware/authenticate';
 import errorHandler from './common/middleware/errorHandler';
 import gameController from './modules/game/game.controller';
 import teamController from './modules/team/team.controller';
@@ -12,6 +13,7 @@ const koa = new Koa();
 
 koa.use(bodyParser({ enableTypes: ['json'] }));
 koa.use(errorHandler());
+koa.use(authenticate());
 koa.use(new Router()
     .use('/api/game', gameController.routes())
     .use('/api/teams', teamController.routes())

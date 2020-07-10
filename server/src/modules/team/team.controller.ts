@@ -1,9 +1,11 @@
 import * as path from 'path';
 import * as Router from 'koa-router';
 import { RouterContext } from 'koa-router';
+import hasRole from '../../common/middleware/hasRole';
+import { UserRole } from '../devwars/devwars.service';
+import editorService from '../editor/editor.service';
 import teamService from './team.service';
 import { validatePatchTeamDto } from './dto/patchTeam.dto';
-import editorService from '../editor/editor.service';
 
 const router = new Router();
 
@@ -12,12 +14,11 @@ router.get('/:id', async (ctx: RouterContext) => {
     ctx.body = await teamService.getById(id);
 });
 
-router.patch('/:id', async (ctx: RouterContext) => {
+router.patch('/:id', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);
     const patchDto = validatePatchTeamDto(ctx.request.body);
     ctx.body = await teamService.patch(id, patchDto);
 });
-
 
 router.get('/:id/files/:fileName', async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);

@@ -8,7 +8,7 @@
         </div>
         <div class="row actions">
             <button @click="onToggleLocked">{{ editor.locked ? 'Unlock' : 'Lock' }}</button>
-            <button @click="onReset">Reset</button>
+            <button @click="onReset" disabled>Reset</button>
         </div>
         <div class="row">
             <SelectUser @input="onSelectUser" :value="player"/>

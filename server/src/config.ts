@@ -6,7 +6,7 @@ env.NODE_ENV = env.NODE_ENV ?? 'development';
 
 const app = {
     port: Number(env.PORT ?? 8000),
-    host: env.HOST ?? '127.0.0.1',
+    host: env.HOST ?? '0.0.0.0',
 };
 
 const database: ConnectionOptions = {

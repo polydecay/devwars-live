@@ -1,48 +1,46 @@
 <template>
-    <div class="MainPage">
-        <CreateGame v-if="!isActive"/>
-        <main v-else>
-            <EditGame/>
-            <div class="split">
-                <div class="teams">
-                    <EditTeam v-for="team of teams" :key="team.id" :team="team"/>
-                </div>
-                <ApplicationList/>
-            </div>
-        </main>
+    <div class="AdminPage">
+        <div class="moderatorMessage" v-if="!isModerator">
+            <h1>You're not logged in as a moderator</h1>
+            <a href="https://www.devwars.tv/login">Go to login page</a>
+        </div>
+        <CreateGameView v-else-if="!isActive"/>
+        <EditGameView v-else/>
     </div>
 </template>
 
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import CreateGame from './components/CreateGame';
-import EditGame from './components/EditGame';
-import EditTeam from './components/EditTeam';
-import ApplicationList from './components/ApplicationList';
+import CreateGameView from './components/CreateGameView';
+import EditGameView from './components/EditGameView';
 
 export default {
-    components: { CreateGame, EditGame, EditTeam, ApplicationList },
+    components: { CreateGameView, EditGameView },
 
     computed: {
-        ...mapState('game', ['teams']),
+        ...mapState('app', ['user']),
         ...mapGetters('game', ['isActive']),
-    }
+        isModerator() {
+            return this.user.role === 'MODERATOR' || this.user.role === 'ADMIN';
+        },
+    },
 };
 </script>
 
 
 <style lang="scss" scoped>
-</style>
+.AdminPage {
+    .moderatorMessage {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
 
-
-<style lang="scss" scoped>
-.split {
-    display: flex;
-    flex-direction: row;
-
-    .ApplicationList {
-        flex: 1 1;
+        h1 {
+            margin-bottom: 1rem;
+        }
     }
 }
 </style>

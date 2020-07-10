@@ -43,7 +43,7 @@ export class Game extends BaseEntity {
     @AfterUpdate()
     @AfterRemove()
     private afterChange() {
-        wsService.updateGame();
-        wsService.updateAdmin();
+        wsService.updateGameState();
+        wsService.updateAdminState();
     }
 }

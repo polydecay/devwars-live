@@ -43,6 +43,6 @@ export class Editor extends BaseEntity {
     @AfterUpdate()
     @AfterRemove()
     private afterChange() {
-        wsService.updateGame();
+        wsService.updateGameState();
     }
 }

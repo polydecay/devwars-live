@@ -43,6 +43,20 @@ class GameService {
             return editor;
         }
 
+        const htmlTemplate = [
+            '<!DOCTYPE html>',
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+            '    <link rel="stylesheet" href="game.css">',
+            '</head>',
+            '<body>',
+            '    <script src="game.js"></script>',
+            '</body>',
+            '</html>',
+        ].join('\n');
+
         if (game.mode === 'classic') {
             game.teams = [
                 createTeam(1, 'blue'),
@@ -50,10 +64,10 @@ class GameService {
             ];
 
             game.editors = [
-                createEditor(1, 1, 'html', 'index.html', '<h1>Title</h1>'),
+                createEditor(1, 1, 'html', 'index.html', htmlTemplate),
                 createEditor(2, 1, 'css', 'game.css'),
                 createEditor(3, 1, 'js', 'game.js'),
-                createEditor(4, 2, 'html', 'index.html', '<h1>Title</h1>'),
+                createEditor(4, 2, 'html', 'index.html', htmlTemplate),
                 createEditor(5, 2, 'css', 'game.css'),
                 createEditor(6, 2, 'js', 'game.js'),
             ];

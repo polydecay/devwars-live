@@ -1,9 +1,8 @@
 <template>
     <div class="AdminPage">
-        <div class="moderatorMessage" v-if="!isModerator">
-            <h1>You're not logged in as a moderator</h1>
+        <FullscreenMessage v-if="!isModerator" title="You're not an administrator">
             <a href="https://www.devwars.tv/login">Go to login page</a>
-        </div>
+        </FullscreenMessage>
         <CreateGameView v-else-if="!isActive"/>
         <EditGameView v-else/>
     </div>
@@ -12,11 +11,12 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import FullscreenMessage from '../../components/FullscreenMessage';
 import CreateGameView from './components/CreateGameView';
 import EditGameView from './components/EditGameView';
 
 export default {
-    components: { CreateGameView, EditGameView },
+    components: { FullscreenMessage, CreateGameView, EditGameView },
 
     computed: {
         ...mapState('app', ['user']),
@@ -27,20 +27,3 @@ export default {
     },
 };
 </script>
-
-
-<style lang="scss" scoped>
-.AdminPage {
-    .moderatorMessage {
-        display: flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-
-        h1 {
-            margin-bottom: 1rem;
-        }
-    }
-}
-</style>

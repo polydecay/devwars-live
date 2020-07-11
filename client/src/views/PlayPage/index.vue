@@ -1,6 +1,6 @@
 <template>
     <div class="PlayPage" v-if="!isLoading">
-        <NoGameView v-if="!isActive"/>
+        <FullscreenMessage v-if="!isActive" title="No game is currently active"/>
         <GameApplicationView v-else/>
     </div>
 </template>
@@ -8,11 +8,11 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import FullscreenMessage from '../../components/FullscreenMessage';
 import GameApplicationView from './components/GameApplicationView';
-import NoGameView from './components/NoGameView';
 
 export default {
-    components: { GameApplicationView, NoGameView },
+    components: { FullscreenMessage, GameApplicationView },
     computed: {
         ...mapState('app', ['user', 'socketId']),
         ...mapGetters('game', ['isActive']),
@@ -22,7 +22,3 @@ export default {
     },
 };
 </script>
-
-
-<style lang="scss" scoped>
-</style>

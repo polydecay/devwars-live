@@ -50,7 +50,9 @@ img {
     --fg30: #c5ccd6;
     --fg40: #a1a8c2;
 
-    --primary: #944aff;
+    // --primary: #944aff;
+    --primary: #8d3eff;
+    --primaryFg: #a361ff;
     --primaryHigh: #c194ff;
     --blue: #00c9ff;
     --red: #ff007d;
@@ -81,7 +83,7 @@ h1, h2, h3 {
 
 a {
     text-decoration: none;
-    color: var(--primary);
+    color: var(--primaryFg);
 
     &:hover {
         color: var(--primaryHigh);

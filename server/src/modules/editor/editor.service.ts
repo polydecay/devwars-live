@@ -1,8 +1,13 @@
+import * as io from 'socket.io';
 import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
 import playerService from '../player/player.service';
 
 class EditorService {
+    async getAll(): Promise<Editor[]> {
+        return Editor.find();
+    }
+
     async getById(id: number): Promise<Editor> {
         return Editor.findOneOrFail(id);
     }
@@ -28,6 +33,34 @@ class EditorService {
         const editor = await this.getById(id);
         editor.playerId = null;
         return  editor.save();
+    }
+
+    async setConnection(id: number, socket: io.Socket): Promise<Editor> {
+        const editor = await this.getById(id);
+        editor.connection = {
+            socketId: socket.id,
+            user: socket.client.user,
+        };
+
+        return editor.save();
+    }
+
+    async deleteConnection(id: number): Promise<Editor> {
+        const editor = await this.getById(id);
+        editor.connection = null;
+        return editor.save();
+    }
+
+    async lockAll(): Promise<Editor[]> {
+        const editors = await this.getAll();
+        editors.forEach(editor => editor.locked = true);
+        return Editor.save(editors);
+    }
+
+    async unlockAll(): Promise<Editor[]> {
+        const editors = await this.getAll();
+        editors.forEach(editor => editor.locked = false);
+        return Editor.save(editors);
     }
 }
 

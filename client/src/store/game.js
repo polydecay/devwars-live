@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import cloneDeep from 'lodash/cloneDeep';
 
 function merge(source, target) {
     Object.entries(target).forEach(([key, value]) => {
@@ -6,7 +7,7 @@ function merge(source, target) {
     });
 }
 
-const initialState = Object.freeze({
+const initialState = {
     id: null,
     mode: '',
     title: '',
@@ -22,9 +23,9 @@ const initialState = Object.freeze({
     players: [],
 
     applications: [],
-});
+};
 
-const state = merge({}, initialState);
+const state = cloneDeep(initialState);
 
 const getters = {
     isActive(state) {
@@ -43,7 +44,7 @@ const getters = {
         return (id) => state.players.find(x => x.id === id);
     },
 
-    editorsByTeam(state){
+    editorsByTeam(state) {
         return (id) => state.editors
             .filter(e => e.teamId === id)
             .sort((a, b) => a.id - b.id);

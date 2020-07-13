@@ -24,6 +24,9 @@ export class Editor extends BaseEntity {
     @Column({ default: '' })
     fileText!: string;
 
+    @Column({ type: 'simple-json', nullable: true })
+    connection!: any;
+
 
     @ManyToOne(() => Game, game => game.id, { onDelete: 'CASCADE' })
     game!: Game;

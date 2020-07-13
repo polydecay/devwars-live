@@ -4,7 +4,11 @@ const state = {
     socketId: null,
 }
 
-const getters = {};
+const getters = {
+    isConnected(state) {
+        return state.socketId !== null;
+    },
+};
 
 const mutations = {
     WS_CONNECT(state, client) {

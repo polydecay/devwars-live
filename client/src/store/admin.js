@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import cloneDeep from 'lodash/cloneDeep';
 
 function merge(source, target) {
     Object.entries(target).forEach(([key, value]) => {
@@ -6,11 +7,11 @@ function merge(source, target) {
     });
 }
 
-const initialState = Object.freeze({
+const initialState = {
     applications: [],
-});
+};
 
-const state = merge({}, initialState);
+const state = cloneDeep(initialState);
 
 const getters = {};
 

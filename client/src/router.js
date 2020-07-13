@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from "../store";
+import store from "./store";
 
-const MainPage = () => import(/* webpackChunkName: "main" */ '../views/MainPage');
-const PlayPage = () => import(/* webpackChunkName: "play" */ '../views/PlayPage');
-const AdminPage = () => import(/* webpackChunkName: "admin" */ '../views/AdminPage');
+const MainPage = () => import(/* webpackChunkName: "main" */ './pages/MainPage');
+const PlayPage = () => import(/* webpackChunkName: "play" */ './pages/PlayPage');
+const AdminPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage');
 
 Vue.use(Router);
 

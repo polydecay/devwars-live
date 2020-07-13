@@ -3,10 +3,19 @@ import { Team } from '../team/team.model';
 import { CreateGameDto } from './dto/createGame.dto';
 import { PatchGameDto } from './dto/patchGame.dto';
 import { Editor } from '../editor/editor.model';
+import editorService from '../editor/editor.service';
+
+const stages = ['setup', 'active', 'review', 'vote', 'end'];
 
 class GameService {
     async getGame(): Promise<Game> {
-        return Game.findOneOrFail(1, { relations: ['teams', 'editors', 'players'] });
+        const game = await Game.findOneOrFail(1, { relations: ['teams', 'editors', 'players'] });
+        game.editors.forEach(editor => {
+            delete editor.template;
+            delete editor.fileText;
+        });
+
+        return game;
     }
 
     async create(createDto: CreateGameDto): Promise<Game> {
@@ -87,17 +96,42 @@ class GameService {
         return await game.remove();
     }
 
-
     async nextStage() {
         const game = await this.getGame();
-        game.stage += '+';
-        return game.save();
+
+        const stage = game.stage;
+        const newStage = stages[stages.indexOf(stage) + 1];
+        if (!newStage) return game;
+
+        game.stage = newStage;
+        await game.save();
+        this.afterStageChange(stage, newStage);
+
+        return game;
     }
 
     async prevStage() {
         const game = await this.getGame();
-        game.stage += '-';
-        return game.save();
+
+        const stage = game.stage;
+        const newStage = stages[stages.indexOf(stage) - 1];
+        if (!newStage) return game;
+
+        game.stage = newStage;
+        await game.save();
+        this.afterStageChange(stage, newStage);
+
+        return game;
+    }
+
+    private async afterStageChange(prevStage: string, stage: string) {
+        if (prevStage === 'setup' && stage === 'active') {
+            await editorService.unlockAll();
+        }
+
+        if (prevStage === 'active') {
+            await editorService.lockAll();
+        }
     }
 }
 

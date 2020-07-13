@@ -36,6 +36,8 @@ module.exports = {
         ],
     },
     chainWebpack(config) {
+        config.entry('app').clear().add('./src/main.js');
+
         config.plugin('html').tap((args) => {
             args[0].title = 'DevWars - Live';
             return args

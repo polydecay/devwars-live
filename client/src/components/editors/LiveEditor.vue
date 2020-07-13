@@ -2,7 +2,6 @@
     <BaseEditor
         ref="editor"
         :language="editor.language"
-        :text="editor.fileText"
         :readOnly="readOnly"
         @focus="focused = true"
         @blur="focused = false"
@@ -13,11 +12,10 @@
     />
 </template>
 
-<!-- TODO: Remove editor.fileText (should also not be sent from the server anyway.) -->
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import TextOperation from '../../utils/TextOperation';
+import { TextOperation } from '../../../../server/src/modules/document/TextOperation';
 import eventBus from '../../services/eventBus';
 import BaseEditor from './BaseEditor';
 
@@ -71,12 +69,6 @@ export default {
                 this.fetchText();
             }
         },
-    },
-
-    mounted() {
-        setTimeout(() => {
-            this.$socket.emit('e.control', { id: this.editor.id });
-        }, 1000);
     },
 
     beforeDestroy() {

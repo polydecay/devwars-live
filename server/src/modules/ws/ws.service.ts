@@ -4,6 +4,8 @@ import devWarsService, { UserRole } from '../devwars/devwars.service';
 import gameService from '../game/game.service';
 import editorService from '../editor/editor.service';
 import applicationService from '../application/application.service';
+import documentService from '../document/document.service';
+import { TextOperation } from '../document/TextOperation';
 
 class WSService {
     server!: io.Server;
@@ -45,21 +47,31 @@ class WSService {
             }
         });
 
-        socket.on('e.save', async () => {});
+        socket.on('e.save', async (data) => {
+            const id = Number(data.id);
+            if (await this.isEditorOwner(socket, id)) {
+                if (await documentService.save(id)) {
+                    socket.emit('o.save', { id });
+                    socket.broadcast.emit('o.save', { id });
+                }
+            }
+        });
 
         socket.on('e.getText', async (data) => {
             const id = Number(data.id);
-            const editor = await editorService.getById(id).catch(() => null);
-            if (!editor) return;
-
-            socket.emit('e.text', { id, text: editor.fileText });
+            const text = documentService.getText(id);
+            if (text !== null) {
+                socket.emit('e.text', { id, text });
+            }
         });
 
         socket.on('e.o', async (data) => {
             const id = Number(data.id);
             if (await this.isControllingEditor(socket, id)) {
-                // TODO: Apply the operation.
-                socket.broadcast.emit('e.o', { id, o: data.o });
+                const op = TextOperation.fromDto(data.o);
+                if (documentService.applyTextOperation(id, op)) {
+                    socket.broadcast.emit('e.o', { id, o: data.o });
+                }
             }
         });
 

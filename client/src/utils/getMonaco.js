@@ -1,6 +1,6 @@
 let MONACO = null;
 
-export async function getMonaco() {
+export default async function getMonaco() {
     return MONACO ? MONACO : await loadMonaco();
 }
 
@@ -72,16 +72,16 @@ function createDevwarsTheme() {
             'editor.background': `#${BG}`,
 
             'editorCursor.foreground': `#${FG}`,
-            'editor.lineHighlightBackground': `#${COMMENT}26`,
+            'editor.lineHighlightBackground': `#${BG2}`,
 
             'editor.selectionBackground': `#${COMMENT}40`,
             'editor.inactiveSelectionBackground': `#${COMMENT}26`,
 
-            'editorLineNumber.foreground': `#${COMMENT}80`,
+            'editorLineNumber.foreground': `#${COMMENT}60`,
             'editorOverviewRuler.border': '#00000000',
 
             'editorBracketMatch.border': `#${COMMENT}`,
-            'editorIndentGuide.background': `#${COMMENT}80`,
+            'editorIndentGuide.background': `#${COMMENT}60`,
 
             'editorWidget.background': `#${BG2}`,
             'editorWidget.border': `#${BORDER}`,

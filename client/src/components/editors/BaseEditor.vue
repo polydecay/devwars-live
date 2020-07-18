@@ -8,7 +8,7 @@
 
 
 <script>
-import { getMonaco } from '../../services/monaco';
+import getMonaco from '../../utils/getMonaco';
 
 export default {
     monaco: null,
@@ -17,6 +17,7 @@ export default {
     props: {
         text: { type: String, default: '' },
         language: { type: String, required: true },
+        editable: { type: Boolean, default: false },
         readOnly: { type: Boolean, default: false },
     },
 
@@ -29,14 +30,16 @@ export default {
             this.setText(text);
         },
 
-        langauge() {
+        language() {
             throw new Error('Editor language cannot be changed after instantiation');
         },
 
-        readOnly(value) {
-            this.editor.updateOptions({
-                readOnly: value,
-            });
+        readOnly(readOnly) {
+            this.editor.updateOptions({ readOnly });
+        },
+
+        lineNumbers(lineNumbers) {
+            this.editor.updateOptions({ lineNumbers });
         },
     },
 
@@ -47,21 +50,22 @@ export default {
 
         this.editor = this.monaco.editor.create(this.$refs.mount, {
             value: this.text,
-            language: this.language,
+            language: this.language === 'js' ? 'javascript' : this.language,
             readOnly: this.readOnly,
-            lineNumbers: !this.readOnly,
+
+            renderLineHighlight: this.editable ? 'full' : 'none',
+            lineNumbers: this.editable,
+            folding: this.editable,
 
             theme: 'devwars',
             automaticLayout: true, // TODO: Handle this manually maybe?
             contextmenu: false,
             dragAndDrop: false,
-            folding: false,
             hideCursorInOverviewRuler: true,
             lineNumbersMinChars: 3,
             minimap: { enabled: false },
             occurrencesHighlight: false,
             renderIndentGuides: false,
-            renderLineHighlight: 'none',
             roundedSelection: false,
             scrollbar: { useShadows: false },
             selectionHighlight: false,
@@ -113,13 +117,13 @@ export default {
     overflow: hidden;
     background-color: var(--bg00);
 
-    // /deep/ {
-    //     .monaco-editor {
-    //         position: absolute;
-    //         top: 0;
-    //         left: 0;
-    //     }
-    // }
+    /deep/ {
+        .monaco-editor {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
 }
 </style>
 

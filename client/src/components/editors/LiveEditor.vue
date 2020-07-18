@@ -1,7 +1,9 @@
 <template>
     <BaseEditor
         ref="editor"
+        class="LiveEditor"
         :language="editor.language"
+        :editable="editable"
         :readOnly="readOnly"
         @focus="focused = true"
         @blur="focused = false"
@@ -22,7 +24,10 @@ import BaseEditor from './BaseEditor';
 export default {
     components: { BaseEditor },
 
-    props: { editor: { type: Object, required: true } },
+    props: {
+        editor: { type: Object, required: true },
+        editable: { type: Boolean, default: false },
+    },
 
     data: () => ({
         inSync: false,
@@ -43,7 +48,7 @@ export default {
         },
 
         readOnly() {
-            return !this.hasControl || !this.inSync || this.locked;
+            return !this.editable || !this.hasControl || !this.inSync || this.locked;
         },
     },
 
@@ -56,6 +61,7 @@ export default {
 
         hasControl() {
             this.inSync = false;
+            this.$emit('hasControl', this.hasControl);
         },
 
         locked() {
@@ -75,7 +81,6 @@ export default {
         eventBus.$off(`editor.${this.editor.id}.text`, this.onSocketText);
         eventBus.$off(`editor.${this.editor.id}.o`, this.onSocketOperation);
         eventBus.$off(`editor.${this.editor.id}.s`, this.onSocketSelection);
-        if (this.hasControl) this.onRelease();
     },
 
     methods: {
@@ -105,7 +110,6 @@ export default {
             if (this.ignoreChanges || this.locked || !this.hasControl) return;
 
             for (const change of contentChange.changes) {
-                console.log('change', change);
                 this.$socket.emit('e.o', {
                     id: this.editor.id,
                     o: TextOperation.fromMonacoChange(change).toDto(),
@@ -126,17 +130,21 @@ export default {
 
 
         onSocketText(text) {
+            const editor = this.$refs.editor;
+            if (!editor) return;
+
             this.ignoreChanges = true;
-
-            this.$refs.editor.setText(text);
-
+            editor.setText(text);
             this.inSync = true;
             this.ignoreChanges = false;
         },
 
         onSocketOperation(textOperationDto) {
             if (this.readOnly && !this.hasControl) {
-                this.$refs.editor.applyTextOperation(TextOperation.fromDto(textOperationDto));
+                const editor = this.$refs.editor;
+                if (!editor) return;
+
+                editor.applyTextOperation(TextOperation.fromDto(textOperationDto));
             }
         },
 

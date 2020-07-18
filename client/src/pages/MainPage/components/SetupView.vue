@@ -18,18 +18,14 @@
 
 
 <script>
+import { mapGetters } from 'vuex';
 import TeamSlotList from './TeamSlotList';
 
 export default {
     components: { TeamSlotList },
 
     computed: {
-        blueTeam() {
-            return this.$store.getters['game/teamById'](1);
-        },
-        redTeam() {
-            return this.$store.getters['game/teamById'](2);
-        },
+        ...mapGetters('game', ['blueTeam', 'redTeam']),
     },
 };
 </script>

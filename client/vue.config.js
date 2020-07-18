@@ -5,7 +5,7 @@ module.exports = {
         compress: true,
         proxy: {
             '/api': {
-                target: 'http://localhost:8000',
+                target: 'http://127.0.0.1:8000',
                 ws: true,
             },
         },
@@ -25,9 +25,12 @@ module.exports = {
                     'coreCommands',
                     'cursorUndo',
                     'find',
+                    'folding',
                     'gotoSymbol',
                     'inPlaceReplace',
                     'multicursor',
+                    'rename',
+                    'smartSelect',
                     'suggest',
                     'wordOperations',
                     'wordPartOperations',
@@ -36,7 +39,7 @@ module.exports = {
         ],
     },
     chainWebpack(config) {
-        config.entry('app').clear().add('./src/main.js');
+        config.entry('app').clear().add('./src/index.js');
 
         config.plugin('html').tap((args) => {
             args[0].title = 'DevWars - Live';

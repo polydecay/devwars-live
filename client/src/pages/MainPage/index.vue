@@ -2,7 +2,7 @@
     <div class="MainPage">
         <FullscreenMessage title="No game is currently active" v-if="!isActive"/>
         <SetupView v-else-if="stage === 'setup'"/>
-        <TestView/>
+        <TestView v-else/>
     </div>
 </template>
 

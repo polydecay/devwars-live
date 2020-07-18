@@ -25,6 +25,7 @@ class EditorService {
     async setPlayer(id: number, playerId: number): Promise<Editor> {
         const editor = await this.getById(id);
         editor.player = await playerService.getById(playerId);;
+        editor.connection = null;
         return editor.save();
     }
 
@@ -32,6 +33,7 @@ class EditorService {
         // TODO: Remove player from game if no longer assigned to any editors.
         const editor = await this.getById(id);
         editor.playerId = null;
+        editor.connection = null;
         return  editor.save();
     }
 

@@ -1,0 +1,97 @@
+<template>
+    <div class="TeamSiteViewer">
+        <iframe ref="iframe" :src="url" frameborder="0"></iframe>
+        <div class="actions">
+            <button @click="onOpen">Open</button>
+            <button @click="onRefresh">Reload</button>
+        </div>
+    </div>
+</template>
+
+
+<script>
+import eventBus from '../services/eventBus';
+export default {
+    props: { teamId: { type: Number, required: true } },
+
+    computed: {
+        url() {
+            return `/api/teams/${this.teamId}/files/index.html`;
+        },
+
+        editors() {
+            return this.$store.getters['game/editorsByTeam'](this.teamId);
+        },
+    },
+
+    mounted() {
+        eventBus.$on('editor.save', this.onEditorSave);
+    },
+
+    beforeDestroy() {
+        eventBus.$off('editor.save', this.onEditorSave);
+    },
+
+    methods: {
+        onOpen() {
+            Object.assign(document.createElement('a'), {
+                target: '_blank',
+                href: this.url,
+            }).click();
+        },
+
+        onRefresh() {
+            // Refreshes the iframe by updating the src property.
+            this.$refs.iframe.src += '';
+        },
+
+        onEditorSave(id) {
+            console.log('save', id);
+            if (this.editors.some(e => e.id === id)) {
+                this.onRefresh();
+            }
+        },
+    },
+};
+</script>
+
+
+<style lang="scss" scoped>
+.TeamSiteViewer {
+    position: relative;
+    display: flex;
+    background-color: #fff;
+
+    iframe {
+        flex: 1 1;
+    }
+
+    .actions {
+        display: flex;
+        position: absolute;
+        bottom: .5rem;
+        right: .5rem;
+        opacity: 0.25;
+
+        transform: scale(.75);
+        transform-origin: bottom right;
+
+        transition: opacity 128ms ease-out, transform 128ms ease-out;
+
+        &:hover {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        button {
+            color: var(--fg20);
+            border: 1px dashed var(--fg40);
+            background-color: var(--bg00);
+
+            &:not(:first-child) {
+                margin-left: .5rem;
+            }
+        }
+    }
+}
+</style>

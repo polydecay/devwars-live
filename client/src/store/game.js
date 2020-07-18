@@ -32,6 +32,14 @@ const getters = {
         return state.id !== null;
     },
 
+    blueTeam(state) {
+        return state.teams.find(team => team.id === 1);
+    },
+
+    redTeam(state) {
+        return state.teams.find(team => team.id === 2);
+    },
+
     teamById(state) {
         return (id) => state.teams.find(x => x.id === id);
     },
@@ -47,6 +55,12 @@ const getters = {
     editorsByTeam(state) {
         return (id) => state.editors
             .filter(e => e.teamId === id)
+            .sort((a, b) => a.id - b.id);
+    },
+
+    editorsByUser(state) {
+        return (id) => state.editors
+            .filter(e => e.playerId === id)
             .sort((a, b) => a.id - b.id);
     },
 };

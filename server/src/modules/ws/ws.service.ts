@@ -6,6 +6,8 @@ import editorService from '../editor/editor.service';
 import applicationService from '../application/application.service';
 import documentService from '../document/document.service';
 import { TextOperation } from '../document/TextOperation';
+import { validateDocumentIdDto } from './dto/documentId.dto';
+import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
 
 class WSService {
     server!: io.Server;
@@ -18,64 +20,66 @@ class WSService {
     private onConnection(socket: io.Socket) {
         console.log('WS.Connect:', socket.id);
 
+        const errorWrapper = (handler: (data: any) => Promise<void>) => {
+            return (data: any) => {
+                handler(data).catch(error => console.log(error));
+            }
+        }
+
         socket.on('disconnect', () => {
             // TODO: Remove editor connections if any.
             console.log('WS.Disconnect:', socket.id);
         });
 
-        socket.on('game.refresh', async () => {
+        socket.on('game.refresh', errorWrapper(async () => {
             socket.emit('game.state', await this.getGameState());
-        });
+        }));
 
-        socket.on('admin.refresh', async () => {
+        socket.on('admin.refresh', errorWrapper(async () => {
             if (this.isModerator(socket)) {
                 socket.emit('admin.state', await this.getAdminState());
             }
-        });
+        }));
 
-        socket.on('e.control', async (data) => {
-            const id = Number(data.id);
+        socket.on('e.control', errorWrapper(async (data) => {
+            const { id } = validateDocumentIdDto(data);
+            // TODO: Prevent users taking control from admins and moderators.
             if (await this.isEditorOwner(socket, id)) {
                 await editorService.setConnection(id, socket);
             }
-        });
+        }));
 
-        socket.on('e.release', async (data) => {
-            const id = Number(data.id);
+        socket.on('e.release', errorWrapper(async (data) => {
+            const { id } = validateDocumentIdDto(data);
             if (await this.isControllingEditor(socket, id)) {
                 await editorService.deleteConnection(id);
             }
-        });
+        }));
 
-        socket.on('e.save', async (data) => {
-            const id = Number(data.id);
+        socket.on('e.save', errorWrapper(async (data) => {
+            const { id } = validateDocumentIdDto(data);
             if (await this.isEditorOwner(socket, id)) {
-                if (await documentService.save(id)) {
-                    socket.emit('o.save', { id });
-                    socket.broadcast.emit('o.save', { id });
-                }
+                await documentService.save(id);
+                socket.emit('e.save', { id });
+                socket.broadcast.emit('e.save', { id });
             }
-        });
+        }));
 
-        socket.on('e.getText', async (data) => {
-            const id = Number(data.id);
+        socket.on('e.getText', errorWrapper(async (data) => {
+            const { id } = validateDocumentIdDto(data);
             const text = documentService.getText(id);
-            if (text !== null) {
-                socket.emit('e.text', { id, text });
-            }
-        });
+            socket.emit('e.text', { id, text });
+        }));
 
-        socket.on('e.o', async (data) => {
-            const id = Number(data.id);
+        socket.on('e.o', errorWrapper(async (data) => {
+            const { id, o } = validateDocumentTextOpDto(data);
             if (await this.isControllingEditor(socket, id)) {
-                const op = TextOperation.fromDto(data.o);
-                if (documentService.applyTextOperation(id, op)) {
-                    socket.broadcast.emit('e.o', { id, o: data.o });
-                }
+                documentService.applyTextOperation(id, TextOperation.fromDto(o));
+                socket.broadcast.emit('e.o', { id, o });
             }
-        });
+        }));
 
-        socket.on('e.s', async () => {});
+        socket.on('e.s', errorWrapper(async () => {}));
 
         devWarsService.getUserFromHeaders(socket.handshake.headers).then((user) => {
             if (user) socket.client.user = user;
@@ -106,7 +110,7 @@ class WSService {
     };
 
     private async getGameState() {
-        return gameService.getGame().catch(() => null);
+        return gameService.getGameWithRelations().catch(() => null);
     }
 
     private async getAdminState() {

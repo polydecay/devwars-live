@@ -1,9 +1,7 @@
 // Array layout: [text, startRow, startCol, endRow, endCol]
 // If "endRow" and "endCol" are not defined then
 // "endRow = startRow" and "endCol = startCol".
-type TextOperationDto
-    = [string, number, number, number, number]
-    | [string, number, number];
+export type TextOperationDto = [string, number, number, number?, number?]
 
 export class TextOperation {
     constructor(

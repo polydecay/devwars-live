@@ -1,15 +1,23 @@
 import editorService from '../editor/editor.service';
 import { Document } from './Document';
 import { TextOperation } from './TextOperation';
+import { NotFound } from 'http-errors';
 
 class DocumentService {
-    private documents: Map<number, Document> = new Map();
+    private readonly documents: Map<number, Document> = new Map();
 
     async syncWithEditors() {
         this.documents.clear();
         for (const editor of await editorService.getAll()) {
             this.documents.set(editor.id, new Document(editor.fileText));
         }
+    }
+
+    getById(id: number): Document {
+        const document = this.documents.get(id);
+        if (!document) throw new NotFound();
+
+        return document;
     }
 
     create(id: number, text: string): Document {
@@ -22,25 +30,18 @@ class DocumentService {
         return this.documents.delete(id);
     }
 
-    getText(id: number): string | null {
-        return this.documents.get(id)?.getText() ?? null;
-    }
-
-    async save(id: number): Promise<boolean> {
-        const fileText = this.getText(id);
-        if (fileText === null) return false;
-
-        return editorService.patch(id, { fileText })
-            .then(() => true)
-            .catch(() => false);
+    getText(id: number): string {
+        return this.getById(id).getText();
     }
 
     applyTextOperation(id: number, textOperation: TextOperation): boolean {
-        const document = this.documents.get(id);
-        if (!document) return false;
-
-        document.applyTextOperation(textOperation);
+        this.getById(id).applyTextOperation(textOperation);
         return true;
+    }
+
+    async save(id: number): Promise<void> {
+        const fileText = this.getText(id);
+        editorService.patch(id, { fileText });
     }
 }
 

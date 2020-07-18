@@ -63,6 +63,8 @@ img {
     --error: #d52647;
 
     --lineHeight: 1.5;
+    // TODO: Decide on a font.
+    // --fontFamily: 'IBM Plex Sans', sans-serif;
     --fontFamily: 'Roboto', sans-serif;
 
     --borderStyle: 2px solid var(--bg30);

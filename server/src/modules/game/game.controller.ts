@@ -9,7 +9,7 @@ import { validatePatchGameDto } from './dto/patchGame.dto';
 const router = new Router();
 
 router.get('/', async (ctx: RouterContext) => {
-    ctx.body = await gameService.getGame();
+    ctx.body = await gameService.getGameWithRelations();
 });
 
 router.post('/', hasRole(UserRole.ADMIN), async (ctx: RouterContext) => {

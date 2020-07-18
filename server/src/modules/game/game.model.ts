@@ -4,6 +4,7 @@ import { Player } from '../player/player.model';
 import { Editor } from '../editor/editor.model';
 import wsService from '../ws/ws.service';
 import { Application } from '../application/application.model';
+import documentService from '../document/document.service';
 
 @Entity()
 export class Game extends BaseEntity {
@@ -17,8 +18,8 @@ export class Game extends BaseEntity {
 
     @Column()
     stage!: string;
-    @Column({ nullable: true })
-    stageEndAt!: Date;
+    @Column({ type: 'integer', nullable: true })
+    stageEndAt!: number | null;
 
     @Column()
     runtime!: number;
@@ -45,5 +46,11 @@ export class Game extends BaseEntity {
     private afterChange() {
         wsService.updateGameState();
         wsService.updateAdminState();
+    }
+
+    @AfterInsert()
+    @AfterRemove()
+    private syncEditorDocuments() {
+        documentService.syncWithEditors();
     }
 }

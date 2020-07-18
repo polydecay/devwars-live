@@ -45,7 +45,7 @@ socket.on('e.s', ({ id, s: selectionDto }) => {
 });
 
 socket.on('e.save', ({ id }) => {
-    eventBus.$emit(`editor.${id}.save`);
+    eventBus.$emit(`editor.save`, id);
 });
 
 export default socket;

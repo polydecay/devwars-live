@@ -1,7 +1,9 @@
 <template>
-    <div class="PlayPage" v-if="!isLoading">
+    <div class="PlayPage">
         <FullscreenMessage v-if="!isActive" title="No game is currently active"/>
-        <GameApplicationView v-else/>
+        <PlayerView v-else-if="isPlayer"/>
+        <GameApplicationView v-else-if="stage === 'setup'"/>
+        <FullscreenMessage v-else title="Game in progress"/>
     </div>
 </template>
 
@@ -10,14 +12,17 @@
 import { mapState, mapGetters } from 'vuex';
 import FullscreenMessage from '../../components/FullscreenMessage';
 import GameApplicationView from './components/GameApplicationView';
+import PlayerView from './components/PlayerView';
 
 export default {
-    components: { FullscreenMessage, GameApplicationView },
+    components: { FullscreenMessage, GameApplicationView, PlayerView },
+
     computed: {
         ...mapState('app', ['user', 'socketId']),
+        ...mapState('game', ['stage', 'editors']),
         ...mapGetters('game', ['isActive']),
-        isLoading() {
-            return !this.socketId && !this.user;
+        isPlayer() {
+            return this.editors.some(editor => editor.playerId === this.user.id);
         },
     },
 };

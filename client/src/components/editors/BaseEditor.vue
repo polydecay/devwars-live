@@ -56,12 +56,12 @@ export default {
             renderLineHighlight: this.editable ? 'full' : 'none',
             lineNumbers: this.editable,
             folding: this.editable,
+            hideCursorInOverviewRuler: !this.editable,
 
             theme: 'devwars',
             automaticLayout: true, // TODO: Handle this manually maybe?
             contextmenu: false,
             dragAndDrop: false,
-            hideCursorInOverviewRuler: true,
             lineNumbersMinChars: 3,
             minimap: { enabled: false },
             occurrencesHighlight: false,

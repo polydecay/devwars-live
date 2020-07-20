@@ -8,6 +8,7 @@ import documentService from '../document/document.service';
 import { TextOperation } from '../document/TextOperation';
 import { validateDocumentIdDto } from './dto/documentId.dto';
 import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
+import { PromiseQueue } from '../../common/promiseQueue';
 
 class WSService {
     server!: io.Server;
@@ -71,12 +72,15 @@ class WSService {
             socket.emit('e.text', { id, text });
         }));
 
+        const editorOperationQueue = new PromiseQueue();
         socket.on('e.o', errorWrapper(async (data) => {
             const { id, o } = validateDocumentTextOpDto(data);
-            if (await this.isControllingEditor(socket, id)) {
-                documentService.applyTextOperation(id, TextOperation.fromDto(o));
-                socket.broadcast.emit('e.o', { id, o });
-            }
+            editorOperationQueue.add(async () => {
+                if (await this.isControllingEditor(socket, id)) {
+                    documentService.applyTextOperation(id, TextOperation.fromDto(o));
+                    socket.broadcast.emit('e.o', { id, o });
+                }
+            });
         }));
 
         socket.on('e.s', errorWrapper(async () => {}));

@@ -2,7 +2,7 @@
     <div class="MainPage">
         <FullscreenMessage title="No game is currently active" v-if="!isActive"/>
         <SetupView v-else-if="stage === 'setup'"/>
-        <TestView v-else/>
+        <GameView v-else/>
     </div>
 </template>
 
@@ -11,10 +11,12 @@
 import { mapState, mapGetters } from 'vuex';
 import FullscreenMessage from '../../components/FullscreenMessage';
 import SetupView from './components/SetupView';
-import TestView from './components/TestView';
+import GameView from './components/GameView';
 
 export default {
-    components: { FullscreenMessage, SetupView, TestView },
+    name: 'MainPage',
+
+    components: { FullscreenMessage, SetupView, GameView },
 
     computed: {
         ...mapState('game', ['stage']),

@@ -21,6 +21,7 @@ export default {
 .GameHeader {
     display: flex;
     height: 3.5rem;
+    min-height: 3.5rem;
     align-items: center;
     background-color: var(--bg30);
 

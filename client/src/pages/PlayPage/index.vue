@@ -15,6 +15,8 @@ import GameApplicationView from './components/GameApplicationView';
 import PlayerView from './components/PlayerView';
 
 export default {
+    name: 'PlayPage',
+
     components: { FullscreenMessage, GameApplicationView, PlayerView },
 
     computed: {

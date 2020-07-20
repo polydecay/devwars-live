@@ -1,6 +1,6 @@
 <template>
     <div class="TeamSiteViewer">
-        <iframe ref="iframe" :src="url" frameborder="0"></iframe>
+        <iframe ref="iframe" :src="url" frameborder="0" @load="onLoad"></iframe>
         <div class="actions">
             <button @click="onOpen">Open</button>
             <button @click="onRefresh">Reload</button>
@@ -33,6 +33,11 @@ export default {
     },
 
     methods: {
+        onLoad() {
+            // Prevent flashes while keeping a default white background.
+            this.$refs.iframe.style.backgroundColor = 'white';
+        },
+
         onOpen() {
             Object.assign(document.createElement('a'), {
                 target: '_blank',
@@ -60,7 +65,7 @@ export default {
 .TeamSiteViewer {
     position: relative;
     display: flex;
-    background-color: #fff;
+    background-color: var(--bg00);
 
     iframe {
         flex: 1 1;

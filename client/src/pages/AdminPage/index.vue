@@ -16,6 +16,8 @@ import CreateGameView from './components/CreateGameView';
 import EditGameView from './components/EditGameView';
 
 export default {
+    name: 'AdminPage',
+
     components: { FullscreenMessage, CreateGameView, EditGameView },
 
     computed: {

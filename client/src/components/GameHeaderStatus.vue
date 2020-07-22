@@ -37,7 +37,7 @@ export default {
     h1 {
         margin: 0 2rem;
         line-height: 1;
-        font-size: 2.25rem;
+        font-size: 2.5rem;
         font-weight: 300;
     }
 
@@ -48,8 +48,8 @@ export default {
         strong {
             margin: 0 0.25rem;
             line-height: 1;
-            font-size: 2.25rem;
-            font-weight: 300;
+            font-size: 2rem;
+            font-weight: 400;
         }
 
         &.blue { color: var(--blue); }

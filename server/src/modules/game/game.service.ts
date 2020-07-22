@@ -6,7 +6,7 @@ import { Editor } from '../editor/editor.model';
 import editorService from '../editor/editor.service';
 
 // TODO: Move this somewhere else.
-const stages = ['setup', 'active', 'review', 'vote', 'end'];
+const stages = ['setup', 'active', 'reviewDesign', 'voteDesign', 'reviewFunction', 'voteFunction', 'end'];
 
 class GameService {
     async getGame(): Promise<Game> {

@@ -1,8 +1,12 @@
 <template>
     <div class="TeamView" :class="[team.name]">
         <div class="sidebar">
-            <button :class="{ active: curView === 'code'}" @click="curView = 'code'">C</button>
-            <button :class="{ active: curView === 'site'}" @click="curView = 'site'">W</button>
+            <button :class="{ active: curView === 'code'}" @click="curView = 'code'">
+                <CodeIcon title="View editors"/>
+            </button>
+            <button :class="{ active: curView === 'site'}" @click="curView = 'site'">
+                <SiteIcon title="View website"/>
+            </button>
         </div>
         <EditorGroupView v-show="curView === 'code'" :editors="editors"/>
         <TeamSiteViewer v-if="curView === 'site'" :teamId="team.id"/>
@@ -13,9 +17,11 @@
 <script>
 import EditorGroupView from './EditorGroupView';
 import TeamSiteViewer from './TeamSiteViewer';
+import CodeIcon from 'vue-material-design-icons/CodeTags';
+import SiteIcon from 'vue-material-design-icons/Application';
 
 export default {
-    components: { EditorGroupView, TeamSiteViewer },
+    components: { EditorGroupView, TeamSiteViewer, CodeIcon, SiteIcon },
 
     props: {
         team: { type: Object, required: true },
@@ -37,6 +43,7 @@ export default {
 <style lang="scss" scoped>
 .TeamView {
     display: flex;
+    // border-left: 2px solid currentColor;
 
     &.blue { color: var(--blue); }
     &.red { color: var(--red); }
@@ -50,18 +57,18 @@ export default {
             padding: 0;
             width: 100%;
             height: 3rem;
+            opacity: .25;
+            outline: none;
 
-            color: var(--fg40);
+            color: currentColor;
             background-color: transparent;
 
             &.active {
-                color: currentColor;
-                font-weight: 700;
                 opacity: 1;
+                font-weight: 700;
             }
         }
     }
-
 
     .EditorGroupView {
         flex: 1 1;

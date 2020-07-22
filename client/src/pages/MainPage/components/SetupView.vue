@@ -1,6 +1,6 @@
 <template>
     <div class="SetupView">
-        <img class="logo" src="/logo-text-light-n.png" alt="" width="256px">
+        <img class="logo" src="/logo-text-light-n.png" alt="DevWars Logo">
         <header>
             <h1>Game Setup</h1>
             <p>Join the game at <a href="/play">https://live.devwars.tv/play</a></p>

@@ -2,8 +2,8 @@
     <div class="TeamSiteViewer">
         <iframe ref="iframe" :src="url" frameborder="0" @load="onLoad"></iframe>
         <div class="actions">
-            <button @click="onOpen">Open</button>
-            <button @click="onRefresh">Reload</button>
+            <button @click="onOpen"><OpenIcon title="Open in new tab"/></button>
+            <button @click="onRefresh"><RefreshIcon title="Refresh site"/></button>
         </div>
     </div>
 </template>
@@ -11,7 +11,12 @@
 
 <script>
 import eventBus from '../services/eventBus';
+import OpenIcon from 'vue-material-design-icons/OpenInNew';
+import RefreshIcon from 'vue-material-design-icons/Refresh';
+
 export default {
+    components: { OpenIcon, RefreshIcon },
+
     props: { teamId: { type: Number, required: true } },
 
     computed: {
@@ -47,6 +52,7 @@ export default {
 
         onRefresh() {
             // Refreshes the iframe by updating the src property.
+            this.$refs.iframe.style.backgroundColor = 'black';
             this.$refs.iframe.src += '';
         },
 
@@ -75,11 +81,11 @@ export default {
         display: flex;
         position: absolute;
         bottom: .5rem;
-        right: .5rem;
+        left: .5rem;
         opacity: 0.25;
 
         transform: scale(.75);
-        transform-origin: bottom right;
+        transform-origin: bottom left;
 
         transition: opacity 128ms ease-out, transform 128ms ease-out;
 
@@ -89,9 +95,20 @@ export default {
         }
 
         button {
-            color: var(--fg20);
+            display: flex;
+            padding: 0;
+            height: 2.5rem;
+            width: 2.5rem;
+            align-items: center;
+            justify-content: center;
+
             border: 1px dashed var(--fg40);
+            color: var(--fg20);
             background-color: var(--bg00);
+
+            .material-design-icon {
+                display: inline-flex;
+            }
 
             &:not(:first-child) {
                 margin-left: .5rem;

@@ -11,10 +11,12 @@ export class TextOperation {
         public readonly endRow: number,
         public readonly endCol: number,
     ) {
-        // Ensure the end range is >=to the start range.
+        // Ensure the end range is >= to the start range.
         // TODO: Consider throwing instead.
         this.endRow = Math.max(this.startRow, this.endRow);
-        this.endCol = Math.max(this.startCol, this.endCol);
+        if (this.startRow === this.endRow) {
+            this.endCol = Math.max(this.startCol, this.endCol);
+        }
     }
 
     toDto(): TextOperationDto {

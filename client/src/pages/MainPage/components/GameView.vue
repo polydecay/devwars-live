@@ -1,8 +1,11 @@
 <template>
     <div class="GameView">
-        <GameHeader/>
-        <TeamView :team="blueTeam"/>
-        <TeamView :team="redTeam"/>
+        <GameSidebar/>
+        <main>
+            <GameHeader/>
+            <TeamView :team="blueTeam"/>
+            <TeamView :team="redTeam"/>
+        </main>
     </div>
 </template>
 
@@ -11,9 +14,10 @@
 import { mapGetters } from 'vuex';
 import TeamView from '../../../components/TeamView';
 import GameHeader from '../../../components/GameHeader';
+import GameSidebar from './GameSidebar';
 
 export default {
-    components: { GameHeader, TeamView },
+    components: { GameHeader, TeamView, GameSidebar },
 
     computed: mapGetters('game', ['blueTeam', 'redTeam'])
 };
@@ -23,14 +27,22 @@ export default {
 <style lang="scss" scoped>
 .GameView {
     display: flex;
-    flex-flow: column nowrap;
+    // flex-flow: column nowrap;
     height: 100vh;
     overflow: hidden;
+
+    main {
+        display: flex;
+        flex: 1 1;
+        flex-flow: column nowrap;
+        // height: 100vh;
+        // overflow: hidden;
+    }
 
     .TeamView {
         flex: 1 1;
 
-        &:not(:first-child) {
+        &:last-child {
             border-top: 2px solid var(--bg20);
         }
     }

@@ -46,10 +46,15 @@ export default {
             await api.resetEditor(this.editor.id);
         },
 
-        async onSelectUser(player) {
-            if (!player) {
+        async onSelectUser(sparseUser) {
+            if (!sparseUser) {
                 return await api.deleteEditorPlayer(this.editor.id);
             }
+
+            const res = await api.getUserById(sparseUser.id);
+            if (!res.ok) throw new Error(res.body);
+
+            const player = res.body;
 
             await api.createPlayer({ ...player, teamId: this.editor.teamId });
             await api.setEditorPlayer(this.editor.id, player.id);

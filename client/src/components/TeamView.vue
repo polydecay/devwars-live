@@ -8,8 +8,8 @@
                 <SiteIcon title="View website"/>
             </button>
         </div>
-        <EditorGroupView v-show="curView === 'code'" :editors="editors"/>
-        <TeamSiteViewer v-if="curView === 'site'" :teamId="team.id"/>
+        <EditorGroupView v-if="curView === 'code'" :editors="editors"/>
+        <TeamSiteViewer v-else-if="curView === 'site'" :teamId="team.id"/>
     </div>
 </template>
 

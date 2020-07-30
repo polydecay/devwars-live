@@ -58,7 +58,6 @@ export async function deleteEditorPlayer(id) {
     return http.del(`editors/${id}/player`);
 }
 
-
 // ---------------------------------------------------------
 // Application
 
@@ -72,4 +71,15 @@ export async function getApplication(id) {
 
 export async function deleteApplication(id) {
     return http.del(`applications/${id}`);
+}
+
+// ---------------------------------------------------------
+// DevWars Service
+
+export async function getUserById(id) {
+    return http.get(`devwars/users/${id}`);
+}
+
+export async function searchUser(search) {
+    return http.post(`devwars/users/search`, { search });
 }

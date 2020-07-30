@@ -23,6 +23,10 @@
                 </div>
             </transition>
         </div>
+        <div v-if="curEditor" class="actions">
+            <button :disabled="!hasControl || curEditor.locked">Save</button>
+            <button :disabled="!hasControl || curEditor.locked">Format</button>
+        </div>
     </div>
 </template>
 
@@ -160,5 +164,16 @@ export default {
             }
         }
     }
+
+    .actions {
+        display: flex;
+        button {
+            margin: .5rem;
+            &:not(:first-child) {
+                margin-left: 0;
+            }
+        }
+    }
+
 }
 </style>

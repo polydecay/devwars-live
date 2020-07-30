@@ -27,9 +27,9 @@ export default {
                 title: 'Title',
                 runtime: 30 * 60 * 1000,
                 objectives: [
-                    { id: 1, description: 'first' },
-                    { id: 2, description: 'second' },
-                    { id: 3, description: 'third', bonus: true },
+                    { id: 1, description: 'Easy first objective.' },
+                    { id: 2, description: 'Slightly harder secondary objective.' },
+                    { id: 3, description: 'Awesome bonus objective, for the brave!', bonus: true },
                 ],
             });
         },

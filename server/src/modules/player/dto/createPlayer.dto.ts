@@ -4,6 +4,7 @@ export interface CreatePlayerDto {
     id: number;
     username: string;
     role: string;
+    avatarUrl?: string;
     ready?: boolean;
     teamId: number;
 }
@@ -13,6 +14,7 @@ export const validateCreatePlayerDto = createValidator<CreatePlayerDto>({
         id: { type: 'integer' },
         username: { type: 'string' },
         role: { type: 'string' },
+        avatarUrl: { type: 'string' },
         ready: { type: 'boolean' },
         teamId: { type: 'integer' },
     },

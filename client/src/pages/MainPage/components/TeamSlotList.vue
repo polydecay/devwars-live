@@ -1,6 +1,5 @@
 <template>
     <div class="TeamSlotList" :class="{ flip }">
-        <h1 :class="team.name">{{ team.name }} Team</h1>
         <div class="list">
             <TeamSlotItem
                 v-for="editor in editors"
@@ -37,14 +36,6 @@ export default {
 .TeamSlotList {
     &.flip {
         text-align: right;
-    }
-
-    h1 {
-        // height: 3rem;
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-        &.blue { color: var(--blue) }
-        &.red { color: var(--red) }
     }
 }
 </style>

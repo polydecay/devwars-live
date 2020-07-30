@@ -17,8 +17,14 @@ const database: ConnectionOptions = {
     ],
 };
 
+const devwarsApi = {
+    url: env.DEVWARS_API_URL ?? '',
+    token: env.DEVWARS_API_TOKEN ?? '',
+};
+
 export default {
     env: env.NODE_ENV,
     app,
     database,
+    devwarsApi,
 };

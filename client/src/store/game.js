@@ -40,6 +40,17 @@ const getters = {
         return state.teams.find(team => team.id === 2);
     },
 
+    objectivesWithTeamState(state) {
+        return state.objectives.map((objective) => {
+            const withState = { ...objective };
+            for (const team of state.teams) {
+                withState[team.name] = team.completeObjectives.includes(objective.id);
+            }
+
+            return withState;
+        });
+    },
+
     teamById(state) {
         return (id) => state.teams.find(x => x.id === id);
     },

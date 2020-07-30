@@ -8,6 +8,7 @@ class PlayerService {
         player.id = createDto.id;
         player.username = createDto.username;
         player.role = createDto.role;
+        player.avatarUrl = createDto.avatarUrl ?? null;
 
         player.game = 1 as any;
         player.teamId = createDto.teamId;

@@ -18,6 +18,7 @@
 
 
 <script>
+import * as api from '../../../api';
 import vSelect from 'vue-select';
 import debounce from 'lodash/debounce';
 import 'vue-select/dist/vue-select.css';
@@ -30,11 +31,7 @@ export default {
     components: { vSelect },
 
     data: () => ({
-        options: [
-            { id: 1, username: 'Admin', role: 'admin' },
-            { id: 2, username: 'Moderator', role: 'moderator' },
-            { id: 3, username: 'User', role: 'user' },
-        ],
+        options: [],
     }),
 
     methods: {
@@ -43,17 +40,16 @@ export default {
             this.search(this, search, loading);
         },
 
-        search: debounce((vm, search, loading) => {
-            setTimeout(() => {
-                vm.options = [
-                    { id: 1, username: 'Admin', role: 'admin' },
-                    { id: 2, username: 'Moderator', role: 'moderator' },
-                    { id: 3, username: 'User', role: 'user' },
-                ];
-
-                loading(false);
-            }, 0);
+        search: debounce(async (vm, search, loading) => {
+            const res = await api.searchUser(search);
+            // TODO: Error message?
+            vm.options = res.ok ? res.body : [];
+            loading(false);
         }, 250),
+
+        onFocus() {
+            console.log('focus');
+        }
     },
 };
 </script>

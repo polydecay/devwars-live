@@ -1,7 +1,9 @@
 <template>
     <div class="TeamSlotItem" :class="[{ flip }, team.name]">
         <template v-if="player">
-            <div class="avatar"></div>
+            <div class="avatar">
+                <img v-if="player.avatarUrl" :src="player.avatarUrl" alt="Avatar">
+            </div>
             <div class="info">
                 <div class="username">{{ player.username }}</div>
                 <div class="language">{{ editor.language }}</div>
@@ -69,8 +71,10 @@ export default {
 
     .avatar {
         position: relative;
+        display: grid;
         width: 5rem;
         height: 5rem;
+        place-items: center;
         background-color: var(--bg30);
 
         &:after {
@@ -81,8 +85,9 @@ export default {
             right: 0;
             bottom: 0;
             left: 0;
+            pointer-events: none;
+
             background: linear-gradient(to top right, rgba(#ff007d, .25), rgba(#00c9ff, .25));
-            // mix-blend-mode: color;
         }
     }
 

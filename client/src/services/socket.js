@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import store from '../store';
 import eventBus from './eventBus';
 
-const socket = io('http://localhost:8000', { transports: ['websocket'] });
+const socket = io({ transports: ['websocket'] });
 
 // Enables vue registration with Vue.use(socket).
 socket.install = (Vue) => Vue.prototype.$socket = socket;

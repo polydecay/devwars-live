@@ -16,7 +16,7 @@
         "socket.io-client": "^2.3.0",
         "vue": "^2.6.11",
         "vue-awesome-notifications": "^3.1.1",
-        "vue-material-design-icons": "^4.7.1",
+        "vue-material-design-icons": "^4.8.0",
         "vue-router": "^3.2.0",
         "vue-select": "^3.10.7",
         "vuex": "^3.5.1"
@@ -33,9 +33,9 @@
         "vue-template-compiler": "^2.6.11"
     },
     "browserslist": [
-        "chrome >= 70",
+        "chrome >= 75",
         "edge >= 18",
         "firefox >= 70",
-        "safari >= 12"
+        "safari >= 13"
     ]
 }

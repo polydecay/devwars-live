@@ -8,6 +8,7 @@ import teamController from './modules/team/team.controller';
 import editorController from './modules/editor/editor.controller';
 import playerController from './modules/player/player.controller';
 import applicationController from './modules/application/application.controller';
+import devwarsController from './modules/devwars/devwars.controller';
 
 const koa = new Koa();
 
@@ -20,6 +21,7 @@ koa.use(new Router()
     .use('/api/editors', editorController.routes())
     .use('/api/players', playerController.routes())
     .use('/api/applications', applicationController.routes())
+    .use('/api/devwars', devwarsController.routes())
     .routes()
 );
 

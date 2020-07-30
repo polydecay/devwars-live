@@ -7,7 +7,7 @@
         <div v-if="objectives.length > 0" class="objectives">
             <h2>Objectives</h2>
             <div
-                v-for="objective in objectivesWithState"
+                v-for="objective in objectivesWithTeamState"
                 :key="objective.id"
                 :class="['objective', { bonus: objective.bonus }]"
             >
@@ -28,18 +28,7 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapState('game', ['title', 'objectives']),
-
-        ...mapGetters('game', ['blueTeam', 'redTeam']),
-
-        objectivesWithState() {
-            return this.objectives.map((objective) => {
-                return {
-                    ...objective,
-                    red: this.redTeam.completeObjectives.includes(objective.id),
-                    blue: this.blueTeam.completeObjectives.includes(objective.id),
-                };
-            });
-        },
+        ...mapGetters('game', ['blueTeam', 'redTeam', 'objectivesWithTeamState']),
     },
 };
 </script>
@@ -59,9 +48,9 @@ export default {
 
     .theme {
         margin: 4rem 0;
-
         h1 {
             text-align: center;
+            line-height: 1;
         }
     }
 
@@ -70,9 +59,13 @@ export default {
         flex-flow: column nowrap;
         margin: 4rem 0;
 
+        h2 {
+            margin-bottom: 2rem;
+        }
+
         .objective {
             display: flex;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             align-items: center;
 
             &.bonus .description {

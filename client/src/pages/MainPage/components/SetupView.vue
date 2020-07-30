@@ -1,14 +1,20 @@
 <template>
     <div class="SetupView">
-        <img class="logo" src="/logo-text-light-n.png" alt="DevWars Logo">
+        <img class="logo" src="/logo-text.svg" alt="DevWars Logo">
         <header>
             <h1>Game Setup</h1>
             <p>Join the game at <a href="/play">https://live.devwars.tv/play</a></p>
         </header>
         <main>
-            <TeamSlotList :team="blueTeam"/>
-            <h1 class="center">VS</h1>
-            <TeamSlotList :team="redTeam" :flip="true"/>
+            <div class="team">
+                <h1 class="blue">Blue Team</h1>
+                <TeamSlotList :team="blueTeam"/>
+            </div>
+            <div class="center">VS</div>
+            <div class="team flip">
+                <h1 class="red">Red Team</h1>
+                <TeamSlotList :team="redTeam" :flip="true"/>
+            </div>
         </main>
         <footer>
             <p>Game is starting soon, stay tuned!</p>
@@ -59,14 +65,29 @@ export default {
         justify-content: center;
 
         .center {
-            margin: 0 8rem;
-            margin-top: 9rem;
-            font-size: 5rem;
+            width: 22rem;
+            margin-top: 8.5rem;
+            text-align: center;
+            font-size: 4.5rem;
             font-weight: 300;
         }
 
-        .TeamSlotList {
-            margin-top: 0rem;
+        .team {
+            &.flip {
+                h1 { text-align: right; }
+            }
+
+            h1 {
+                margin-bottom: 1rem;
+                text-transform: uppercase;
+
+                &.blue { color: var(--blue); }
+                &.red { color: var(--red); }
+            }
+
+            .TeamSlotList {
+                margin-top: 0rem;
+            }
         }
     }
 

@@ -1,14 +1,23 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
+const API_URL = process.env.API_URL || 'http://localhost:8000';
+const PRODUCTION = process.env.NODE_ENV === 'production';
+
 module.exports = {
     devServer: {
         compress: true,
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1:8000',
+                target: API_URL,
+            },
+            '/socket.io': {
+                target: API_URL,
                 ws: true,
             },
         },
+    },
+    css: {
+        extract: PRODUCTION ? { ignoreOrder: true } : false,
     },
     configureWebpack: {
         devtool: '',
@@ -43,7 +52,7 @@ module.exports = {
 
         config.plugin('html').tap((args) => {
             args[0].title = 'DevWars - Live';
-            return args
+            return args;
         });
 
         const splitChunks = config.optimization.get('splitChunks');

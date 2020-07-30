@@ -1,6 +1,6 @@
 <template>
     <div class="GameSidebar">
-        <img class="logo" src="/logo-text-light-n.png" alt="DevWars Logo">
+        <img class="logo" src="/logo-text.svg" alt="DevWars Logo">
 
         <GameSidebarObjectives
             v-if="stage === 'active'"

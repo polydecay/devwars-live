@@ -9,6 +9,7 @@ import { TextOperation } from '../document/TextOperation';
 import { validateDocumentIdDto } from './dto/documentId.dto';
 import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
 import { PromiseQueue } from '../../common/promiseQueue';
+import devwarsService from '../devwars/devwars.service';
 
 class WSService {
     server!: io.Server;
@@ -85,7 +86,8 @@ class WSService {
 
         socket.on('e.s', errorWrapper(async () => {}));
 
-        devWarsService.getUserFromHeaders(socket.handshake.headers).then((user) => {
+        const token = devwarsService.getTokenFromHeaders(socket.handshake.headers);
+        devWarsService.getUserFromToken(token).then((user) => {
             if (user) socket.client.user = user;
             socket.emit('init', user);
         });

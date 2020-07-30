@@ -15,6 +15,9 @@ export class Player extends BaseEntity {
     @Column()
     role!: string;
 
+    @Column({ type: 'varchar', nullable: true })
+    avatarUrl!: string | null;
+
     @Column({ default: false })
     ready!: boolean;
 

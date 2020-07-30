@@ -77,7 +77,6 @@ export default {
         }
 
         .stage {
-            text-transform: uppercase;
             font-weight: 700;
         }
 

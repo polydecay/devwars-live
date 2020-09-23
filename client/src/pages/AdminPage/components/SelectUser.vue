@@ -41,7 +41,7 @@ export default {
         },
 
         search: debounce(async (vm, search, loading) => {
-            const res = await api.searchUser(search);
+            const res = await api.searchUsers(search);
             // TODO: Error message?
             vm.options = res.ok ? res.body : [];
             loading(false);

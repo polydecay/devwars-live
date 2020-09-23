@@ -2,16 +2,18 @@
     <div class="TeamScoreVotes">
         <h1>{{ category }}</h1>
         <div class="main" :class="[team.name, { flip }]">
-            <div class="score">0</div>
-            <ProgressBar :value="50" :flip="flip"/>
-            <div class="percent">50%</div>
+            <div class="score">{{ score }}</div>
+            <ProgressBar :value="percent" :flip="flip"/>
+            <div class="percent">{{ percent }}%</div>
         </div>
     </div>
 </template>
 
 
 <script>
+import { mapState } from 'vuex';
 import ProgressBar from './ProgressBar';
+
 export default {
     components: { ProgressBar },
 
@@ -19,6 +21,22 @@ export default {
         team: { type: Object, required: true },
         category: { type: String, required: true },
         flip: { type: Boolean, default: false },
+    },
+
+    computed: {
+        result() {
+            return this.$store.getters['game/voteResultByTeamAndCategory'](this.team.id, this.category);
+        },
+
+        percent() {
+            if (!this.result) return 0;
+            return Math.floor(this.result.votes / this.result.total * 100);
+        },
+
+        score() {
+            if (!this.result) return 0;
+            return this.result.score;
+        },
     },
 };
 </script>

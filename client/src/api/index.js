@@ -80,6 +80,6 @@ export async function getUserById(id) {
     return http.get(`devwars/users/${id}`);
 }
 
-export async function searchUser(search) {
+export async function searchUsers(search) {
     return http.post(`devwars/users/search`, { search });
 }

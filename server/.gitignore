@@ -3,6 +3,7 @@
 
 # Build Output
 dist/
+database.sqlite3
 
 # Dependencies
 node_modules/

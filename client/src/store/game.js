@@ -22,6 +22,8 @@ const initialState = {
     editors: [],
     players: [],
 
+    teamVoteResults: [],
+
     applications: [],
 };
 
@@ -40,6 +42,24 @@ const getters = {
         return state.teams.find(team => team.id === 2);
     },
 
+    winningTeams(state, getters) {
+        let highScore = 0;
+        let winningTeams = [];
+
+        for (const team of state.teams) {
+            const score = getters['teamScoreById'](team.id);
+
+            if (score >= highScore) {
+                if (score > highScore) winningTeams = [];
+
+                highScore = score;
+                winningTeams.push(team);
+            }
+        }
+
+        return winningTeams;
+    },
+
     objectivesWithTeamState(state) {
         return state.objectives.map((objective) => {
             const withState = { ...objective };
@@ -53,6 +73,17 @@ const getters = {
 
     teamById(state) {
         return (id) => state.teams.find(x => x.id === id);
+    },
+
+    teamScoreById(state) {
+        return (id) => {
+            const { objectiveScore } = state.teams.find(x => x.id === id);
+            const voteScore = state.teamVoteResults.reduce((total, result) => {
+                return result.teamId === id ? total + result.score : total;
+            }, 0);
+
+           return objectiveScore + voteScore;
+        };
     },
 
     editorById(state) {
@@ -74,6 +105,12 @@ const getters = {
             .filter(e => e.playerId === id)
             .sort((a, b) => a.id - b.id);
     },
+
+    voteResultByTeamAndCategory(state) {
+        return (id, category) => state.teamVoteResults.find((result) => {
+            return result.teamId === id && result.category === category;
+        });
+    }
 };
 
 const mutations = {

@@ -1,14 +1,14 @@
 <template>
     <div class="GameHeaderStatus">
         <div class="score blue">
-            Score <strong>{{ blueTeam.id }}</strong>
+            Score <strong>{{ blueTeamScore }}</strong>
         </div>
         <h1>
             <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/>
             <span v-else>-- : --</span>
         </h1>
         <div class="score red">
-            <strong>{{ redTeam.id }}</strong> Score
+            <strong>{{ redTeamScore }}</strong> Score
         </div>
     </div>
 </template>
@@ -24,6 +24,14 @@ export default {
     computed: {
         ...mapState('game', ['stageEndAt']),
         ...mapGetters('game', ['blueTeam', 'redTeam']),
+
+        blueTeamScore() {
+            return this.$store.getters['game/teamScoreById'](this.blueTeam.id);
+        },
+
+        redTeamScore() {
+            return this.$store.getters['game/teamScoreById'](this.redTeam.id);
+        },
     },
 };
 </script>

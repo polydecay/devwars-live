@@ -45,7 +45,7 @@ export default {
 
         .checkmark {
             margin: 0 .5rem;
-            color: var(--bg40);
+            color: var(--bg30);
 
             &.blue.complete { color: var(--blue); }
             &.red.complete { color: var(--red); }

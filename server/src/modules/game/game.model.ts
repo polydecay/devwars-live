@@ -5,6 +5,13 @@ import { Editor } from '../editor/editor.model';
 import wsService from '../ws/ws.service';
 import { Application } from '../application/application.model';
 import documentService from '../document/document.service';
+import { Vote } from '../vote/vote.model';
+
+export interface Objective {
+    id: number;
+    description: string;
+    bonus: boolean;
+}
 
 @Entity()
 export class Game extends BaseEntity {
@@ -24,7 +31,7 @@ export class Game extends BaseEntity {
     @Column()
     runtime!: number;
     @Column({ type: 'simple-json' })
-    objectives!: any[];
+    objectives!: Objective[];
 
 
     @OneToMany(() => Team, team => team.game, { cascade: true })
@@ -38,6 +45,9 @@ export class Game extends BaseEntity {
 
     @OneToMany(() => Application, app => app.game, { cascade: true })
     applications!: Application[];
+
+    @OneToMany(() => Vote, vote => vote.game, { cascade: true })
+    votes!: Vote[];
 
 
     @AfterInsert()

@@ -11,7 +11,7 @@ const app = {
 
 const database: ConnectionOptions = {
     type: 'sqlite',
-    database: env.DB_PATH ?? ':memory:',
+    database: env.DATABASE_PATH ?? ':memory:',
     entities: [
         path.resolve(__dirname, 'modules/**/*.model.{ts,js}'),
     ],

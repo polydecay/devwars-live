@@ -1,6 +1,6 @@
 <template>
-    <div class="TeamScore" :class="[team.name, { winner }]">
-        <TeamScoreHeader :team="team" :winner="winner" :flip="flip"/>
+    <div class="TeamScore" :class="[team.name, { winner, tie }]">
+        <TeamScoreHeader :team="team" :winner="winner" :tie="tie" :flip="flip"/>
         <TeamSlotList :team="team" :flip="flip"/>
         <TeamScoreObjectives :team="team"/>
         <TeamScoreVotes :team="team" category="design" :flip="flip"/>
@@ -10,6 +10,7 @@
 
 
 <script>
+import { mapState, mapGetters } from 'vuex';
 import TeamSlotList from '../pages/MainPage/components/TeamSlotList';
 import TeamScoreHeader from './TeamScoreHeader';
 import TeamScoreObjectives from './TeamScoreObjectives';
@@ -29,8 +30,14 @@ export default {
     },
 
     computed: {
+        ...mapGetters('game', ['winningTeams']),
+
         winner() {
-            return Math.random() > .5;
+            return this.winningTeams.some(t => t.id === this.team.id);
+        },
+
+        tie() {
+            return Boolean(this.winner && this.winningTeams.length >= 2);
         },
     },
 };
@@ -71,7 +78,7 @@ export default {
     }
 
     .TeamSlotList {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
 
     .TeamScoreObjectives {

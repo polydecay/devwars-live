@@ -7,7 +7,7 @@ export interface CreateGameDto {
     objectives: Array<{
         id: number,
         description: string,
-        bonus?: boolean,
+        bonus: boolean,
     }>;
 }
 
@@ -22,7 +22,7 @@ export const validateCreateGameDto = createValidator<CreateGameDto>({
                 properties: {
                     id: { type: 'integer' },
                     description: { type: 'string' },
-                    bonus: { type: 'boolean' },
+                    bonus: { type: 'boolean', default: false },
                 },
                 required: ['id', 'description'],
                 additionalProperties: false,

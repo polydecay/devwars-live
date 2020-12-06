@@ -54,8 +54,7 @@ class VoteService {
         `);
 
         function scoreFromPercent(percent: number): number {
-            if (percent > 80) return 3;
-            else if (percent > 65) return 2;
+            if (percent >= 80) return 2;
             else if (percent > 50) return 1;
             return 0;
         }

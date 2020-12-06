@@ -1,8 +1,12 @@
 <template>
-    <div class="GameSidebarObjectives">
+    <div class="GameSidebarVote">
         <div class="title">
-            <h2>Review</h2>
-            <h1>{{ title }}</h1>
+            <h2>{{ stage }}</h2>
+            <h1>{{ category }}</h1>
+        </div>
+        <div v-if="stage === 'vote'" class="vote">
+            <GameSidebarVoteBar :category="category"/>
+            <p>Vote by typing <span class="red">!red</span> or <span class="blue">!blue</span> in the Twitch chat!</p>
         </div>
         <div class="guidelines">
             <h2>Guidelines</h2>
@@ -22,10 +26,15 @@
 
 <script>
 import { mapState } from 'vuex';
+import GameSidebarVoteBar from './GameSidebarVoteBar';
+
 export default {
+    components: { GameSidebarVoteBar },
+
     props: {
-        title: { type: String, required: true },
-        description: { type: String, required: false },
+        category: { type: String, required: true },
+        stage: { type: String, required: true },
+        description: { type: String, required: true },
         lookFor: { type: String, required: false },
         ignore: { type: String, required: false },
     },
@@ -34,7 +43,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.GameSidebarObjectives {
+.GameSidebarVote {
     margin: 0 .5rem;
 
     h2 {
@@ -46,10 +55,25 @@ export default {
     }
 
     .title {
-        margin: 4rem 0;
+        margin: 3rem 0;
 
         h1 {
             text-align: center;
+            text-transform: capitalize;
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .vote {
+        .blue { color: var(--blue); }
+        .red { color: var(--red); }
+
+        p {
+            font-size: 1.125rem;
+        text-align: center;
         }
     }
 

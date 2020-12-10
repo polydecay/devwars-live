@@ -1,6 +1,6 @@
 import * as http from 'http';
 import * as io from 'socket.io';
-import devWarsService, { UserRole } from '../devwars/devwars.service';
+import devWarsService, { User, UserRole } from '../devwars/devwars.service';
 import gameService from '../game/game.service';
 import editorService from '../editor/editor.service';
 import applicationService from '../application/application.service';
@@ -14,9 +14,10 @@ import { Vote } from '../vote/vote.model';
 
 class WSService {
     server!: io.Server;
+    usersBySocket: WeakMap<io.Socket, User> = new WeakMap();
 
     init(server: http.Server) {
-        this.server = io(server, { transports: ['websocket'] });
+        this.server = new io.Server(server, { transports: ['websocket'] });
         this.server.on('connection', this.onConnection.bind(this));
     }
 
@@ -32,6 +33,7 @@ class WSService {
         socket.on('disconnect', () => {
             // TODO: Remove editor connections if any.
             console.log('WS.Disconnect:', socket.id);
+            this.usersBySocket.delete(socket);
         });
 
         socket.on('game.refresh', errorWrapper(async () => {
@@ -87,20 +89,24 @@ class WSService {
 
         socket.on('e.s', errorWrapper(async () => {}));
 
-        const token = devwarsService.getTokenFromHeaders(socket.handshake.headers);
+        const token = devwarsService.getTokenFromHeaders(socket.handshake.headers as http.IncomingHttpHeaders);
         devWarsService.getUserFromToken(token).then((user) => {
-            if (user) socket.client.user = user;
+            if (user) this.usersBySocket.set(socket, user);
             socket.emit('init', user);
         });
     }
 
+    private userFromSocket(socket: io.Socket): User | undefined {
+        return this.usersBySocket.get(socket);
+    }
+
     private isModerator(socket: io.Socket): boolean {
-        const role = socket.client.user?.role;
+        const role = this.userFromSocket(socket)?.role;
         return role === UserRole.MODERATOR || role === UserRole.ADMIN;
     }
 
     private async isEditorOwner(socket: io.Socket, id: number): Promise<boolean> {
-        const user = socket.client.user;
+        const user = this.userFromSocket(socket);
         if (!user) return false;
 
         const editor = await editorService.getById(id).catch(() => null);
@@ -131,9 +137,11 @@ class WSService {
 
     async updateAdminState() {
         const adminState = await this.getAdminState();
-        Object.values(this.server.sockets.sockets)
-            .filter(this.isModerator)
-            .forEach(socket => socket.emit('admin.state', adminState));
+        this.server.sockets.sockets.forEach((socket) => {
+            if (this.isModerator(socket)) {
+                socket.emit('admin.state', adminState);
+            }
+        });
     }
 
     broadcastVote(vote: Vote) {

@@ -1,6 +1,5 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
-const API_URL = process.env.API_URL || 'http://localhost:8000';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -8,10 +7,10 @@ module.exports = {
         compress: true,
         proxy: {
             '/api': {
-                target: API_URL,
+                target: process.env.LIVE_API_URL,
             },
             '/socket.io': {
-                target: API_URL,
+                target: process.env.LIVE_API_URL,
                 ws: true,
             },
         },

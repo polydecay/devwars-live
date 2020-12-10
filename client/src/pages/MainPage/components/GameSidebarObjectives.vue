@@ -47,10 +47,14 @@ export default {
     }
 
     .theme {
-        margin: 4rem 0;
+        margin: 3rem 0;
+
         h1 {
             text-align: center;
-            line-height: 1;
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
         }
     }
 

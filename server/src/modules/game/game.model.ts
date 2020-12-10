@@ -25,6 +25,8 @@ export class Game extends BaseEntity {
 
     @Column()
     stage!: string;
+    @Column({ type: 'simple-json' })
+    stages!: string[];
     @Column({ type: 'integer', nullable: true })
     stageEndAt!: number | null;
 

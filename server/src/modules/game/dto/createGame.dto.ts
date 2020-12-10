@@ -9,6 +9,7 @@ export interface CreateGameDto {
         description: string,
         bonus: boolean,
     }>;
+    htmlTemplate?: string;
 }
 
 export const validateCreateGameDto = createValidator<CreateGameDto>({
@@ -28,6 +29,7 @@ export const validateCreateGameDto = createValidator<CreateGameDto>({
                 additionalProperties: false,
             },
         },
+        htmlTemplate: { type: 'string' },
     },
     required: ['mode', 'title', 'runtime', 'objectives'],
     additionalProperties: false,

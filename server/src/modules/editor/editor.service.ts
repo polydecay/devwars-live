@@ -34,7 +34,7 @@ class EditorService {
         const editor = await this.getById(id);
         editor.playerId = null;
         editor.connection = null;
-        return  editor.save();
+        return editor.save();
     }
 
     async setConnection(id: number, socket: io.Socket): Promise<Editor> {

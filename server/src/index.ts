@@ -10,7 +10,7 @@ import documentService from './modules/document/document.service';
     wsService.init(server);
 
     const database = await createConnection(config.database);
-    await database.synchronize(true);
+    // await database.synchronize(true);
 
     await documentService.syncWithEditors();
 

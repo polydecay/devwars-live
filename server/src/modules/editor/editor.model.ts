@@ -18,7 +18,7 @@ export class Editor extends BaseEntity {
     @Column({ default: '' })
     template!: string;
 
-    @Column({ default: false })
+    @Column({ default: true })
     locked!: boolean;
 
     @Column({ default: false })

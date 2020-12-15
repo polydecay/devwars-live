@@ -7,7 +7,9 @@
             </h2>
         </div>
         <div class="row actions">
-            <button @click="onToggleLocked">{{ editor.locked ? 'Unlock' : 'Lock' }}</button>
+            <button v-if="editor.locked" class="small danger" @click="onToggleLocked"><LockIcon title="Unlock Editor"/></button>
+            <button v-else class="small" @click="onToggleLocked"><LockOpenIcon title="Lock Editor"/></button>
+
             <button @click="onReset" disabled>Reset</button>
         </div>
         <div class="row">
@@ -22,8 +24,11 @@ import * as api from '../../../api';
 import { mapState } from 'vuex';
 import SelectUser from './SelectUser';
 
+import LockIcon from 'vue-material-design-icons/Lock';
+import LockOpenIcon from 'vue-material-design-icons/LockOpenVariant';
+
 export default {
-    components: { SelectUser },
+    components: { SelectUser, LockIcon, LockOpenIcon },
 
     props: { editor: { type: Object, required: true } },
 
@@ -93,6 +98,20 @@ export default {
 
     .actions button {
         width: 100%;
+
+        &.small {
+            max-width: 3.5rem;
+        }
+
+        &.danger {
+            color: var(--error);
+        }
+
+        .material-design-icon {
+            display: inline-block;
+            margin-top: 4px;
+        }
+
         &:not(:first-child) {
             margin-left: .5rem;
         }

@@ -21,6 +21,9 @@ export class Editor extends BaseEntity {
     @Column({ default: false })
     locked!: boolean;
 
+    @Column({ default: false })
+    hidden!: boolean;
+
     @Column({ default: '' })
     fileText!: string;
 

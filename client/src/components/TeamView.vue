@@ -33,7 +33,8 @@ export default {
 
     computed: {
         editors() {
-            return this.$store.getters['game/editorsByTeam'](this.team.id);
+            return this.$store.getters['game/editorsByTeam'](this.team.id)
+                .filter(editor => editor.hidden !== true);
         },
     },
 };
@@ -43,7 +44,6 @@ export default {
 <style lang="scss" scoped>
 .TeamView {
     display: flex;
-    // border-left: 2px solid currentColor;
 
     &.blue { color: var(--blue); }
     &.red { color: var(--red); }

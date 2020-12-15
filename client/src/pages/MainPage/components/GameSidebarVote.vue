@@ -2,9 +2,13 @@
     <div class="GameSidebarVote">
         <div class="title">
             <h2>{{ stage }}</h2>
-            <h1>{{ category }}</h1>
+            <h1>{{ title }}</h1>
         </div>
         <div v-if="stage === 'vote'" class="vote">
+            <div class="timer">
+                <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="30000"/>
+                <span v-else>-- : --</span>
+            </div>
             <GameSidebarVoteBar :category="category"/>
             <p>Vote by typing <span class="red">!red</span> or <span class="blue">!blue</span> in the Twitch chat!</p>
         </div>
@@ -27,17 +31,21 @@
 <script>
 import { mapState } from 'vuex';
 import GameSidebarVoteBar from './GameSidebarVoteBar';
+import CountdownTimer from '../../../components/CountdownTimer';
 
 export default {
-    components: { GameSidebarVoteBar },
+    components: { GameSidebarVoteBar, CountdownTimer },
 
     props: {
         category: { type: String, required: true },
         stage: { type: String, required: true },
+        title: { type: String, required: true },
         description: { type: String, required: true },
         lookFor: { type: String, required: false },
         ignore: { type: String, required: false },
     },
+
+    computed: mapState('game', ['stageEndAt']),
 };
 </script>
 
@@ -59,12 +67,16 @@ export default {
 
         h1 {
             text-align: center;
-            text-transform: capitalize;
         }
 
         h2 {
             margin-bottom: 0.5rem;
         }
+    }
+
+    .timer {
+        text-align: center;
+        font-size: 1.5rem;
     }
 
     .vote {
@@ -73,7 +85,7 @@ export default {
 
         p {
             font-size: 1.125rem;
-        text-align: center;
+            text-align: center;
         }
     }
 

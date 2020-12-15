@@ -1,9 +1,7 @@
 <template>
     <div class="MainPage">
         <FullscreenMessage title="No game is currently active" v-if="!isActive"/>
-        <SetupView v-else-if="stage === 'setup'"/>
-        <GameEndView v-else-if="stage === 'end'"/>
-        <GameView v-else/>
+        <component v-else :is="gameViewComponent"/>
     </div>
 </template>
 
@@ -13,17 +11,26 @@ import { mapState, mapGetters } from 'vuex';
 import FullscreenMessage from '../../components/FullscreenMessage';
 import SetupView from './components/SetupView';
 import GameView from './components/GameView';
+import GameZenView from './components/GameZenView';
 import GameEndView from './components/GameEndView';
 
 export default {
     name: 'MainPage',
 
-    components: { FullscreenMessage, SetupView, GameView, GameEndView },
+    components: { FullscreenMessage, SetupView, GameView, GameZenView, GameEndView },
 
     computed: {
-        ...mapState('game', ['stage']),
+        ...mapState('game', ['stage', 'mode']),
         ...mapGetters('game', ['isActive']),
-    }
+
+        gameViewComponent() {
+            if (this.stage === 'setup') return 'SetupView';
+            if (this.stage === 'end') return 'GameEndView';
+
+            if (this.mode === 'zen') return 'GameZenView';
+            return 'GameView';
+        },
+    },
 };
 </script>
 

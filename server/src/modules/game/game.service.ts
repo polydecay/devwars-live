@@ -77,6 +77,10 @@ class GameService {
             await editorService.unlockAll();
         }
 
+        if (stage.startsWith('vote')) {
+            game.stageEndAt = Date.now() + (3 * 60 * 1000);
+        }
+
         if (prevStage === 'active') {
             await editorService.lockAll();
         }

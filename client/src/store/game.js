@@ -13,7 +13,7 @@ const initialState = {
     title: '',
 
     stage: '',
-    stageEndsAt: null,
+    stageEndAt: null,
 
     runtime: 0,
     objectives: [],

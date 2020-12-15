@@ -25,7 +25,8 @@ export default {
 
     computed: {
         editors() {
-            return this.$store.getters['game/editorsByTeam'](this.team.id);
+            return this.$store.getters['game/editorsByTeam'](this.team.id)
+                .filter(editor => editor.hidden !== true);
         },
     },
 };

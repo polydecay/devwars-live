@@ -19,7 +19,7 @@ import GameSidebar from './GameSidebar';
 export default {
     components: { GameHeader, TeamView, GameSidebar },
 
-    computed: mapGetters('game', ['blueTeam', 'redTeam'])
+    computed: mapGetters('game', ['blueTeam', 'redTeam']),
 };
 </script>
 
@@ -27,7 +27,6 @@ export default {
 <style lang="scss" scoped>
 .GameView {
     display: flex;
-    // flex-flow: column nowrap;
     height: 100vh;
     overflow: hidden;
 
@@ -35,8 +34,6 @@ export default {
         display: flex;
         flex: 1 1;
         flex-flow: column nowrap;
-        // height: 100vh;
-        // overflow: hidden;
     }
 
     .TeamView {

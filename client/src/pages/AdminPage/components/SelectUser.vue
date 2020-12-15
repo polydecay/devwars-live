@@ -62,7 +62,7 @@ export default {
     /deep/ {
         .vs__search,
         .vs__selected {
-            color:var(--fg00);
+            color: var(--fg00);
         }
 
         .vs__dropdown-option {

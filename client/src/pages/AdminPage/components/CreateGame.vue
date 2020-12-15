@@ -3,8 +3,9 @@
         <h1>Create Game</h1>
 
         <select v-model="mode">
-            <option value="classic">Classic</option>
-            <option value="zen" selected>Zen Garden</option>
+            <option value="classic" selected>Classic</option>
+            <option value="duel">Duel</option>
+            <option value="zen">Zen Garden</option>
         </select>
 
         <button @click="onCreate">Create</button>

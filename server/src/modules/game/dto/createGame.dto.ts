@@ -1,7 +1,7 @@
 import { createValidator } from '../../../common/createValidator';
 
 export interface CreateGameDto {
-    mode: 'classic';
+    mode: string;
     title: string;
     runtime: number;
     objectives: Array<{
@@ -14,7 +14,7 @@ export interface CreateGameDto {
 
 export const validateCreateGameDto = createValidator<CreateGameDto>({
     properties: {
-        mode: { enum: ['classic'] },
+        mode: { enum: ['classic', 'duel', 'zen'] },
         title: { type: 'string' },
         runtime: { type: 'integer' },
         objectives: {

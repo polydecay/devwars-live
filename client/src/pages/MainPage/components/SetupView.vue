@@ -61,12 +61,13 @@ export default {
     main {
         display: flex;
         margin: 4rem;
-        flex: 1 1;
+        min-height: 20rem;
+        align-items: center;
         justify-content: center;
 
         .center {
             width: 22rem;
-            margin-top: 8.5rem;
+            margin-top: 2.5rem;
             text-align: center;
             font-size: 4.5rem;
             font-weight: 300;
@@ -92,6 +93,7 @@ export default {
     }
 
     footer {
+        margin-top: auto;
         margin-bottom: 4rem;
         text-align: center;
 

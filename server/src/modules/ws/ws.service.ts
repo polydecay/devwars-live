@@ -48,9 +48,11 @@ class WSService {
 
         socket.on('e.control', errorWrapper(async (data) => {
             const { id } = validateDocumentIdDto(data);
+            const user = this.usersBySocket.get(socket);
+
             // TODO: Prevent users taking control from admins and moderators.
-            if (await this.isEditorOwner(socket, id)) {
-                await editorService.setConnection(id, socket);
+            if (user && await this.isEditorOwner(socket, id)) {
+                await editorService.setConnection(id, socket, user);
             }
         }));
 

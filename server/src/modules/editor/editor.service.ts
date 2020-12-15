@@ -2,6 +2,7 @@ import * as io from 'socket.io';
 import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
 import playerService from '../player/player.service';
+import { User } from '../devwars/devwars.service';
 
 class EditorService {
     async getAll(): Promise<Editor[]> {
@@ -37,11 +38,11 @@ class EditorService {
         return editor.save();
     }
 
-    async setConnection(id: number, socket: io.Socket): Promise<Editor> {
+    async setConnection(id: number, socket: io.Socket, user: User): Promise<Editor> {
         const editor = await this.getById(id);
         editor.connection = {
             socketId: socket.id,
-            user: socket.client.user,
+            user,
         };
 
         return editor.save();

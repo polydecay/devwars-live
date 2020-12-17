@@ -19,6 +19,11 @@ router.patch('/:id', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => 
     ctx.body = await editorService.patch(id, patchDto);
 });
 
+router.post('/:id/reset', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
+    const id = Number(ctx.params.id);
+    ctx.body = await editorService.reset(id);
+});
+
 router.post('/:id/player', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);
     const { playerId } = validateEditorPlayerDto(ctx.request.body);

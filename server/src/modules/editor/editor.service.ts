@@ -3,6 +3,8 @@ import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
 import playerService from '../player/player.service';
 import { User } from '../devwars/devwars.service';
+import documentService from '../document/document.service';
+import wsService from '../ws/ws.service';
 
 class EditorService {
     async getAll(): Promise<Editor[]> {
@@ -21,6 +23,21 @@ class EditorService {
         const editor = await this.getById(id);
         Object.assign(editor, patchDto);
         return editor.save();
+    }
+
+    async reset(id: number): Promise<Editor> {
+        const editor = await this.getById(id);
+
+        // HACK: Connected editors will ignore content updates from the server so disconnect them first.
+        this.deleteConnection(id);
+
+        documentService.getById(id).setText(editor.template);
+        documentService.save(id);
+
+        // TODO: Do this from the documentService instead?
+        wsService.server.emit('o.save', { id });
+
+        return editor;
     }
 
     async setPlayer(id: number, playerId: number): Promise<Editor> {

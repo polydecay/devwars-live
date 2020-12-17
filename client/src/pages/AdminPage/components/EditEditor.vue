@@ -10,7 +10,7 @@
             <button v-if="editor.locked" class="small danger" @click="onToggleLocked"><LockIcon title="Unlock Editor"/></button>
             <button v-else class="small" @click="onToggleLocked"><LockOpenIcon title="Lock Editor"/></button>
 
-            <button @click="onReset" disabled>Reset</button>
+            <button @click="onReset">Reset</button>
         </div>
         <div class="row">
             <SelectUser @input="onSelectUser" :value="player"/>
@@ -48,7 +48,9 @@ export default {
         },
 
         async onReset() {
-            await api.resetEditor(this.editor.id);
+            this.$awn.confirm('Are you sure you want to reset this editor?', () => {
+                api.resetEditor(this.editor.id);
+            }, null, { labels: { confirm: 'Warning' } });
         },
 
         async onSelectUser(sparseUser) {

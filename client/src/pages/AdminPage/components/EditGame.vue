@@ -52,7 +52,7 @@
                 <div class="content">
                     <button @click="onLockEditors">Lock Editors</button>
                     <button @click="onUnlockEditors">Unlock Editors</button>
-                    <button disabled @click="onResetEditors">Reset Editors</button>
+                    <button @click="onResetEditors">Reset Editors</button>
                 </div>
             </div>
         </main>
@@ -90,7 +90,6 @@ export default {
         },
 
         async onNextStage() {
-
             await api.gameNextStage();
         },
 
@@ -113,9 +112,11 @@ export default {
         },
 
         async onResetEditors() {
-            await Promise.all(this.editors.map((editor) => {
-                return api.resetEditor(editor.id);
-            }));
+            this.$awn.confirm('Are you sure you want to reset all editors?', () => {
+                this.editors.map((editor) => {
+                    return api.resetEditor(editor.id);
+                });
+            }, null, { labels: { confirm: 'Warning' } });
         },
     },
 };

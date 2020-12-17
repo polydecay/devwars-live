@@ -4,7 +4,7 @@ export interface CreateGameDto {
     mode: string;
     title: string;
     runtime: number;
-    objectives: Array<{
+    objectives?: Array<{
         id: number,
         description: string,
         bonus: boolean,
@@ -31,6 +31,6 @@ export const validateCreateGameDto = createValidator<CreateGameDto>({
         },
         htmlTemplate: { type: 'string' },
     },
-    required: ['mode', 'title', 'runtime', 'objectives'],
+    required: ['mode', 'title', 'runtime'],
     additionalProperties: false,
 });

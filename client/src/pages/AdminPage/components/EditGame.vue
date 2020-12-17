@@ -145,7 +145,7 @@ export default {
 
     .section {
         display: flex;
-        margin: 1rem;
+        margin: 0.5rem;
         width: 16rem;
         flex-direction: column;
         border: 2px solid var(--bg20);

@@ -3,6 +3,7 @@ import { createValidator } from '../../../common/createValidator';
 export interface PatchGameDto {
     title?: string;
     runtime?: number;
+    stageEndAt?: number;
     objectives?: Array<{
         id: number;
         description: string;
@@ -14,6 +15,7 @@ export const validatePatchGameDto = createValidator<PatchGameDto>({
     properties: {
         title: { type: 'string' },
         runtime: { type: 'integer' },
+        stageEndAt: { type: 'integer' },
         objectives: {
             type: 'array',
             items: {

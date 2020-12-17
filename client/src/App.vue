@@ -14,7 +14,7 @@ html {
     font-size: 16px;
 }
 
-body, h1, h2, h3, h4, h5, h6, ol, ul, p {
+body, h1, h2, h3, h4, h5, h6, ol, ul, dl, p {
     margin: 0;
     padding: 0;
 }
@@ -38,11 +38,11 @@ img {
 <style lang="scss">
 // Global styles.
 :root {
-    --bg00: #090c15;
-    --bg10: #0d111d;
-    --bg20: #141728;
-    --bg30: #262b48;
-    --bg40: #314165;
+    --bg00: #090b19;
+    --bg10: #0d101f;
+    --bg20: #15182a;
+    --bg30: #252945;
+    --bg40: #2d3a5a;
 
     --fg00: #ffffff;
     --fg10: #f1f2f6;
@@ -50,10 +50,11 @@ img {
     --fg30: #c5ccd6;
     --fg40: #a1a8c2;
 
-    // --primary: #944aff;
-    --primary: #8d3eff;
-    --primaryFg: #a361ff;
-    --primaryHigh: #c194ff;
+    $primary: #8d3eff;
+    --primary: #{$primary};
+    --primaryFg: #{mix(#fff, $primary, 25%)};
+    --primaryHigh: #{mix(#fff, $primary, 50%)};
+
     --blue: #00c9ff;
     --red: #ff007d;
     --bonus: #ffb04a;
@@ -63,9 +64,7 @@ img {
     --error: #d52647;
 
     --lineHeight: 1.5;
-    // TODO: Pick a font.
-    // --fontFamily: 'IBM Plex Sans', sans-serif;
-    --fontFamily: 'Roboto', sans-serif;
+    --fontFamily: 'IBM Plex Sans', sans-serif;
 
     --borderStyle: 2px solid var(--bg30);
 }
@@ -121,6 +120,12 @@ button {
         color: var(--fg40);
         background-color: var(--bg20);
     }
+}
+
+input {
+    min-width: 0;
+    border: 1px solid var(--bg30);
+    background-color: var(--bg10);
 }
 
 textarea {

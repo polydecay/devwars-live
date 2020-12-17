@@ -87,7 +87,8 @@ export default {
             left: 0;
             pointer-events: none;
 
-            background: linear-gradient(to top right, rgba(#ff007d, .25), rgba(#00c9ff, .25));
+            opacity: 0.2;
+            background: linear-gradient(to top right, var(--red), var(--blue));
         }
     }
 

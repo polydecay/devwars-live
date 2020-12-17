@@ -80,7 +80,9 @@ export default {
 
     methods: {
         async onDestroy() {
-            await api.destroyGame();
+            this.$awn.confirm('Are you sure you want to destroy the game?', () => {
+                api.destroyGame();
+            }, null, { labels: { confirm: 'Warning' }});
         },
 
         async onPrevStage() {
@@ -88,6 +90,7 @@ export default {
         },
 
         async onNextStage() {
+
             await api.gameNextStage();
         },
 

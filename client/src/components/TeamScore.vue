@@ -65,11 +65,13 @@ export default {
         }
 
         &.blue:before {
-            background: linear-gradient(to top, rgba(#00c9ff, 0.2), transparent);
+            opacity: 0.2;
+            background: linear-gradient(to top, var(--blue), transparent);
         }
 
         &.red:before {
-            background: linear-gradient(to top, rgba(#ff007d, 0.2), transparent);
+            opacity: 0.2;
+            background: linear-gradient(to top, var(--red), transparent);
         }
     }
 

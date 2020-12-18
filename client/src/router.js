@@ -5,6 +5,7 @@ import store from "./store";
 const MainPage = () => import(/* webpackChunkName: "main" */ './pages/MainPage');
 const PlayPage = () => import(/* webpackChunkName: "play" */ './pages/PlayPage');
 const AdminPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage');
+const AdminEditorPage = () => import(/* webpackChunkName: "admin-editor" */ './pages/AdminEditorPage');
 
 Vue.use(Router);
 
@@ -15,6 +16,7 @@ const router = new Router({
         { path: '/', name: 'Home', component: MainPage },
         { path: '/play', name: 'Play', component: PlayPage, meta: { requireAuth: true } },
         { path: '/admin', name: 'Admin', component: AdminPage, meta: { requireAuth: true } },
+        { path: '/admin/editors/:id', name: 'AdminEditor', component: AdminEditorPage, meta: { requireAuth: true }, props: true },
     ],
 });
 

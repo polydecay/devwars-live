@@ -9,6 +9,7 @@
         <div class="row actions">
             <button v-if="editor.locked" class="small danger" @click="onToggleLocked"><LockIcon title="Unlock Editor"/></button>
             <button v-else class="small" @click="onToggleLocked"><LockOpenIcon title="Lock Editor"/></button>
+            <button class="small" @click="onOpenEditor"><OpenInNewIcon title="Open Editor"/></button>
 
             <button @click="onReset">Reset</button>
         </div>
@@ -23,12 +24,12 @@
 import * as api from '../../../api';
 import { mapState } from 'vuex';
 import SelectUser from './SelectUser';
-
 import LockIcon from 'vue-material-design-icons/Lock';
 import LockOpenIcon from 'vue-material-design-icons/LockOpenVariant';
+import OpenInNewIcon from 'vue-material-design-icons/OpenInNew';
 
 export default {
-    components: { SelectUser, LockIcon, LockOpenIcon },
+    components: { SelectUser, LockIcon, LockOpenIcon, OpenInNewIcon },
 
     props: { editor: { type: Object, required: true } },
 
@@ -45,6 +46,10 @@ export default {
     methods: {
         async onToggleLocked() {
             await api.patchEditor(this.editor.id, { locked: !this.editor.locked });
+        },
+
+        onOpenEditor() {
+            window.open(`editors/${this.editor.id}`, '_blank');
         },
 
         async onReset() {
@@ -102,7 +107,8 @@ export default {
         width: 100%;
 
         &.small {
-            max-width: 3.5rem;
+            padding: 0;
+            max-width: 3rem;
         }
 
         &.danger {

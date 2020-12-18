@@ -8,24 +8,10 @@
                 @click="onSelectEditor(editor)"
             >{{ editor.fileName }}</div>
         </nav>
-        <div v-if="curEditor" :key="curEditor.id" class="editor">
-            <LiveEditor :editor="curEditor" editable/>
-            <transition name="modal">
-                <div v-if="!hasControl && !curEditor.locked" class="modal">
-                    <h1>Editor Control Lost</h1>
-                    <p v-if="curEditorUser && curEditorUser.id !== user.id">
-                        <span class="username">{{ curEditorUser.username }}</span> is currently controlling this editor.
-                    </p>
-                    <button @click="takeControl">Take Control</button>
-                </div>
-                <div v-else-if="curEditor.locked" class="modal">
-                    <h1>Editor Is Locked</h1>
-                </div>
-            </transition>
-        </div>
+        <PlayerEditor v-if="curEditor" :key="curEditor.id" :editor="curEditor"/>
         <PlayerObjectives v-if="showObjectives"/>
         <div v-if="curEditor" class="actions">
-            <button :disabled="!hasControl || curEditor.locked" @click="onSave">Save</button>
+            <button @click="onSave">Save</button>
             <button @click="showObjectives = !showObjectives">{{ showObjectives ? 'Hide' : 'Show' }} Objectives</button>
         </div>
     </div>
@@ -34,11 +20,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import LiveEditor from '../../../components/editors/LiveEditor';
+import PlayerEditor from '../../../components/editors/PlayerEditor';
 import PlayerObjectives from './PlayerObjectives';
 
 export default {
-    components: { LiveEditor, PlayerObjectives },
+    components: { PlayerEditor, PlayerObjectives },
 
     data: () => ({
         curEditorId: null,
@@ -53,36 +39,22 @@ export default {
         },
 
         curEditor() {
-            return this.editors.find(e => e.id === this.curEditorId);
-        },
-
-        curEditorUser() {
-            return this.curEditor?.connection?.user;
-        },
-
-        hasControl() {
-            const socketId = this.curEditor?.connection?.socketId;
-            return socketId && socketId === this.socketId;
+            return this.editors.find(editor => editor.id === this.curEditorId);
         },
     },
 
     mounted() {
         this.curEditorId = this.editors[0]?.id ?? null;
-        this.takeControl();
     },
 
     methods: {
         onSelectEditor(editor) {
             this.curEditorId = editor.id;
-            this.takeControl();
+            this.$socket.emit('e.control', { id: this.curEditorId });
         },
 
         onSave() {
             this.$socket.emit('e.save', { id: this.curEditorId });
-        },
-
-        takeControl() {
-            this.$socket.emit('e.control', { id: this.curEditorId });
         },
     },
 };
@@ -117,61 +89,6 @@ export default {
         }
     }
 
-    .editor {
-        position: relative;
-        display: flex;
-        flex: 1 1;
-        flex-flow: column nowrap;
-
-        .LiveEditor {
-            flex: 1 1;
-        }
-
-        .modal {
-            position: absolute;
-            padding: 2rem;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--bg10);
-
-            h1 {
-                margin-bottom: .5rem;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid var(--primary);
-            }
-
-            p {
-                margin-bottom: 1rem;
-                color: var(--fg40);
-
-                .username {
-                    font-weight: 700;
-                    color: var(--fg00);
-                }
-            }
-
-            button {
-                width: 100%;
-                margin-left: auto;
-                height: 2.5rem;
-                background-color: var(--primary);
-            }
-
-            &.modal-enter-active {
-                transition: opacity 175ms cubic-bezier(.65, .05, .36, 1) 150ms;
-            }
-
-            &.modal-leave-active {
-                transition: opacity 175ms cubic-bezier(.65, .05, .36, 1);
-            }
-
-            &.modal-enter, &.modal-leave-to {
-                opacity: 0;
-            }
-        }
-    }
-
     .actions {
         display: flex;
         button {
@@ -181,6 +98,5 @@ export default {
             }
         }
     }
-
 }
 </style>

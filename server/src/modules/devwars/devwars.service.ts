@@ -82,10 +82,6 @@ class DevwarsServiceMock extends DevwarsService {
         { id: 3, username: 'User', role: UserRole.USER, avatarUrl: '/logo.svg' },
     ];
 
-    async getThing(id: number) {
-
-    }
-
     async getUserById(id: number): Promise<User | null> {
         return this.users.find(user => user.id === id) ?? null;
     }

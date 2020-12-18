@@ -42,11 +42,11 @@ function createClassicGame(createDto: CreateGameDto) {
 
     game.editors = [
         createEditor(1, 1, 'html', 'index.html', htmlTemplate),
-        createEditor(2, 1, 'css', 'index.css'),
-        createEditor(3, 1, 'js', 'index.js'),
+        createEditor(2, 1, 'css', 'game.css'),
+        createEditor(3, 1, 'js', 'game.js'),
         createEditor(4, 2, 'html', 'index.html', htmlTemplate),
-        createEditor(5, 2, 'css', 'index.css'),
-        createEditor(6, 2, 'js', 'index.js'),
+        createEditor(5, 2, 'css', 'game.css'),
+        createEditor(6, 2, 'js', 'game.js'),
     ];
 
     return game;
@@ -88,9 +88,9 @@ function createZenGame(createDto: CreateGameDto) {
             '</body>',
             '</html>',
         ].join('\n')),
-        createEditor(2, 1, 'css', 'index.css'),
+        createEditor(2, 1, 'css', 'game.css'),
         createEditor(3, 2, 'html', 'index.html', createDto.htmlTemplate ?? ''),
-        createEditor(4, 2, 'css', 'index.css'),
+        createEditor(4, 2, 'css', 'game.css'),
     ];
 
     // Hide html editors.

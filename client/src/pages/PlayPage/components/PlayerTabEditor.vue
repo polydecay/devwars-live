@@ -11,7 +11,7 @@
         <div v-if="curEditor" :key="curEditor.id" class="editor">
             <LiveEditor :editor="curEditor" editable/>
             <transition name="modal">
-                <div v-if="!hasControl" class="modal">
+                <div v-if="!hasControl && !curEditor.locked" class="modal">
                     <h1>Editor Control Lost</h1>
                     <p v-if="curEditorUser && curEditorUser.id !== user.id">
                         <span class="username">{{ curEditorUser.username }}</span> is currently controlling this editor.
@@ -23,9 +23,10 @@
                 </div>
             </transition>
         </div>
+        <PlayerObjectives v-if="showObjectives"/>
         <div v-if="curEditor" class="actions">
-            <button :disabled="!hasControl || curEditor.locked">Save</button>
-            <button :disabled="!hasControl || curEditor.locked">Format</button>
+            <button :disabled="!hasControl || curEditor.locked" @click="onSave">Save</button>
+            <button @click="showObjectives = !showObjectives">{{ showObjectives ? 'Hide' : 'Show' }} Objectives</button>
         </div>
     </div>
 </template>
@@ -34,12 +35,14 @@
 <script>
 import { mapState } from 'vuex';
 import LiveEditor from '../../../components/editors/LiveEditor';
+import PlayerObjectives from './PlayerObjectives';
 
 export default {
-    components: { LiveEditor },
+    components: { LiveEditor, PlayerObjectives },
 
     data: () => ({
         curEditorId: null,
+        showObjectives: false,
     }),
 
     computed: {
@@ -59,7 +62,7 @@ export default {
 
         hasControl() {
             const socketId = this.curEditor?.connection?.socketId;
-            return socketId ? socketId === this.socketId : false;
+            return socketId && socketId === this.socketId;
         },
     },
 
@@ -72,6 +75,10 @@ export default {
         onSelectEditor(editor) {
             this.curEditorId = editor.id;
             this.takeControl();
+        },
+
+        onSave() {
+            this.$socket.emit('e.save', { id: this.curEditorId });
         },
 
         takeControl() {

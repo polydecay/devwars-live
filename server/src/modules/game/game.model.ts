@@ -13,6 +13,11 @@ export interface Objective {
     bonus: boolean;
 }
 
+export interface Stage {
+    type: string;
+    meta?: any;
+}
+
 @Entity()
 export class Game extends BaseEntity {
     @PrimaryColumn()
@@ -23,15 +28,13 @@ export class Game extends BaseEntity {
     @Column()
     title!: string;
 
-    @Column()
-    stage!: string;
     @Column({ type: 'simple-json' })
-    stages!: string[];
+    stages!: Stage[];
+    @Column({ type: 'integer', default: 0 })
+    stageIndex!: number;
     @Column({ type: 'integer', nullable: true })
     stageEndAt!: number | null;
 
-    @Column()
-    runtime!: number;
     @Column({ type: 'simple-json' })
     objectives!: Objective[];
 

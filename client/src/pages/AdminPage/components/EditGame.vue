@@ -20,7 +20,7 @@
                 <h2>Stage</h2>
                 <div class="content">
                     <dl>
-                        <div class="item"><dt>Current:</dt><dd>{{ stage }}</dd></div>
+                        <div class="item"><dt>Current:</dt><dd>{{ stage.type }}</dd></div>
                         <div class="item">
                             <dt>Timer:</dt>
                             <dd><CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/></dd>
@@ -61,7 +61,7 @@
 
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import * as api from '../../../api';
 import CheckAllIcon from 'vue-material-design-icons/CheckAll';
 import CloseIcon from 'vue-material-design-icons/Close';
@@ -75,7 +75,11 @@ export default {
     }),
 
     computed: {
-        ...mapState('game', ['mode', 'title', 'runtime', 'stage', 'stageEndAt', 'objectives', 'editors']),
+        ...mapState('game', ['mode', 'title', 'stages', 'stageEndAt', 'objectives', 'editors']),
+        ...mapGetters('game', ['stage']),
+        runtime() {
+            return this.stages.find(stage => stage.type === 'running')?.meta?.runtime;
+        }
     },
 
     methods: {

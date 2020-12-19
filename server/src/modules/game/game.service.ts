@@ -1,4 +1,4 @@
-import { Game } from './game.model';
+import { Game, Stage } from './game.model';
 import createGame from './createGame';
 import { CreateGameDto } from './dto/createGame.dto';
 import { PatchGameDto } from './dto/patchGame.dto';
@@ -41,51 +41,34 @@ class GameService {
 
     async nextStage(): Promise<Game> {
         let game = await this.getGame();
-
-        const stage = game.stage;
-        const stages = game.stages;
-        const newStage = stages[stages.indexOf(stage) + 1];
-        if (!newStage) return game;
-
-        game.stage = newStage;
-        game = await this.afterStageChange(game, stage, newStage);
-        await game.save();
-
-        return this.getGame();
+        return this.setStage(game.stageIndex + 1);
     }
 
     async prevStage(): Promise<Game> {
         let game = await this.getGame();
-
-        const stage = game.stage;
-        const stages = game.stages;
-        const newStage = stages[stages.indexOf(stage) - 1];
-        if (!newStage) return game;
-
-        game.stage = newStage;
-        game = await this.afterStageChange(game, stage, newStage);
-        await game.save();
-
-        return this.getGame();
+        return this.setStage(game.stageIndex - 1);
     }
 
-    private async afterStageChange(game: Game, prevStage: string, stage: string): Promise<Game> {
+    private async setStage(index: number): Promise<Game> {
+        const game = await this.getGame();
+
+        const stage = game.stages[index];
+        if (!stage) return game;
+
+        game.stageIndex = index;
         game.stageEndAt = null;
 
-        if (prevStage === 'setup' && stage === 'active') {
-            game.stageEndAt = Date.now() + game.runtime;
+        if (stage.meta?.runtime) {
+            game.stageEndAt = Date.now() + stage.meta.runtime;
+        }
+
+        if (stage.meta?.lockEditors) {
+            await editorService.lockAll();
+        } else if (stage.meta?.unlockEditors) {
             await editorService.unlockAll();
         }
 
-        if (stage.startsWith('vote')) {
-            game.stageEndAt = Date.now() + (3 * 60 * 1000);
-        }
-
-        if (prevStage === 'active') {
-            await editorService.lockAll();
-        }
-
-        return game;
+        return game.save();
     }
 }
 

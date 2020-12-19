@@ -15,11 +15,31 @@ function createClassicGame(createDto: CreateGameDto) {
     game.id = 1;
     game.mode = 'classic';
     game.title = createDto.title;
-    game.runtime = createDto.runtime;
     game.objectives = createDto.objectives ?? [];
 
-    game.stages = ['setup', 'active', 'reviewDesign', 'voteDesign', 'reviewFunction', 'voteFunction', 'end'];
-    game.stage = 'setup';
+    const designMeta = {
+        category: 'design',
+        description: 'Base your vote on the overall look and feel of the website.',
+        lookFor: 'Design, Animations, Responsiveness',
+        ignore: 'Functionality, Features, Bugs',
+    }
+
+    const functionMeta = {
+        category: 'function',
+        description: 'Base your vote on the websites features and functionality.',
+        lookFor: 'Functionality, Features, Bugs',
+        ignore: 'Design, Animations, Responsiveness',
+    }
+
+    game.stages = [
+        { type: 'setup', meta: { lockEditors: true } },
+        { type: 'running', meta: { runtime: createDto.runtime, unlockEditors: true } },
+        { type: 'review', meta: { ...designMeta, lockEditors: true } },
+        { type: 'vote', meta: { ...designMeta, runtime: 2.5 * 60 * 1000 } },
+        { type: 'review', meta: functionMeta },
+        { type: 'vote', meta: { ...functionMeta, runtime: 2.5 * 60 * 1000 } },
+        { type: 'end' },
+    ];
 
     const htmlTemplate = createDto.htmlTemplate ?? [
         '<!DOCTYPE html>',
@@ -63,11 +83,31 @@ function createZenGame(createDto: CreateGameDto) {
     game.id = 1;
     game.mode = 'zen';
     game.title = createDto.title;
-    game.runtime = createDto.runtime;
     game.objectives = createDto.objectives ?? [];
 
-    game.stages = ['setup', 'active', 'reviewZenDesign', 'voteZenDesign', 'reviewZenFunction', 'voteZenFunction', 'end'];
-    game.stage = 'setup';
+    const designMeta = {
+        category: 'design',
+        description: 'Base your vote on the overall look and feel of the website.',
+        lookFor: 'Design, Animations',
+        ignore: 'Responsiveness, Mobile Friendliness',
+    };
+
+    const responsiveMeta = {
+        category: 'responsive',
+        description: 'Base your vote on the websites responsiveness.',
+        lookFor: 'Responsiveness, Mobile Friendliness',
+        ignore: 'Design, Animations',
+    };
+
+    game.stages = [
+        { type: 'setup', meta: { lockEditors: true } },
+        { type: 'running', meta: { runtime: createDto.runtime, unlockEditors: true } },
+        { type: 'review', meta: { ...designMeta, lockEditors: true } },
+        { type: 'vote', meta: { ...designMeta, runtime: 2.5 * 60 * 1000 } },
+        { type: 'review', meta: responsiveMeta },
+        { type: 'vote', meta: { ...responsiveMeta, runtime: 2.5 * 60 * 1000 } },
+        { type: 'end' },
+    ];
 
     game.teams = [
         createTeam(1, 'blue'),

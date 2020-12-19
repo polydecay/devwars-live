@@ -12,7 +12,8 @@ const initialState = {
     mode: '',
     title: '',
 
-    stage: '',
+    stages: [],
+    stageIndex: 0,
     stageEndAt: null,
 
     runtime: 0,
@@ -32,6 +33,10 @@ const state = cloneDeep(initialState);
 const getters = {
     isActive(state) {
         return state.id !== null;
+    },
+
+    stage(state) {
+        return state.stages[state.stageIndex];
     },
 
     blueTeam(state) {

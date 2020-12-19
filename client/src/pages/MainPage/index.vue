@@ -20,12 +20,12 @@ export default {
     components: { FullscreenMessage, SetupView, GameView, GameZenView, GameEndView },
 
     computed: {
-        ...mapState('game', ['stage', 'mode']),
-        ...mapGetters('game', ['isActive']),
+        ...mapState('game', ['mode']),
+        ...mapGetters('game', ['isActive', 'stage']),
 
         gameViewComponent() {
-            if (this.stage === 'setup') return 'SetupView';
-            if (this.stage === 'end') return 'GameEndView';
+            if (this.stage.type === 'setup') return 'SetupView';
+            if (this.stage.type === 'end') return 'GameEndView';
 
             if (this.mode === 'zen') return 'GameZenView';
             return 'GameView';

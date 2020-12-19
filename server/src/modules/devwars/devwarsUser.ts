@@ -15,7 +15,7 @@ export const validateUser = createValidator<User>({
         avatarUrl: { type: 'string' },
     },
     required: ['id', 'role', 'username'],
-    additionalProperties: true,
+    additionalProperties: false,
 });
 
 export enum UserRole {

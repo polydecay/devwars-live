@@ -9,9 +9,7 @@ import documentService from './modules/document/document.service';
     const server = http.createServer(koa.callback());
     wsService.init(server);
 
-    const database = await createConnection(config.database);
-    // await database.synchronize(true);
-
+    await createConnection(config.database);
     await documentService.syncWithEditors();
 
     server.listen(config.app.port, config.app.host, () => {

@@ -8,7 +8,7 @@ import { User, UserRole, validateUser } from './devwarsUser';
 
 class DevwarsService {
     private async fetch(url: string, options?: RequestInit): Promise<any> {
-        const defaultOptions: RequestInit = { headers: { cookie: `token=${config.devwarsApi.token}` } };
+        const defaultOptions: RequestInit = { headers: { cookie: `token="${config.devwarsApi.token}"` } };
 
         const res = await fetch(`${config.devwarsApi.url}/${url}`, _.merge(defaultOptions, options));
         if (!res.ok) {
@@ -34,7 +34,7 @@ class DevwarsService {
 
         try {
             const headers = { cookie: `token=${token}` };
-            return validateUser(await this.fetch(`user`, { headers }));
+            return validateUser(await this.fetch('auth/user', { headers }));
         } catch (error) {
             return null;
         }
@@ -45,12 +45,12 @@ class DevwarsService {
         return typeof token !== 'string' ? '' : token;
     }
 
-    async searchUsersByName(search: string): Promise<User[]> {
+    async searchUsersByName(search: string): Promise<Pick<User, 'id' | 'username'>[]> {
         if (!search) return [];
 
         try {
             const users: any[] = await this.fetch(`search/users?username=${encodeURIComponent(search)}&limit=5`);
-            return users.map(user => validateUser(user));
+            return users.map(user => ({ id: user.id, username: user.username }));
         } catch (error) {
             throw error;
         }

@@ -28,7 +28,7 @@ koa.use(new Router()
 );
 
 koa.on('error', (error) => {
-    console.log('Koa server error:', error);
+    console.error('Koa server error:', error);
 });
 
 export default koa;

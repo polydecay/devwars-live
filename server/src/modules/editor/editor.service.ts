@@ -2,7 +2,7 @@ import * as io from 'socket.io';
 import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
 import playerService from '../player/player.service';
-import { User } from '../devwars/devwars.service';
+import { User } from '../devwars/devwarsUser';
 import documentService from '../document/document.service';
 import wsService from '../ws/ws.service';
 

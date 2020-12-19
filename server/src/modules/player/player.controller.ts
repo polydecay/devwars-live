@@ -1,7 +1,6 @@
 import * as Router from 'koa-router';
 import { RouterContext } from 'koa-router';
-import hasRole from '../../common/middleware/hasRole';
-import { UserRole } from '../devwars/devwars.service';
+import { moderatorGuard, userGuard } from '../../common/middleware/roleGuards';
 import playerService from './player.service';
 import { validatePatchPlayerDto } from './dto/patchPlayer.dto';
 import { validateCreatePlayerDto } from './dto/createPlayer.dto';
@@ -19,7 +18,7 @@ router.get('/:id', async (ctx: RouterContext) => {
     ctx.body = await playerService.getById(id);
 });
 
-router.patch('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
+router.patch('/:id', userGuard(), async (ctx: RouterContext) => {
     const { user } = ctx.state;
     const id = Number(ctx.params.id);
 
@@ -33,7 +32,7 @@ router.patch('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
     ctx.body = await playerService.patch(id, patchDto);
 });
 
-router.delete('/:id', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
+router.delete('/:id', moderatorGuard(), async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);
     await playerService.delete(id);
     ctx.status = 204;

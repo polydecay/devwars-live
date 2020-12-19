@@ -1,6 +1,7 @@
 import * as http from 'http';
 import * as io from 'socket.io';
-import devWarsService, { User, UserRole } from '../devwars/devwars.service';
+import devWarsService from '../devwars/devwars.service';
+import { User, isModerator } from '../devwars/devwarsUser';
 import gameService from '../game/game.service';
 import editorService from '../editor/editor.service';
 import applicationService from '../application/application.service';
@@ -46,7 +47,7 @@ class WSService {
             const user = this.usersBySocket.get(socket);
             if (!user) return;
 
-            if (this.isModerator(user)) {
+            if (isModerator(user)) {
                 socket.emit('admin.state', await this.getAdminState());
             }
         }));
@@ -59,7 +60,7 @@ class WSService {
                 // Prevent users from taking control over admins and moderators.
                 const editor = await editorService.getById(id);
                 const editorUser = editor.connection?.user;
-                if (editorUser && this.isModerator(editorUser) && !this.isModerator(user)) {
+                if (editorUser && isModerator(editorUser) && !isModerator(user)) {
                     return;
                 }
 
@@ -109,15 +110,11 @@ class WSService {
         });
     }
 
-    private isModerator(user: User): boolean {
-        return user.role === UserRole.MODERATOR || user.role === UserRole.ADMIN;
-    }
-
     private async isEditorOwner(user: User, id: number): Promise<boolean> {
         const editor = await editorService.getById(id).catch(() => null);
         if (!editor) return false;
 
-        return editor.playerId === user.id || this.isModerator(user);
+        return editor.playerId === user.id || isModerator(user);
     };
 
     private async isControllingEditor(socket: io.Socket, id: number): Promise<boolean> {
@@ -144,7 +141,7 @@ class WSService {
         const adminState = await this.getAdminState();
         this.server.sockets.sockets.forEach((socket) => {
             const user = this.usersBySocket.get(socket);
-            if (user && this.isModerator(user)) {
+            if (user && isModerator(user)) {
                 socket.emit('admin.state', adminState);
             }
         });

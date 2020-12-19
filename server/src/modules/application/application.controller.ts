@@ -1,17 +1,16 @@
 import * as Router from 'koa-router';
 import { RouterContext } from 'koa-router';
-import hasRole from '../../common/middleware/hasRole';
-import { UserRole } from '../devwars/devwars.service';
+import { moderatorGuard, userGuard } from '../../common/middleware/roleGuards';
 import applicationService from './application.service';
 import { validateCreateApplicationDto } from './dto/createApplication.dto';
 
 const router = new Router();
 
-router.get('/', hasRole(UserRole.MODERATOR), async (ctx: RouterContext) => {
+router.get('/', moderatorGuard(), async (ctx: RouterContext) => {
     ctx.body = await applicationService.getAll();
 });
 
-router.post('/', hasRole(UserRole.USER), async (ctx: RouterContext) => {
+router.post('/', userGuard(), async (ctx: RouterContext) => {
     const { user } = ctx.state;
     const createDto = validateCreateApplicationDto(ctx.request.body);
 
@@ -24,7 +23,7 @@ router.post('/', hasRole(UserRole.USER), async (ctx: RouterContext) => {
     ctx.status = 201;
 });
 
-router.get('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
+router.get('/:id', userGuard(), async (ctx: RouterContext) => {
     const { user } = ctx.state;
     const id = Number(ctx.params.id);
 
@@ -36,7 +35,7 @@ router.get('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
     ctx.body = await applicationService.getById(id);
 });
 
-router.delete('/:id', hasRole(UserRole.USER), async (ctx: RouterContext) => {
+router.delete('/:id', userGuard(), async (ctx: RouterContext) => {
     const { user } = ctx.state;
     const id = Number(ctx.params.id);
 

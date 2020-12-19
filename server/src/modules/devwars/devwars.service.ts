@@ -1,24 +1,10 @@
-import { IncomingHttpHeaders } from 'http';
 import * as _ from 'lodash';
-import * as createError from 'http-errors';
+import { IncomingHttpHeaders } from 'http';
 import fetch, { RequestInit } from 'node-fetch';
+import * as createError from 'http-errors';
 import * as cookie from 'cookie';
 import config from '../../config';
-
-export interface User {
-    id: number;
-    username: string;
-    role: UserRole;
-    avatarUrl: string | null;
-}
-
-export enum UserRole {
-    BANNED = 'BANNED',
-    PENDING = 'PENDING',
-    USER = 'USER',
-    MODERATOR = 'MODERATOR',
-    ADMIN = 'ADMIN',
-}
+import { User, UserRole, validateUser } from './devwarsUser';
 
 class DevwarsService {
     private async fetch(url: string, options?: RequestInit): Promise<any> {
@@ -33,13 +19,9 @@ class DevwarsService {
         return res.json();
     }
 
-    private sanitizeUser(user: any): User {
-        return _.pick(user, ['id', 'username', 'role', 'avatarUrl']);
-    }
-
     async getUserById(id: number): Promise<User | null> {
         try {
-            return this.sanitizeUser(await this.fetch(`users/${id}`));
+            return validateUser(await this.fetch(`users/${id}`));
         } catch (error) {
             if (error.status === 404) return null;
 
@@ -52,7 +34,7 @@ class DevwarsService {
 
         try {
             const headers = { cookie: `token=${token}` };
-            return this.sanitizeUser(await this.fetch(`user`, { headers }));
+            return validateUser(await this.fetch(`user`, { headers }));
         } catch (error) {
             return null;
         }
@@ -68,7 +50,7 @@ class DevwarsService {
 
         try {
             const users: any[] = await this.fetch(`search/users?username=${encodeURIComponent(search)}&limit=5`);
-            return users.map(user => this.sanitizeUser(user));
+            return users.map(user => validateUser(user));
         } catch (error) {
             throw error;
         }

@@ -3,6 +3,12 @@ import { Game } from '../game/game.model';
 import { Team } from '../team/team.model';
 import { Player } from '../player/player.model';
 import wsService from '../ws/ws.service';
+import { User } from '../devwars/devwarsUser';
+
+interface EditorConnection {
+    socketId: string;
+    user: User;
+}
 
 @Entity()
 export class Editor extends BaseEntity {
@@ -28,7 +34,7 @@ export class Editor extends BaseEntity {
     fileText!: string;
 
     @Column({ type: 'simple-json', nullable: true })
-    connection!: any;
+    connection!: EditorConnection | null;
 
 
     @ManyToOne(() => Game, game => game.id, { onDelete: 'CASCADE' })

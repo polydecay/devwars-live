@@ -66,7 +66,7 @@ export default {
         justify-content: center;
 
         .center {
-            width: 22rem;
+            width: 28rem;
             margin-top: 2.5rem;
             text-align: center;
             font-size: 4.5rem;

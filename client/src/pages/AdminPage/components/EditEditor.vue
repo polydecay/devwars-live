@@ -49,7 +49,7 @@ export default {
         },
 
         onOpenEditor() {
-            window.open(`editors/${this.editor.id}`, '_blank');
+            window.open(`/admin/editors/${this.editor.id}`, '_blank');
         },
 
         async onReset() {

@@ -45,7 +45,7 @@ export default {
         flex-flow: row nowrap;
 
         .center {
-            width: 22rem;
+            width: 28rem;
         }
 
         .TeamScore {

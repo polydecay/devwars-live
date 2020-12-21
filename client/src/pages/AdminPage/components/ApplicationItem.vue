@@ -22,7 +22,7 @@ export default {
 <style lang="scss" scoped>
 .ApplicationItem {
     display: flex;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     flex: 1 1;
     flex-flow: row;
     border-bottom: 2px solid var(--bg20);
@@ -42,8 +42,8 @@ export default {
 
     .preference {
         margin: 0 1rem;
+        width: 2.5rem;
         text-align: center;
-        // line-height: 1.3;
         color: var(--fg40);
 
         &.best {

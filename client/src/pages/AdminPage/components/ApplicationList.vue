@@ -1,22 +1,20 @@
 <template>
-    <section class="ApplicationList">
-        <header class="header">
-            <h1>Applications</h1>
-        </header>
-        <main>
+    <AdminPanel class="ApplicationList" title="Applications">
+        <div class="list">
             <ApplicationItem v-for="app in applications" :key="app.id" :application="app"/>
-        </main>
-    </section>
+        </div>
+    </AdminPanel>
 </template>
 
 
 <script>
 import { mapState } from 'vuex';
+import AdminPanel from './AdminPanel';
 import ApplicationItem from './ApplicationItem';
 import * as api from '../../../api';
 
 export default {
-    components: { ApplicationItem },
+    components: { AdminPanel, ApplicationItem },
 
     computed: {
         ...mapState('admin', ['applications']),
@@ -28,25 +26,11 @@ export default {
 <style lang="scss" scoped>
 .ApplicationList {
     margin: 1rem;
-    background-color: var(--bg10);
 
-    header {
+    .list {
         display: flex;
-        height: 3rem;
-        align-items: center;
-        background-color: var(--bg20);
-
-        h1 {
-            margin-left: 1rem;
-            margin-right: auto;
-            text-transform: capitalize;
-            font-size: 1.5rem;
-        }
-    }
-
-    main {
-        display: flex;
-        flex-flow: column;
+        width: 100%;
+        flex-direction: column;
     }
 }
 </style>

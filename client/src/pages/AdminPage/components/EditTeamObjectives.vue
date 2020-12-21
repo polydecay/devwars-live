@@ -1,50 +1,50 @@
 <template>
-    <section class="EditTeamObjectives">
-        <header class="header">
-            <h1>Objectives</h1>
-        </header>
-        <main>
-            <div
-                v-for="objective in objectivesWithState"
-                :key="objective.id"
-                class="objective"
-                :class="{ complete: objective.complete, bonus: objective.bonus }"
-            >
-                <span class="id">{{ objective.id }}.</span>
-                <button @click="onToggle(objective)" :title="objective.description">
-                    {{ objective.complete ? 'Complete' : 'Incomplete' }}
-                </button>
-            </div>
-        </main>
-    </section>
+    <AdminPanelSection class="EditTeamObjectives" title="Objectives">
+        <div
+            v-for="objective in objectivesWithState"
+            :key="objective.id"
+            class="objective"
+            :class="{ complete: objective.complete, bonus: objective.bonus }"
+        >
+            <span class="id">{{ objective.id }}</span>
+            <button v-if="objective.complete" @click="onSetIncomplete(objective)">Complete</button>
+            <button v-else @click="onSetComplete(objective)">Incomplete</button>
+        </div>
+    </AdminPanelSection>
 </template>
 
 
 <script>
 import { mapState } from 'vuex';
 import * as api from '../../../api';
+import AdminPanelSection from './AdminPanelSection';
 
 export default {
+    components: { AdminPanelSection },
+
     props: { team: { type: Object, required: true } },
 
     computed: {
         ...mapState('game', ['objectives']),
 
         objectivesWithState() {
-            return this.objectives.map(objective => ({
-                ...objective,
-                complete: this.team.completeObjectives.some(id => id === objective.id),
-            }));
+            return this.objectives.map((obj) => {
+                return { ...obj, complete: this.team.completeObjectives.some(id => id === obj.id) };
+            });
         },
     },
 
     methods: {
-        async onToggle(objective) {
-            const completeObjectives = objective.complete
-                ? this.team.completeObjectives.filter(id => id !== objective.id)
-                : [...this.team.completeObjectives, objective.id];
+        async onSetComplete(objective) {
+            await api.patchTeam(this.team.id, {
+                completeObjectives: [...this.team.completeObjectives, objective.id],
+            });
+        },
 
-            await api.patchTeam(this.team.id, { completeObjectives });
+        async onSetIncomplete(objective) {
+            await api.patchTeam(this.team.id, {
+                completeObjectives: this.team.completeObjectives.filter(id => id !== objective.id),
+            });
         },
     },
 };
@@ -53,37 +53,12 @@ export default {
 
 <style lang="scss" scoped>
 .EditTeamObjectives {
-    border: 2px solid var(--bg20);
     width: 10rem;
-
-    header {
-        display: flex;
-        height: 2.5rem;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 2px solid var(--bg20);
-
-        h1 {
-            font-size: 1.25rem;
-            color: var(--fg20);
-        }
-    }
-
-    main {
-        display: flex;
-        margin: .5rem;
-        flex-flow: column;
-    }
 
     .objective {
         display: flex;
-        margin: .5rem;
-        margin-left: .25rem;
+        margin: 0.5rem 0;
         align-items: center;
-
-        &:not(:first-child) {
-            margin-top: 0;
-        }
 
         &.bonus .id {
             color: var(--bonus);
@@ -94,9 +69,8 @@ export default {
         }
 
         button {
-            margin-left: .5rem;
-            padding: 0;
-            flex: 1 1;
+            margin-left: 0.5rem;
+            width: 100%;
         }
     }
 }

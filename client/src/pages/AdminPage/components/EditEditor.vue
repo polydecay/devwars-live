@@ -13,8 +13,9 @@
 
             <button @click="onReset">Reset</button>
         </div>
-        <div class="row">
-            <SelectUser @input="onSelectUser" :value="player"/>
+        <div class="row userActions">
+            <h3 v-if="editor.hidden">Disabled</h3>
+            <SelectUser v-else @input="onSelectUser" :value="player"/>
         </div>
     </section>
 </template>
@@ -78,7 +79,8 @@ export default {
 
 <style lang="scss" scoped>
 .EditEditor {
-    padding: 1rem;
+    padding: 0.5rem;
+    width: 14rem;
 
     .row {
         display: flex;
@@ -122,6 +124,19 @@ export default {
 
         &:not(:first-child) {
             margin-left: .5rem;
+        }
+    }
+
+    .userActions {
+        h3 {
+            flex: 1 1;
+            text-align: center;
+            line-height: 2.5rem;
+            color: var(--fg40);
+        }
+
+        .SelectUser {
+            width: 100%;
         }
     }
 }

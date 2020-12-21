@@ -1,74 +1,74 @@
 <template>
-    <div class="EditGame">
-        <header>
-            <h1>Game</h1>
-            <button style="background: var(--error)" @click="onDestroy">Destroy</button>
-        </header>
-        <main>
-            <div class="infoSection section">
-                <h2>Info</h2>
-                <div class="content">
-                    <dl>
-                        <div class="item"><dt>Mode:</dt><dd>{{ mode }}</dd></div>
-                        <div class="item"><dt>Title:</dt><dd>{{ title }}</dd></div>
-                        <div class="item"><dt>Runtime:</dt><dd>{{ runtime / 1000 / 60 }} min</dd></div>
-                    </dl>
-                </div>
-            </div>
-
-            <div class="stageSection section">
-                <h2>Stage</h2>
-                <div class="content">
-                    <dl>
-                        <div class="item"><dt>Current:</dt><dd>{{ stage.type }}</dd></div>
-                        <div class="item">
-                            <dt>Timer:</dt>
-                            <dd><CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/></dd>
-                        </div>
-                    </dl>
-                    <div class="timerActions">
-                        <div class="timeInput">
-                            <input type="number" v-model="timeInput">
-                            <span>min</span>
-                        </div>
-                        <button @click="onSetTimer">Set</button>
+    <AdminPanel class="EditGame" title="Game">
+        <button slot="actions" class="destroyButton" @click="onDestroy">Destroy</button>
+        <main class="test">
+            <!-- Info -->
+            <AdminPanelSection title="Info">
+                <dl>
+                    <div class="row">
+                        <dt>Mode:</dt><dd>{{ mode }}</dd>
                     </div>
-                    <div class="actions">
-                        <button @click="onPrevStage">Previous</button>
-                        <button @click="onNextStage">Next</button>
+                    <div class="row">
+                        <dt>Title:</dt><dd>{{ title }}</dd>
                     </div>
-                </div>
-            </div>
+                    <div class="row">
+                        <dt>Runtime:</dt><dd>{{ runtime / 1000 / 60 }} min</dd>
+                    </div>
+                </dl>
+            </AdminPanelSection>
 
-            <div class="objectivesSection section">
-                <h2>Objectives</h2>
-                <div class="content">
-                    <button disabled>Edit</button>
+            <!-- Stage -->
+            <AdminPanelSection title="Stage">
+                <dl>
+                    <div class="row">
+                        <dt>Current:</dt><dd>{{ stage.type }}</dd>
+                    </div>
+                    <div class="row">
+                        <dt>Timer:</dt>
+                        <dd><CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/></dd>
+                    </div>
+                </dl>
+                <div class="timerActions">
+                    <div class="timeInput">
+                        <input type="number" v-model="timeInput">
+                        <span>min</span>
+                    </div>
+                    <button @click="onSetTimer">Set</button>
                 </div>
-            </div>
+                <div class="buttonRow">
+                    <button @click="onPrevStage">Previous</button>
+                    <button @click="onNextStage">Next</button>
+                </div>
+            </AdminPanelSection>
 
-            <div class="commandsSection section">
-                <h2>Commands</h2>
-                <div class="content">
-                    <button @click="onLockEditors">Lock Editors</button>
-                    <button @click="onUnlockEditors">Unlock Editors</button>
-                    <button @click="onResetEditors">Reset Editors</button>
-                </div>
-            </div>
+            <!-- Objectives -->
+            <AdminPanelSection title="Objectives">
+                <p v-if="!objectives.length" class="warning">WARNING: No objectives!</p>
+                <button disabled>{{ objectives.length ? 'Edit' : 'Add' }}</button>
+            </AdminPanelSection>
+
+            <!-- Commands -->
+            <AdminPanelSection title="Commands">
+                <button @click="onLockEditors">Lock Editors</button>
+                <button @click="onUnlockEditors">Unlock Editors</button>
+                <button @click="onResetEditors">Reset Editors</button>
+            </AdminPanelSection>
         </main>
-    </div>
+    </AdminPanel>
 </template>
 
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import * as api from '../../../api';
+import AdminPanel from './AdminPanel';
+import AdminPanelSection from './AdminPanelSection';
 import CheckAllIcon from 'vue-material-design-icons/CheckAll';
 import CloseIcon from 'vue-material-design-icons/Close';
 import CountdownTimer from '../../../components/CountdownTimer';
 
 export default {
-    components: { CountdownTimer, CheckAllIcon, CloseIcon },
+    components: { AdminPanel, AdminPanelSection, CountdownTimer, CheckAllIcon, CloseIcon },
 
     data: () => ({
         timeInput: 30,
@@ -130,20 +130,21 @@ export default {
 <style lang="scss" scoped>
 .EditGame {
     margin: 1rem;
-    background-color: var(--bg10);
 
-    header {
-        padding: 0 1rem;
-        background-color: var(--bg20);
-        align-items: center;
-        height: 3rem;
+    dl .row {
         display: flex;
+        margin-bottom: 0.25rem;
 
-        h1 {
-            margin-right: auto;
-            font-size: 1.5rem;
+        dd {
+            margin-left: auto;
         }
     }
+
+    input, button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
 
     main {
         display: flex;
@@ -151,83 +152,47 @@ export default {
         align-items: flex-start;
     }
 
-    .section {
+    .destroyButton {
+        background-color: var(--error);
+    }
+
+    .timerActions {
         display: flex;
-        margin: 0.5rem;
-        width: 16rem;
-        flex-direction: column;
-        border: 2px solid var(--bg20);
 
-        h2 {
-            text-align: center;
-            line-height: 2.5rem;
-            font-size: 1.25rem;
-            color: var(--fg20);
-            border-bottom: 2px solid var(--bg20);
+        button {
+            margin-left: 0.5rem;
+            width: auto;
         }
 
-        dl {
-            .item {
-                display: flex;
-                margin-bottom: 0.25rem;
+        .timeInput {
+            display: flex;
+            height: 2rem;
+
+            span {
+                padding: 0 0.5rem;
+                line-height: calc(2rem - 2px);
+                border: 1px solid var(--bg30);
+                border-left: 0;
+                background-color: var(--bg20);
             }
-
-            dd {
-                margin-left: auto;
-                font-weight: 700;
-            }
-        }
-
-        button, input {
-            width: 100%;
-        }
-
-        .content {
-            margin: 0.5rem;
         }
     }
 
-    .stageSection {
-        width: 18rem;
+    .buttonRow {
+        display: flex;
 
-        .timerActions {
-            display: flex;
-            margin-bottom: 0.5rem;
-            flex-flow: row nowrap;
-            align-items: center;
-
-            button {
-                flex: 1 1;
+        button {
+            margin: 0;
+            &:not(:first-child) {
                 margin-left: 0.5rem;
             }
-
-            .timeInput {
-                display: flex;
-
-                span {
-                    padding-right: 0.5rem;
-                    padding-left: 0.5rem;
-                    line-height: 2rem;
-                    border-top-right-radius: 2.5px;
-                    border-bottom-right-radius: 2.5px;
-                    color: var(--fg40);
-                    background: var(--bg30);
-                }
-            }
-        }
-
-        .actions {
-            display: flex;
-            button:first-child {
-                margin-right: 0.5rem;
-            }
         }
     }
 
-    .commandsSection {
-        button:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
+    .warning {
+        margin-bottom: 0.5rem;
+        text-align: center;
+        color: var(--error);
     }
 }
 </style>

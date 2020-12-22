@@ -153,6 +153,7 @@ export default {
     }
 
     .destroyButton {
+        margin: 0;
         background-color: var(--error);
     }
 

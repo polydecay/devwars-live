@@ -37,6 +37,7 @@ export default {
         }
 
         .actions {
+            display: flex;
             margin-right: 0.5rem;
         }
     }

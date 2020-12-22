@@ -142,10 +142,6 @@ a, input, select, textarea, button {
     &:focus-visible {
         box-shadow: inset 0 0 0 1px var(--fg40);
     }
-
-    &:-moz-focusring {
-        box-shadow: inset 0 0 0 1px var(--fg40);
-    }
 }
 </style>
 

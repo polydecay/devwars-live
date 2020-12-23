@@ -41,7 +41,7 @@ class DocumentService {
 
     async save(id: number): Promise<void> {
         const fileText = this.getText(id);
-        editorService.patch(id, { fileText });
+        await editorService.patch(id, { fileText });
     }
 }
 

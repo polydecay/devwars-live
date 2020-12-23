@@ -40,12 +40,12 @@ class GameService {
     }
 
     async nextStage(): Promise<Game> {
-        let game = await this.getGame();
+        const game = await this.getGame();
         return this.setStage(game.stageIndex + 1);
     }
 
     async prevStage(): Promise<Game> {
-        let game = await this.getGame();
+        const game = await this.getGame();
         return this.setStage(game.stageIndex - 1);
     }
 

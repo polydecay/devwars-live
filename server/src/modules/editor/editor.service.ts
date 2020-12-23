@@ -1,8 +1,8 @@
 import * as io from 'socket.io';
 import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
-import playerService from '../player/player.service';
 import { User } from '../devwars/devwarsUser';
+import playerService from '../player/player.service';
 import documentService from '../document/document.service';
 import wsService from '../ws/ws.service';
 
@@ -20,22 +20,25 @@ class EditorService {
     }
 
     async patch(id: number, patchDto: PatchEditorDto): Promise<Editor> {
-        const editor = await this.getById(id);
+        let editor = await this.getById(id);
         Object.assign(editor, patchDto);
-        return editor.save();
+        editor = await editor.save();
+
+        if (patchDto.fileText) {
+            wsService.broadcastEditorSave(editor.id);
+        }
+
+        return editor;
     }
 
     async reset(id: number): Promise<Editor> {
         const editor = await this.getById(id);
 
-        // HACK: Connected editors will ignore content updates from the server so disconnect them first.
+        // Connected editors will ignore content updates from the server so disconnect them first.
         this.deleteConnection(id);
 
         documentService.getById(id).setText(editor.template);
         documentService.save(id);
-
-        // TODO: Do this from the documentService instead?
-        wsService.server.emit('o.save', { id });
 
         return editor;
     }

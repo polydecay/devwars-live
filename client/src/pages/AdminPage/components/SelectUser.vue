@@ -46,10 +46,6 @@ export default {
             vm.options = res.ok ? res.body : [];
             loading(false);
         }, 250),
-
-        onFocus() {
-            console.log('focus');
-        }
     },
 };
 </script>

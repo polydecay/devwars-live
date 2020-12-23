@@ -29,7 +29,7 @@ class WSService {
     private onConnection(socket: io.Socket) {
         const errorWrapper = (handler: (data: any) => Promise<void>) => {
             return (data: any) => {
-                handler(data).catch(error => console.log(error));
+                handler(data).catch(error => console.error(error));
             }
         }
 
@@ -83,8 +83,6 @@ class WSService {
             const { id } = validateDocumentIdDto(data);
             if (await this.isControllingEditor(socket, id)) {
                 await documentService.save(id);
-                socket.emit('e.save', { id });
-                socket.broadcast.emit('e.save', { id });
             }
         }));
 
@@ -149,6 +147,10 @@ class WSService {
                 socket.emit('admin.state', adminState);
             }
         });
+    }
+
+    async broadcastEditorSave(id: number) {
+        this.server.emit('e.save', { id });
     }
 }
 

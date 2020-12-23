@@ -11,7 +11,7 @@ export const validateCreateVoteDto = createValidator<CreateVoteDto>({
     properties: {
         twitchId: { type: 'integer' },
         twitchUsername: { type: 'string' },
-        category: { enum: ['design', 'function'] },
+        category: { type: 'string', pattern: '^[a-z]+$' },
         teamId: { type: 'integer' },
     },
     required: ['twitchId', 'twitchUsername', 'category', 'teamId'],

@@ -11,7 +11,6 @@ import { validateDocumentIdDto } from './dto/documentId.dto';
 import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
 import { PromiseQueue } from '../../common/promiseQueue';
 import devwarsService from '../devwars/devwars.service';
-import { Vote } from '../vote/vote.model';
 
 class WSService {
     server!: io.Server;
@@ -145,10 +144,6 @@ class WSService {
                 socket.emit('admin.state', adminState);
             }
         });
-    }
-
-    broadcastVote(vote: Vote) {
-        this.server.emit('game.vote', vote);
     }
 }
 

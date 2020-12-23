@@ -1,9 +1,8 @@
 import { Vote } from './vote.model';
-import wsService from '../ws/ws.service';
 
 interface TeamVoteResult {
     teamId: number;
-    category: 'design' | 'function';
+    category: string;
 
     total: number;
     votes: number;
@@ -17,7 +16,7 @@ class VoteService {
             twitchId: createDto.twitchId,
         }});
 
-        // Only update if the vote actually changed.
+        // Skip update if the vote didn't change.
         if (vote && vote.teamId === createDto.teamId) {
             return vote;
         }
@@ -28,10 +27,7 @@ class VoteService {
         }
 
         Object.assign(vote, createDto);
-
-        const result = await vote.save();
-        wsService.broadcastVote(result);
-        return result;
+        return await vote.save();
     }
 
     async getAll(): Promise<Vote[]> {

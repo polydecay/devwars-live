@@ -24,8 +24,10 @@ export default {
         ...mapGetters('game', ['isActive', 'stage']),
 
         gameViewComponent() {
-            if (this.stage.type === 'setup') return 'SetupView';
-            if (this.stage.type === 'end') return 'GameEndView';
+            if (!this.isActive || !this.stage) return null;
+
+            if (this.stage?.type === 'setup') return 'SetupView';
+            if (this.stage?.type === 'end') return 'GameEndView';
 
             if (this.mode === 'zen') return 'GameZenView';
             return 'GameView';

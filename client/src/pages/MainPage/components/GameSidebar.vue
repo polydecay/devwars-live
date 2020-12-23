@@ -5,6 +5,7 @@
         <GameSidebarObjectives v-if="stage.type === 'running'"/>
         <GameSidebarReviewVote v-else-if="stage.type === 'review' || stage.type === 'vote'"/>
 
+        <GameSidebarWidget/>
     </div>
 </template>
 
@@ -13,9 +14,10 @@
 import { mapGetters } from 'vuex';
 import GameSidebarObjectives from './GameSidebarObjectives';
 import GameSidebarReviewVote from './GameSidebarReviewVote';
+import GameSidebarWidget from './GameSidebarWidget';
 
 export default {
-    components: { GameSidebarObjectives, GameSidebarReviewVote },
+    components: { GameSidebarObjectives, GameSidebarReviewVote, GameSidebarWidget },
 
     computed: mapGetters('game', ['stage']),
 };
@@ -28,14 +30,18 @@ export default {
     width: 20rem;
     flex-flow: column nowrap;
 
-    // border-right: 2px solid var(--bg20);
     background-color: var(--bg10);
-    background: linear-gradient(to bottom, var(--bg20), var(--bg10));
+    // Starts at the top of the GameSidebarWidget (20rem)
+    background: linear-gradient(to top, var(--bg10) 20rem, var(--bg20));
 
     .logo {
         margin: 1rem;
         width: 16rem;
         align-self: center;
+    }
+
+    .GameSidebarWidget {
+        margin-top: auto;
     }
 }
 </style>

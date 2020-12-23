@@ -21,7 +21,7 @@
             <AdminPanelSection title="Stage">
                 <dl>
                     <div class="row">
-                        <dt>Current:</dt><dd>{{ stage.type }}</dd>
+                        <dt>Current:</dt><dd>{{ stageTitle }}</dd>
                     </div>
                     <div class="row">
                         <dt>Timer:</dt>
@@ -77,6 +77,12 @@ export default {
     computed: {
         ...mapState('game', ['mode', 'title', 'stages', 'stageEndAt', 'objectives', 'editors']),
         ...mapGetters('game', ['stage']),
+
+        stageTitle() {
+            const category = this.stage.meta?.category;
+            return this.stage.type + (category ? ` (${category})` : '');
+        },
+
         runtime() {
             return this.stages.find(stage => stage.type === 'running')?.meta?.runtime;
         }

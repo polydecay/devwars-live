@@ -1,4 +1,5 @@
 import * as http from 'http';
+import * as _ from 'lodash';
 import * as io from 'socket.io';
 import devWarsService from '../devwars/devwars.service';
 import { User, isModerator } from '../devwars/devwarsUser';
@@ -15,6 +16,10 @@ import devwarsService from '../devwars/devwars.service';
 class WSService {
     server!: io.Server;
     usersBySocket: WeakMap<io.Socket, User> = new WeakMap();
+
+    constructor() {
+        this.updateGameState = _.throttle(this.updateGameState, 100) as any;
+    }
 
     init(server: http.Server) {
         this.server = new io.Server(server, { transports: ['websocket'] });

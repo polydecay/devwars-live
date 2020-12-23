@@ -7,24 +7,27 @@ export interface PatchGameDto {
     objectives?: Array<{
         id: number;
         description: string;
-        bonus?: boolean;
-    }>
+        bonus: boolean;
+    }>,
 }
 
 export const validatePatchGameDto = createValidator<PatchGameDto>({
+    type: 'object',
     properties: {
-        title: { type: 'string' },
-        runtime: { type: 'integer' },
-        stageEndAt: { type: 'integer' },
+        title: { type: 'string', nullable: true },
+        runtime: { type: 'integer', nullable: true },
+        stageEndAt: { type: 'integer', nullable: true },
         objectives: {
             type: 'array',
+            nullable: true,
             items: {
+                type: 'object',
                 properties: {
                     id: { type: 'integer' },
                     description: { type: 'string' },
                     bonus: { type: 'boolean' },
                 },
-                required: ['id', 'description'],
+                required: ['id', 'description', 'bonus'],
                 additionalProperties: false,
             },
         },

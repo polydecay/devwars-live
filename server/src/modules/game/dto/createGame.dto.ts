@@ -5,31 +5,34 @@ export interface CreateGameDto {
     title: string;
     runtime: number;
     objectives?: Array<{
-        id: number,
-        description: string,
-        bonus: boolean,
+        id: number;
+        description: string;
+        bonus: boolean;
     }>;
     htmlTemplate?: string;
 }
 
 export const validateCreateGameDto = createValidator<CreateGameDto>({
+    type: 'object',
     properties: {
-        mode: { enum: ['classic', 'duel', 'zen'] },
+        mode: { type: 'string', enum: ['classic', 'duel', 'zen'] },
         title: { type: 'string' },
         runtime: { type: 'integer' },
         objectives: {
             type: 'array',
+            nullable: true,
             items: {
+                type: 'object',
                 properties: {
                     id: { type: 'integer' },
                     description: { type: 'string' },
-                    bonus: { type: 'boolean', default: false },
+                    bonus: { type: 'boolean' },
                 },
-                required: ['id', 'description'],
+                required: ['id', 'description', 'bonus'],
                 additionalProperties: false,
             },
         },
-        htmlTemplate: { type: 'string' },
+        htmlTemplate: { type: 'string', nullable: true },
     },
     required: ['mode', 'title', 'runtime'],
     additionalProperties: false,

@@ -5,6 +5,7 @@ export interface EditorPlayerDto {
 }
 
 export const validateEditorPlayerDto = createValidator<EditorPlayerDto>({
+    type: 'object',
     properties: {
         playerId: { type: 'integer' },
     },

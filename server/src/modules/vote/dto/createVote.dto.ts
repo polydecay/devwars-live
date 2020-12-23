@@ -8,6 +8,7 @@ export interface CreateVoteDto {
 }
 
 export const validateCreateVoteDto = createValidator<CreateVoteDto>({
+    type: 'object',
     properties: {
         twitchId: { type: 'integer' },
         twitchUsername: { type: 'string' },

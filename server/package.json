@@ -9,7 +9,7 @@
         "dev": "ts-node-dev --transpile-only --respawn --no-notify -r dotenv/config ./src"
     },
     "dependencies": {
-        "ajv": "^6.12.6",
+        "ajv": "^7.0.2",
         "cookie": "^0.4.1",
         "dotenv": "^8.2.0",
         "http-errors": "^1.8.0",

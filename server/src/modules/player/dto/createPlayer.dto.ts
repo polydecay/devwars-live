@@ -10,12 +10,13 @@ export interface CreatePlayerDto {
 }
 
 export const validateCreatePlayerDto = createValidator<CreatePlayerDto>({
+    type: 'object',
     properties: {
         id: { type: 'integer' },
         username: { type: 'string' },
         role: { type: 'string' },
-        avatarUrl: { type: 'string' },
-        ready: { type: 'boolean' },
+        avatarUrl: { type: 'string', nullable: true },
+        ready: { type: 'boolean', nullable: true },
         teamId: { type: 'integer' },
     },
     required: ['id', 'username', 'role', 'teamId'],

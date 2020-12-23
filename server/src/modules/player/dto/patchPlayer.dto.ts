@@ -5,8 +5,9 @@ export interface PatchPlayerDto {
 }
 
 export const validatePatchPlayerDto = createValidator<PatchPlayerDto>({
+    type: 'object',
     properties: {
-        ready: { type: 'boolean' },
+        ready: { type: 'boolean', nullable: true },
     },
     required: [],
     additionalProperties: false,

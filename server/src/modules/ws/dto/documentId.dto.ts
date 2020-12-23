@@ -5,6 +5,7 @@ export interface DocumentIdDto {
 }
 
 export const validateDocumentIdDto = createValidator<DocumentIdDto>({
+    type: 'object',
     properties: {
         id: { type: 'integer' },
     },

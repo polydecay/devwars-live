@@ -7,6 +7,7 @@ export interface DocumentTextOpDto {
 }
 
 export const validateDocumentTextOpDto = createValidator<DocumentTextOpDto>({
+    type: 'object',
     properties: {
         id: { type: 'integer' },
         o: {
@@ -15,9 +16,11 @@ export const validateDocumentTextOpDto = createValidator<DocumentTextOpDto>({
                 { type: 'string' },
                 { type: 'integer' },
                 { type: 'integer' },
-                { type: 'integer' },
-                { type: 'integer' },
+                { type: 'integer', nullable: true },
+                { type: 'integer', nullable: true },
             ],
+            minItems: 3,
+            maxItems: 5,
         },
     },
     required: ['id', 'o'],

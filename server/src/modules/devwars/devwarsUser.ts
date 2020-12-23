@@ -7,17 +7,6 @@ export interface User {
     avatarUrl: string | null;
 }
 
-export const validateUser = createValidator<User>({
-    properties: {
-        id: { type: 'integer' },
-        role: { enum: ['BANNED', 'PENDING', 'USER', 'MODERATOR', 'ADMIN'] },
-        username: { type: 'string' },
-        avatarUrl: { type: 'string' },
-    },
-    required: ['id', 'role', 'username'],
-    additionalProperties: false,
-});
-
 export enum UserRole {
     BANNED = 'BANNED',
     PENDING = 'PENDING',
@@ -33,6 +22,27 @@ enum UserRoleRank {
     'MODERATOR' = 2,
     'ADMIN' = 3,
 }
+
+export const validateUser = createValidator<User>({
+    type: 'object',
+    properties: {
+        id: { type: 'integer' },
+        role: {
+            type: 'string',
+            enum: [
+                UserRole.BANNED,
+                UserRole.PENDING,
+                UserRole.USER,
+                UserRole.MODERATOR,
+                UserRole.ADMIN,
+            ],
+        },
+        username: { type: 'string' },
+        avatarUrl: { type: 'string' },
+    },
+    required: ['id', 'role', 'username'],
+    additionalProperties: false,
+});
 
 export function hasRole(user: User, role: UserRole): boolean {
     return UserRoleRank[user.role] >= UserRoleRank[role];

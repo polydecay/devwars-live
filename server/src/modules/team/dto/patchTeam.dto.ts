@@ -6,10 +6,12 @@ export interface PatchTeamDto {
 }
 
 export const validatePatchTeamDto = createValidator<PatchTeamDto>({
+    type: 'object',
     properties: {
-        enabled: { type: 'boolean' },
+        enabled: { type: 'boolean', nullable: true },
         completeObjectives: {
             type: 'array',
+            nullable: true,
             items: { type: 'integer' },
         },
     },

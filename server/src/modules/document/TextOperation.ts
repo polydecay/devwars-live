@@ -55,13 +55,12 @@ export class TextOperation {
     }
 
     static fromMonacoChange(change: any) {
-        const { startLineNumber, startColumn, endLineNumber, endColumn } = change.range;
         return new TextOperation(
             change.text.replace(/\r/g, ''),
-            startLineNumber - 1,
-            startColumn - 1,
-            endLineNumber - 1,
-            endColumn - 1,
+            change.range.startLineNumber - 1,
+            change.range.startColumn - 1,
+            change.range.endLineNumber - 1,
+            change.range.endColumn - 1,
         );
     }
 }

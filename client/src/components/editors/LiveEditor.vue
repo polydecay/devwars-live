@@ -18,6 +18,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import { TextOperation } from '../../../../server/src/modules/document/TextOperation';
+import { CursorSelection } from '../../../../server/src/modules/document/CursorSelection';
 import eventBus from '../../services/eventBus';
 import BaseEditor from './BaseEditor';
 
@@ -117,8 +118,18 @@ export default {
             }
         },
 
-        onEditorSelection() {
-            // TODO: implement.
+        onEditorSelection(selectionChange) {
+            if (!this.hasControl) return;
+
+            const selections = [
+                selectionChange.selection,
+                ...selectionChange.secondarySelections
+            ];
+
+            this.$socket.emit('e.s', {
+                id: this.editor.id,
+                s: selections.map(selection => CursorSelection.fromMonacoSelection(selection).toDto())
+            });
         },
 
         onEditorSave() {
@@ -148,10 +159,13 @@ export default {
             }
         },
 
-        onSocketSelection(selection) {
+        onSocketSelection(cursorSelectionsDto) {
             if (!this.hasControl) {
-                console.log(selection);
-                // TODO: Implement.
+                const cursorSelections = cursorSelectionsDto.map(selection => {
+                    return CursorSelection.fromDto(selection);
+                })
+
+                this.$refs.editor.applySelectionDecorators(cursorSelections, !this.focused);
             }
         },
     },

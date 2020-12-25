@@ -48,6 +48,8 @@ export default {
         // The editor was destroyed before monaco could load.
         if (this._isDestroyed) return;
 
+        this.editorDecorations = [];
+
         this.editor = this.monaco.editor.create(this.$refs.mount, {
             value: this.text,
             language: this.language === 'js' ? 'javascript' : this.language,
@@ -102,9 +104,38 @@ export default {
             this.editor.getModel().applyEdits([edit]);
         },
 
-        applySelectionDecorators(selection) {
-            // console.log(selection);
-            // TODO: Implement.
+        applySelectionDecorators(cursorSelections, revealCursor = false) {
+            if (!this.editor) return;
+
+            const decorations = [];
+
+            for (const cursorSelection of cursorSelections) {
+                const { cursor, selection } = cursorSelection.toMonacoRanges(this.monaco);
+
+                decorations.push({
+                    range: cursor,
+                    options: { className: `CURSOR`},
+                });
+
+                if (cursorSelection.hasSelection()) {
+                    decorations.push({
+                        range: selection,
+                        options: { className: `SELECTION` },
+                    });
+                }
+            }
+
+            this.editorDecorations = this.editor.deltaDecorations(
+                this.editorDecorations,
+                decorations,
+            );
+
+            if (revealCursor) {
+                const { cursorRow, cursorCol } = cursorSelections[0];
+                this.editor.revealPositionInCenterIfOutsideViewport(
+                    new this.monaco.Position(cursorRow, cursorCol)
+                );
+            }
         },
     },
 };
@@ -122,6 +153,29 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
+        }
+
+        .CURSOR,
+        .SELECTION {
+            color: var(--primaryFg);
+        }
+
+        .CURSOR:after {
+            z-index: 1000;
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: white;
+
+            animation: cursorBlink 1s steps(2, start) infinite;
+            @keyframes cursorBlink {
+                to { visibility: hidden; }
+            }
+        }
+
+        .SELECTION {
+            background-color: rgba(161, 168, 194, 0.15);
         }
     }
 }

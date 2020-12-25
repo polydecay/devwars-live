@@ -12,6 +12,7 @@ import { validateDocumentIdDto } from './dto/documentId.dto';
 import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
 import { PromiseQueue } from '../../common/promiseQueue';
 import devwarsService from '../devwars/devwars.service';
+import { validateEditorSelectionsDto } from './dto/editorSelections.dto';
 
 class WSService {
     server!: io.Server;
@@ -103,7 +104,12 @@ class WSService {
             });
         }));
 
-        socket.on('e.s', errorWrapper(async () => {}));
+        socket.on('e.s', errorWrapper(async (data) => {
+            const { id, s } = validateEditorSelectionsDto(data);
+            if (await this.isControllingEditor(socket, id)) {
+                socket.broadcast.emit('e.s', { id, s });
+            }
+        }));
 
         const token = devwarsService.getTokenFromHeaders(socket.handshake.headers as http.IncomingHttpHeaders);
         devWarsService.getUserFromToken(token).then((user) => {

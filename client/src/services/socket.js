@@ -37,8 +37,8 @@ socket.on('e.o', ({ id, o: operationDto }) => {
     eventBus.$emit(`editor.${id}.o`, operationDto);
 });
 
-socket.on('e.s', ({ id, s: selectionDto }) => {
-    eventBus.$emit(`editor.${id}.s`, selectionDto);
+socket.on('e.s', ({ id, s: cursorSelections }) => {
+    eventBus.$emit(`editor.${id}.s`, cursorSelections);
 });
 
 socket.on('e.save', ({ id }) => {

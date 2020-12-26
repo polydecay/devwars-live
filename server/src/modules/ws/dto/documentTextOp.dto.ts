@@ -21,7 +21,6 @@ export const validateDocumentTextOpDto = createValidator<DocumentTextOpDto>({
             ],
             minItems: 3,
             maxItems: 5,
-            additionalProperties: false,
         },
     },
     required: ['id', 'o'],

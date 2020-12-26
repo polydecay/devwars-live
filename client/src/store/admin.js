@@ -1,36 +1,22 @@
-import Vue from 'vue';
-import cloneDeep from 'lodash/cloneDeep';
-
-function merge(source, target) {
-    Object.entries(target).forEach(([key, value]) => {
-        if (source[key] !== value) Vue.set(source, key, value);
-    });
-}
+import isEqual from 'lodash/isEqual';
 
 const initialState = {
     applications: [],
 };
 
-const state = cloneDeep(initialState);
-
-const getters = {};
+const state = { ...initialState };
 
 const mutations = {
     SET_STATE(state, admin) {
-        if (!admin) {
-            return merge(state, initialState);
-        }
-
-        merge(state, admin);
+        admin = admin ?? initialState;
+        for (const [key, value] of Object.entries(admin)) {
+            if (!isEqual(state[key], value)) state[key] = value;
+        };
     },
 };
-
-const actions = {};
 
 export default {
     namespaced: true,
     state,
-    getters,
     mutations,
-    actions,
 };

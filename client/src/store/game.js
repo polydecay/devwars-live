@@ -1,11 +1,4 @@
-import Vue from 'vue';
-import cloneDeep from 'lodash/cloneDeep';
-
-function merge(source, target) {
-    Object.entries(target).forEach(([key, value]) => {
-        if (source[key] !== value) Vue.set(source, key, value);
-    });
-}
+import isEqual from 'lodash/isEqual';
 
 const initialState = {
     id: null,
@@ -28,7 +21,7 @@ const initialState = {
     applications: [],
 };
 
-const state = cloneDeep(initialState);
+const state = { ...initialState };
 
 const getters = {
     isActive(state) {
@@ -120,20 +113,16 @@ const getters = {
 
 const mutations = {
     SET_STATE(state, game) {
-        if (!game) {
-            return merge(state, initialState);
-        }
-
-        merge(state, game);
+        game = game ?? initialState;
+        for (const [key, value] of Object.entries(game)) {
+            if (!isEqual(state[key], value)) state[key] = value;
+        };
     },
 };
-
-const actions = {};
 
 export default {
     namespaced: true,
     state,
     getters,
     mutations,
-    actions,
 };

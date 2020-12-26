@@ -10,10 +10,18 @@
 import PlayerEditor from '../../components/editors/PlayerEditor';
 
 export default {
+    name: 'AdminEditorPage',
+
     components: { PlayerEditor },
 
     props: {
         id: { type: String, required: true },
+    },
+
+    computed: {
+        editor() {
+            return this.$store.getters['game/editorById'](Number(this.id))
+        },
     },
 
     beforeDestroy() {
@@ -24,12 +32,6 @@ export default {
         window.addEventListener('beforeunload', () => {
             this.$socket.emit('e.release', { id: Number(this.id) });
         });
-    },
-
-    computed: {
-        editor() {
-            return this.$store.getters['game/editorById'](Number(this.id))
-        },
     },
 };
 </script>

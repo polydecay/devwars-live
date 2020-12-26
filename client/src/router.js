@@ -5,7 +5,9 @@ import store from "./store";
 const MainPage = () => import(/* webpackChunkName: "main" */ './pages/MainPage');
 const PlayPage = () => import(/* webpackChunkName: "play" */ './pages/PlayPage');
 const AdminPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage');
+// TODO Move these in to modals instead.
 const AdminEditorPage = () => import(/* webpackChunkName: "admin-editor" */ './pages/AdminEditorPage');
+const AdminObjectivesPage = () => import(/* webpackChunkName: "admin-objectives" */ './pages/AdminObjectivesPage');
 
 Vue.use(Router);
 
@@ -17,6 +19,7 @@ const router = new Router({
         { path: '/play', name: 'Play', component: PlayPage, meta: { requireAuth: true } },
         { path: '/admin', name: 'Admin', component: AdminPage, meta: { requireAuth: true } },
         { path: '/admin/editors/:id', name: 'AdminEditor', component: AdminEditorPage, meta: { requireAuth: true }, props: true },
+        { path: '/admin/objectives', name: 'AdminObjectives', component: AdminObjectivesPage, meta: { requireAuth: true } },
     ],
 });
 

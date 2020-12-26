@@ -36,7 +36,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
 .EditTeam {
     margin: 1rem;
     overflow: visible;

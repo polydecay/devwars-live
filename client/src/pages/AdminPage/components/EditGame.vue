@@ -44,7 +44,7 @@
             <!-- Objectives -->
             <AdminPanelSection title="Objectives">
                 <p v-if="!objectives.length" class="warning">WARNING: No objectives!</p>
-                <button disabled>{{ objectives.length ? 'Edit' : 'Add' }}</button>
+                <button @click="onOpenObjectives">{{ objectives.length ? 'Edit' : 'Add' }}</button>
             </AdminPanelSection>
 
             <!-- Commands -->
@@ -107,6 +107,10 @@ export default {
             await api.patchGame({
                 stageEndAt: Date.now() + (this.timeInput * 60 * 1000),
             });
+        },
+
+        onOpenObjectives() {
+            window.open(`/admin/objectives`, '_blank');
         },
 
         async onLockEditors() {

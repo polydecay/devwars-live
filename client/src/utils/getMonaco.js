@@ -1,7 +1,11 @@
 let MONACO = null;
+let PROMISE = null;
 
 export default async function getMonaco() {
-    return MONACO ? MONACO : await loadMonaco();
+    if (MONACO) return MONACO;
+    if (PROMISE) return PROMISE;
+
+    return PROMISE = loadMonaco();
 }
 
 async function loadMonaco() {

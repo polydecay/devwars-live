@@ -4,6 +4,7 @@ import { adminGuard, moderatorGuard } from '../../common/middleware/roleGuards';
 import gameService from './game.service';
 import { validateCreateGameDto } from './dto/createGame.dto';
 import { validatePatchGameDto } from './dto/patchGame.dto';
+import devwarsService from '../devwars/devwars.service';
 
 const router = new Router();
 
@@ -24,6 +25,14 @@ router.patch('/', moderatorGuard(), async (ctx: RouterContext) => {
 
 router.delete('/', adminGuard(), async (ctx: RouterContext) => {
     await gameService.delete();
+    ctx.status = 204;
+});
+
+router.post('/archive', adminGuard(), async (ctx: RouterContext) => {
+    const game = await gameService.getGameWithRelations();
+    const res = await devwarsService.archiveGame(game);
+    console.log('Archive Game:', res);
+
     ctx.status = 204;
 });
 

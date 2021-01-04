@@ -34,7 +34,7 @@ class GameService {
         return game.save();
     }
 
-    async delete(): Promise<any> {
+    async delete(): Promise<Game> {
         const game = await this.getGame();
         return await game.remove();
     }

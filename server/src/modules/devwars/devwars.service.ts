@@ -4,6 +4,7 @@ import fetch, { RequestInit } from 'node-fetch';
 import * as createError from 'http-errors';
 import * as cookie from 'cookie';
 import config from '../../config';
+import { Game } from '../game/game.model';
 import { User, UserRole, validateUser } from './devwarsUser';
 
 class DevwarsService {
@@ -33,9 +34,10 @@ class DevwarsService {
         if (!token) return null;
 
         try {
-            const headers = { cookie: `token=${token}` };
-            return validateUser(await this.fetch('auth/user', { headers }));
+            const user = await this.fetch('auth/user', { headers: { cookie: `token=${token}` } });
+            return validateUser(_.pick(user, ['id', 'role', 'username', 'avatarUrl']));
         } catch (error) {
+            console.error('DevWars API:', error);
             return null;
         }
     }
@@ -51,6 +53,14 @@ class DevwarsService {
         try {
             const users: any[] = await this.fetch(`search/users?username=${encodeURIComponent(search)}&limit=5`);
             return users.map(user => ({ id: user.id, username: user.username }));
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async archiveGame(game: Game): Promise<any> {
+        try {
+            return this.fetch(`games`, { method: 'POST', body: JSON.stringify(game) });
         } catch (error) {
             throw error;
         }
@@ -72,9 +82,13 @@ class DevwarsServiceMock extends DevwarsService {
         return this.users.find(user => user.role === token) ?? null;
     }
 
-    async searchUsersByName(search: string, limit: number = 5): Promise<User[]> {
+    async searchUsersByName(search: string): Promise<User[]> {
         const searchLower = search.toLowerCase();
         return this.users.filter(user => user.username.toLowerCase().search(searchLower) >= 0);
+    }
+
+    async archiveGame(game: Game): Promise<any> {
+        return game;
     }
 }
 

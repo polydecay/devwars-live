@@ -17,6 +17,10 @@ export async function destroyGame() {
     return http.del('game');
 }
 
+export async function archiveGame() {
+    return http.post('game/archive');
+}
+
 export async function gameNextStage() {
     return http.post('game/nextStage');
 }

@@ -1,6 +1,8 @@
 <template>
     <AdminPanel class="EditGame" title="Game">
-        <button slot="actions" class="destroyButton" @click="onDestroy">Destroy</button>
+        <button slot="actions" class="archiveButton" :disabled="stage.type !== 'end'" @click="onArchive">Archive</button>
+        <button slot="actions" class="destroyButton" :disabled="stage.type === 'end'"@click="onDestroy">Destroy</button>
+
         <main class="test">
             <!-- Info -->
             <AdminPanelSection title="Info">
@@ -95,6 +97,13 @@ export default {
             }, null, { labels: { confirm: 'Warning' }});
         },
 
+        async onArchive() {
+            this.$awn.confirm('Are you sure you want to archive the game?', async () => {
+                const res = await api.archiveGame();
+                this.$awn.success('Game archived!');
+            }, null, { labels: { confirm: 'Archive' }});
+        },
+
         async onPrevStage() {
             await api.gamePrevStage();
         },
@@ -162,9 +171,23 @@ export default {
         align-items: flex-start;
     }
 
+    .archiveButton {
+        margin: 0;
+        margin-right: 0.5rem;
+        background-color: var(--success);
+
+        &:disabled {
+            background-color: var(--bg30);
+        }
+    }
+
     .destroyButton {
         margin: 0;
         background-color: var(--error);
+
+        &:disabled {
+            background-color: var(--bg30);
+        }
     }
 
     .timerActions {

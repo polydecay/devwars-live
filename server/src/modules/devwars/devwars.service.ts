@@ -8,10 +8,8 @@ import { Game } from '../game/game.model';
 import { User, UserRole, validateUser } from './devwarsUser';
 
 class DevwarsService {
-    private async fetch(url: string, options?: RequestInit): Promise<any> {
-        const defaultOptions: RequestInit = { headers: { apikey: config.devwarsApi.token } };
-
-        const res = await fetch(`${config.devwarsApi.url}/${url}`, _.merge(defaultOptions, options));
+    private async request(url: string, options?: RequestInit): Promise<any> {
+        const res = await fetch(`${config.devwarsApi.url}/${url}`, options);
         if (!res.ok) {
             const body = await res.json();
             throw createError(res.status, 'DevWars API: ' + body?.error);
@@ -20,9 +18,13 @@ class DevwarsService {
         return res.json();
     }
 
+    private async apiRequest(url: string, options?: RequestInit) {
+        return this.request(url,  _.merge({ headers: { apikey: config.devwarsApi.token }}, options));
+    }
+
     async getUserById(id: number): Promise<User | null> {
         try {
-            return validateUser(await this.fetch(`users/${id}`));
+            return validateUser(await this.apiRequest(`users/${id}`));
         } catch (error) {
             if (error.status === 404) return null;
 
@@ -34,7 +36,7 @@ class DevwarsService {
         if (!token) return null;
 
         try {
-            const user = await this.fetch('auth/user', { headers: { cookie: `token=${token}` } });
+            const user = await this.request('auth/user', { headers: { cookie: `token=${token}` } });
             return validateUser(_.pick(user, ['id', 'role', 'username', 'avatarUrl']));
         } catch (error) {
             console.error('DevWars API:', error);
@@ -51,7 +53,7 @@ class DevwarsService {
         if (!search) return [];
 
         try {
-            const users: any[] = await this.fetch(`search/users?username=${encodeURIComponent(search)}&limit=5`);
+            const users: any[] = await this.apiRequest(`search/users?username=${encodeURIComponent(search)}&limit=5`);
             return users.map(user => ({ id: user.id, username: user.username }));
         } catch (error) {
             throw error;
@@ -60,7 +62,7 @@ class DevwarsService {
 
     async archiveGame(game: Game): Promise<any> {
         try {
-            return await this.fetch(`games/archive?apiKey=${config.devwarsApi.token}`, {
+            return await this.apiRequest(`games/archive?apiKey=${config.devwarsApi.token}`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
                 body: JSON.stringify(game),

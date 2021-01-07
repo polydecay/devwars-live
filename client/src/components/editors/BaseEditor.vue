@@ -155,6 +155,26 @@ export default {
             left: 0;
         }
 
+        .monaco-scrollable-element {
+            > .scrollbar > .slider {
+                background: var(--bg40);
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 0.75;
+                }
+
+                &.active {
+                    opacity: 0.75;
+                    background: var(--fg40);
+                }
+            }
+
+            > .invisible.fade {
+                transition: opacity 150ms linear !important;
+            }
+        }
+
         .CURSOR,
         .SELECTION {
             color: var(--primaryFg);

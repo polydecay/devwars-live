@@ -64,9 +64,28 @@ img {
     --error: #d52647;
 
     --lineHeight: 1.5;
-    --fontFamily: 'IBM Plex Sans', sans-serif;
+    --fontFamily: 'Roboto', sans-serif;
 
     --borderStyle: 2px solid var(--bg30);
+}
+
+html {
+    scrollbar-color: #1b1e30 var(--bg00);
+    scrollbar-color: var(--bg30) var(--bg00);
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-corner {
+        background: var(--bg00);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border: 2px solid var(--bg00);
+        background-color: var(--bg30);
+
+        &:hover {
+            background-color: var(--bg40);
+        }
+    }
 }
 
 body {
@@ -76,6 +95,7 @@ body {
     color: var(--fg00);
     background-color: var(--bg00);
 }
+
 
 h1, h2, h3 {
     line-height: 1.2;

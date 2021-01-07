@@ -100,7 +100,8 @@ export default {
         async onArchive() {
             this.$awn.confirm('Are you sure you want to archive the game?', async () => {
                 const res = await api.archiveGame();
-                this.$awn.success('Game archived!');
+                if (res.ok) this.$awn.success('Game archived!');
+                else this.$awn.alert('Failed to archive game!');
             }, null, { labels: { confirm: 'Archive' }});
         },
 

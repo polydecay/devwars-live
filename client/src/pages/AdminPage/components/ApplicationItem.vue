@@ -32,7 +32,7 @@ export default {
         align-self: center;
 
         .username {
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .message {
@@ -61,7 +61,7 @@ export default {
 
         .language {
             text-transform: uppercase;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .value {

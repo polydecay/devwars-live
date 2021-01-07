@@ -9,7 +9,7 @@ import { User, UserRole, validateUser } from './devwarsUser';
 
 class DevwarsService {
     private async fetch(url: string, options?: RequestInit): Promise<any> {
-        const defaultOptions: RequestInit = { headers: { cookie: `token="${config.devwarsApi.token}"` } };
+        const defaultOptions: RequestInit = { headers: { apikey: config.devwarsApi.token } };
 
         const res = await fetch(`${config.devwarsApi.url}/${url}`, _.merge(defaultOptions, options));
         if (!res.ok) {
@@ -60,8 +60,13 @@ class DevwarsService {
 
     async archiveGame(game: Game): Promise<any> {
         try {
-            return this.fetch(`games`, { method: 'POST', body: JSON.stringify(game) });
+            return await this.fetch(`games/archive?apiKey=${config.devwarsApi.token}`, {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify(game),
+            });
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }

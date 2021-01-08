@@ -19,7 +19,7 @@ class DevwarsService {
     }
 
     private async apiRequest(url: string, options?: RequestInit) {
-        return this.request(url,  _.merge({ headers: { apikey: config.devwarsApi.token }}, options));
+        return this.request(url, _.merge({ headers: { apikey: config.devwarsApi.apiKey }}, options));
     }
 
     async getUserById(id: number): Promise<User | null> {
@@ -62,7 +62,7 @@ class DevwarsService {
 
     async archiveGame(game: Game): Promise<any> {
         try {
-            return await this.apiRequest(`games/archive?apiKey=${config.devwarsApi.token}`, {
+            return await this.apiRequest(`games/archive`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
                 body: JSON.stringify(game),
@@ -99,6 +99,6 @@ class DevwarsServiceMock extends DevwarsService {
     }
 }
 
-export default (config.env === 'development' && !config.devwarsApi.token)
+export default (config.env === 'development' && !config.devwarsApi.apiKey)
     ? new DevwarsServiceMock()
     : new DevwarsService();

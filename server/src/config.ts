@@ -21,7 +21,7 @@ const database: ConnectionOptions = {
 
 const devwarsApi = {
     url: env.DEVWARS_API_URL ?? '',
-    token: env.DEVWARS_API_TOKEN ?? '',
+    apiKey: env.DEVWARS_API_KEY ?? '',
 };
 
 export default {

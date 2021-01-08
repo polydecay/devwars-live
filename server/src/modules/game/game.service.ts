@@ -1,4 +1,4 @@
-import { Game, Stage } from './game.model';
+import { Game } from './game.model';
 import createGame from './createGame';
 import { CreateGameDto } from './dto/createGame.dto';
 import { PatchGameDto } from './dto/patchGame.dto';
@@ -10,14 +10,16 @@ class GameService {
         return await Game.findOneOrFail(1);
     }
 
-    async getGameWithRelations(): Promise<Game>  {
+    async getGameWithRelations(withDocuments = false): Promise<Game>  {
         const game = await Game.findOneOrFail(1, { relations: ['teams', 'editors', 'players'] });
-        game.editors.forEach((editor: any) => {
-            delete editor.template;
-            delete editor.fileText;
-        });
-
         (game as any).teamVoteResults = await voteService.getTeamResults();
+
+        if (!withDocuments) {
+            game.editors.forEach((editor: any) => {
+                delete editor.template;
+                delete editor.fileText;
+            });
+        }
 
         return game;
     }

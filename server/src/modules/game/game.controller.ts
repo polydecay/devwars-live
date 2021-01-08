@@ -29,9 +29,8 @@ router.delete('/', adminGuard(), async (ctx: RouterContext) => {
 });
 
 router.post('/archive', adminGuard(), async (ctx: RouterContext) => {
-    const game = await gameService.getGameWithRelations();
-    const res = await devwarsService.archiveGame(game);
-    console.log('Archive Game:', res);
+    const game = await gameService.getGameWithRelations(true);
+    await devwarsService.archiveGame(game);
 
     ctx.status = 204;
 });

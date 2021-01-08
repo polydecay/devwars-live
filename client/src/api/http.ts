@@ -29,7 +29,7 @@ async function parseResponse(res: Response): Promise<ApiResponse> {
 
     const error = ok
         ? undefined
-        : (body?.message ?? statusText);
+        : (body?.message ?? body?.error?.message ?? statusText ?? 'Unknown Error');
 
     return { ok, status, statusText, body, error };
 }

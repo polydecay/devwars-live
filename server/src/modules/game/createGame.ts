@@ -32,9 +32,11 @@ function createClassicGame(createDto: CreateGameDto) {
     }
 
     game.stages = [
-        { type: 'setup', meta: { lockEditors: true } },
+        { type: 'setup' },
+        { type: 'intermission', meta: { lockEditors: true } },
         { type: 'running', meta: { runtime: createDto.runtime, unlockEditors: true } },
-        { type: 'review', meta: { ...designMeta, lockEditors: true } },
+        { type: 'intermission', meta: { lockEditors: true } },
+        { type: 'review', meta: { ...designMeta } },
         { type: 'vote', meta: { ...designMeta, runtime: 2.5 * 60 * 1000 } },
         { type: 'review', meta: functionMeta },
         { type: 'vote', meta: { ...functionMeta, runtime: 2.5 * 60 * 1000 } },
@@ -100,9 +102,11 @@ function createZenGame(createDto: CreateGameDto) {
     };
 
     game.stages = [
-        { type: 'setup', meta: { lockEditors: true } },
+        { type: 'setup' },
+        { type: 'intermission', meta: { lockEditors: true } },
         { type: 'running', meta: { runtime: createDto.runtime, unlockEditors: true } },
-        { type: 'review', meta: { ...designMeta, lockEditors: true } },
+        { type: 'intermission', meta: { lockEditors: true } },
+        { type: 'review', meta: { ...designMeta } },
         { type: 'vote', meta: { ...designMeta, runtime: 2.5 * 60 * 1000 } },
         { type: 'review', meta: responsiveMeta },
         { type: 'vote', meta: { ...responsiveMeta, runtime: 2.5 * 60 * 1000 } },

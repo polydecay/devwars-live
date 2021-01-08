@@ -2,8 +2,8 @@
     <div class="GameSidebar">
         <img class="logo" src="/logo-text.svg" alt="DevWars Logo">
 
-        <GameSidebarObjectives v-if="stage.type === 'running'"/>
-        <GameSidebarReviewVote v-else-if="stage.type === 'review' || stage.type === 'vote'"/>
+        <GameSidebarObjectives v-if="showObjectives"/>
+        <GameSidebarReviewVote v-if="showReviewVote"/>
 
         <GameSidebarWidget/>
     </div>
@@ -19,7 +19,19 @@ import GameSidebarWidget from './GameSidebarWidget';
 export default {
     components: { GameSidebarObjectives, GameSidebarReviewVote, GameSidebarWidget },
 
-    computed: mapGetters('game', ['stage']),
+    computed: {
+        ...mapGetters('game', ['stage']),
+
+        showObjectives() {
+            const { type } = this.stage;
+            return type === 'running' || type === 'intermission';
+        },
+
+        showReviewVote() {
+            const { type } = this.stage;
+            return type === 'review' || type === 'vote';
+        },
+    },
 };
 </script>
 

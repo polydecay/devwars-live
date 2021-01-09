@@ -38,6 +38,8 @@ export class Game extends BaseEntity {
     @Column({ type: 'simple-json' })
     objectives!: Objective[];
 
+    @Column({ default: Date.now() })
+    createdAt!: number;
 
     @OneToMany(() => Team, team => team.game, { cascade: true })
     teams!: Team[];

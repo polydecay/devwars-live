@@ -9,10 +9,23 @@ import documentService from './modules/document/document.service';
     const server = http.createServer(koa.callback());
     wsService.init(server);
 
-    await createConnection(config.database);
+    const database = await createConnection(config.database);
     await documentService.syncWithEditors();
 
     server.listen(config.app.port, config.app.host, () => {
         console.log(`\n  Server listening on http://localhost:${config.app.port}\n`);
     });
+
+    function handleShutdown() {
+        server.close(async () => {
+            await database.close();
+
+            console.log('  Server shutdown gracefully');
+            process.exit(0);
+        });
+    }
+
+    process.on('SIGINT', handleShutdown);
+    process.on('SIGTERM', handleShutdown);
+    process.on('SIGABRT', handleShutdown);
 })();

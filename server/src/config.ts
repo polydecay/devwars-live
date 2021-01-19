@@ -11,7 +11,7 @@ const app = {
 };
 
 const database: ConnectionOptions = {
-    type: 'sqlite',
+    type: 'better-sqlite3',
     database: env.DATABASE_PATH ?? ':memory:',
     synchronize: true,
     entities: [

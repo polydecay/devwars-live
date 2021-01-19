@@ -57,7 +57,7 @@ export default {
 
             // TODO: Make the background configurable in LiveEditor instead?
             background-color: var(--bg10);
-            /deep/ .BaseEditor {
+            ::v-deep .BaseEditor {
                 .monaco-editor-background, .margin {
                     background-color: var(--bg10) !important;
                 }

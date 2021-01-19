@@ -148,7 +148,7 @@ export default {
     overflow: hidden;
     background-color: var(--bg00);
 
-    /deep/ {
+    ::v-deep {
         .monaco-editor {
             position: absolute;
             top: 0;

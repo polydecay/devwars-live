@@ -170,6 +170,11 @@ a, input, select, textarea, button {
 // vue-awesome-notifications override styles.
 $awn-container-padding: 2rem;
 
+// Overwrite because AWN uses invalid values (0 without unit) for saturation by default.
+$awn-primary-color: hsl(0, 0%, 50%);
+$awn-primary-background: hsl(0, 0%, 92%);
+$awn-primary-border-color: hsl(0, 0%, 82%);
+
 $awn-success-color: #23b89a;
 $awn-success-background: #0d101f;
 $awn-success-border-color: #23b89a;

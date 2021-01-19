@@ -29,7 +29,7 @@ export default {
 .EditTeamEditors {
     width: auto;
 
-    /deep/ {
+    ::v-deep {
         > main {
             margin: 0;
         }

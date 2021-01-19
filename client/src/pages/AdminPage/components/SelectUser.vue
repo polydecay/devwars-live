@@ -55,7 +55,7 @@ export default {
 .SelectUser {
     min-width: 12rem;
 
-    /deep/ {
+    ::v-deep {
         .vs__search,
         .vs__selected {
             color: var(--fg00);

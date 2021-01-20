@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import { ConnectionOptions } from 'typeorm';
 
@@ -13,7 +14,9 @@ const app = {
 const database: ConnectionOptions = {
     type: 'better-sqlite3',
     database: env.DATABASE_PATH ?? ':memory:',
-    synchronize: true,
+    // HACK: TypeORM is destroying tables even when the models haven't changed.
+    // As a workaround only synchronize when the database is missing.
+    synchronize: env.DATABASE_PATH ? !fs.existsSync(env.DATABASE_PATH) : false,
     entities: [
         path.resolve(__dirname, 'modules/**/*.model.{ts,js}'),
     ],

@@ -155,6 +155,10 @@ class WSService {
         });
     }
 
+    async broadcastEditorReset(id: number, text: string) {
+        this.server.emit('e.text', { id, text });
+    }
+
     async broadcastEditorSave(id: number) {
         this.server.emit('e.save', { id });
     }

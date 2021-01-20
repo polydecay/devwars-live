@@ -34,11 +34,9 @@ class EditorService {
     async reset(id: number): Promise<Editor> {
         const editor = await this.getById(id);
 
-        // Connected editors will ignore content updates from the server so disconnect them first.
-        this.deleteConnection(id);
-
         documentService.getById(id).setText(editor.template);
         documentService.save(id);
+        wsService.broadcastEditorReset(editor.id, documentService.getText(id));
 
         return editor;
     }

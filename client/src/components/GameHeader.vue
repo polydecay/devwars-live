@@ -1,10 +1,14 @@
 <template>
     <div class="GameHeader">
-        <div class="left"></div>
+        <div class="left">
+            <slot name="left"/>
+        </div>
         <div class="center">
             <GameHeaderStatus/>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            <slot name="right"/>
+        </div>
     </div>
 </template>
 
@@ -19,18 +23,16 @@ export default {
 
 <style lang="scss" scoped>
 .GameHeader {
+    position: relative;
     display: flex;
     height: 3.5rem;
     min-height: 3.5rem;
     align-items: center;
     background-color: var(--bg30);
 
-    .left {
-        margin-right: auto;
-    }
-
+    .left,
     .right {
-        margin-left: auto;
+        flex: 1 1;
     }
 }
 </style>

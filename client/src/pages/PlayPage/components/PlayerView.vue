@@ -1,6 +1,8 @@
 <template>
     <div class="PlayerView">
-        <GameHeader/>
+        <GameHeader>
+            <h2 slot="left" :class="['team', team.name]">{{ team.name }} TEAM</h2>
+        </GameHeader>
         <div class="main">
             <PlayerTabEditor/>
             <aside>
@@ -48,6 +50,14 @@ export default {
     display: flex;
     height: 100vh;
     flex-flow: column nowrap;
+
+    .team {
+        margin: 0 1rem;
+        text-transform: uppercase;
+
+        &.red { color: var(--red); }
+        &.blue { color: var(--blue); }
+    }
 
     .main {
         display: flex;

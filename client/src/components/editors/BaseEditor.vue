@@ -187,11 +187,6 @@ export default {
             width: 2px;
             height: 100%;
             background-color: white;
-
-            animation: cursorBlink 1s steps(2, start) infinite;
-            @keyframes cursorBlink {
-                to { visibility: hidden; }
-            }
         }
 
         .SELECTION {

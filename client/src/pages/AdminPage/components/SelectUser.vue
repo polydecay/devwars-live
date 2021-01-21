@@ -61,6 +61,11 @@ export default {
             color: var(--fg00);
         }
 
+        .vs__selected-options {
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+
         .vs__dropdown-option {
             color: var(--fg00);
 

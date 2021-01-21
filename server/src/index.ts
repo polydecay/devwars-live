@@ -1,5 +1,6 @@
 import * as http from 'http';
 import { createConnection } from 'typeorm';
+import { createHttpTerminator } from 'http-terminator';
 import config from './config';
 import koa from './koa';
 import wsService from './modules/ws/ws.service';
@@ -9,6 +10,8 @@ import documentService from './modules/document/document.service';
     const server = http.createServer(koa.callback());
     wsService.init(server);
 
+    const httpTerminator = createHttpTerminator({ server, gracefulTerminationTimeout: 2000 });
+
     const database = await createConnection(config.database);
     await documentService.syncWithEditors();
 
@@ -16,13 +19,17 @@ import documentService from './modules/document/document.service';
         console.log(`\n  Server listening on http://localhost:${config.app.port}\n`);
     });
 
-    function handleShutdown() {
-        server.close(async () => {
-            await database.close();
+    async function handleShutdown() {
+        // Give the server 2.5 seconds to gracefully shutdown.
+        await Promise.race([
+            httpTerminator.terminate(),
+            new Promise(r => setTimeout(r, 2500)),
+        ]);
 
-            console.log('  Server shutdown gracefully');
-            process.exit(0);
-        });
+        await database.close();
+
+        console.log('  Server shutdown gracefully');
+        process.exit(0);
     }
 
     process.on('SIGINT', handleShutdown);

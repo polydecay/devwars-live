@@ -104,11 +104,21 @@ const getters = {
             .sort((a, b) => a.id - b.id);
     },
 
+    voteCategories(state) {
+        return state.stages.reduce((categories, stage) => {
+            if (stage.type === 'vote') {
+                categories.push(stage.meta.category);
+            }
+
+            return categories;
+        }, []);
+    },
+
     voteResultByTeamAndCategory(state) {
         return (id, category) => state.teamVoteResults.find((result) => {
             return result.teamId === id && result.category === category;
         });
-    }
+    },
 };
 
 const mutations = {

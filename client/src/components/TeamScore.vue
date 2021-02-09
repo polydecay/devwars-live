@@ -3,14 +3,19 @@
         <TeamScoreHeader :team="team" :winner="winner" :tie="tie" :flip="flip"/>
         <TeamSlotList :team="team" :flip="flip"/>
         <TeamScoreObjectives :team="team"/>
-        <TeamScoreVotes :team="team" category="design" :flip="flip"/>
-        <TeamScoreVotes :team="team" category="function" :flip="flip"/>
+        <TeamScoreVotes
+            v-for="category in voteCategories"
+            :key="category"
+            :category="category"
+            :team="team"
+            :flip="flip"
+        />
     </div>
 </template>
 
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import TeamSlotList from '../pages/MainPage/components/TeamSlotList';
 import TeamScoreHeader from './TeamScoreHeader';
 import TeamScoreObjectives from './TeamScoreObjectives';
@@ -30,7 +35,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters('game', ['winningTeams']),
+        ...mapGetters('game', ['winningTeams', 'voteCategories']),
 
         winner() {
             return this.winningTeams.some(t => t.id === this.team.id);

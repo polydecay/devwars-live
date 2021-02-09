@@ -14,7 +14,9 @@
 
 <script>
 export default {
-    props: { application: { type: Object, required: true } },
+    props: {
+        application: { type: Object, required: true },
+    },
 };
 </script>
 

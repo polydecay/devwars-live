@@ -2,10 +2,10 @@
     <div class="TeamView" :class="[team.name]">
         <div class="sidebar">
             <button :class="{ active: curView === 'code'}" @click="curView = 'code'">
-                <CodeIcon title="View editors"/>
+                <VIcon icon="CodeTags" title="View editors"/>
             </button>
             <button :class="{ active: curView === 'site'}" @click="curView = 'site'">
-                <SiteIcon title="View website"/>
+                <VIcon icon="Monitor" title="View website"/>
             </button>
         </div>
         <EditorGroupView v-if="curView === 'code'" :editors="editors"/>
@@ -17,11 +17,9 @@
 <script>
 import EditorGroupView from './EditorGroupView';
 import TeamSiteViewer from './TeamSiteViewer';
-import CodeIcon from 'vue-material-design-icons/CodeTags';
-import SiteIcon from 'vue-material-design-icons/Application';
 
 export default {
-    components: { EditorGroupView, TeamSiteViewer, CodeIcon, SiteIcon },
+    components: { EditorGroupView, TeamSiteViewer },
 
     props: {
         team: { type: Object, required: true },

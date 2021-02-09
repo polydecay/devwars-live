@@ -65,12 +65,10 @@ import { mapState, mapGetters } from 'vuex';
 import * as api from '../../../api';
 import AdminPanel from './AdminPanel';
 import AdminPanelSection from './AdminPanelSection';
-import CheckAllIcon from 'vue-material-design-icons/CheckAll';
-import CloseIcon from 'vue-material-design-icons/Close';
 import CountdownTimer from '../../../components/CountdownTimer';
 
 export default {
-    components: { AdminPanel, AdminPanelSection, CountdownTimer, CheckAllIcon, CloseIcon },
+    components: { AdminPanel, AdminPanelSection, CountdownTimer },
 
     data: () => ({
         timeInput: 30,

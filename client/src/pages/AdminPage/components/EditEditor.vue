@@ -7,10 +7,15 @@
             </h2>
         </div>
         <div class="row actions">
-            <button v-if="editor.locked" class="small danger" @click="onToggleLocked"><LockIcon title="Unlock Editor"/></button>
-            <button v-else class="small" @click="onToggleLocked"><LockOpenIcon title="Lock Editor"/></button>
-            <button class="small" @click="onOpenEditor"><OpenInNewIcon title="Open Editor"/></button>
-
+            <button v-if="editor.locked" class="small danger" @click="onToggleLocked">
+                <VIcon icon="Lock" title="Unlock Editor"/>
+            </button>
+            <button v-else class="small" @click="onToggleLocked">
+                <VIcon icon="LockOpen" title="Lock Editor"/>
+            </button>
+            <button class="small" @click="onOpenEditor">
+                <VIcon icon="OpenInNew" title="Open Editor"/>
+            </button>
             <button @click="onReset">Reset</button>
         </div>
         <div class="row userActions">
@@ -23,14 +28,10 @@
 
 <script>
 import * as api from '../../../api';
-import { mapState } from 'vuex';
 import SelectUser from './SelectUser';
-import LockIcon from 'vue-material-design-icons/Lock';
-import LockOpenIcon from 'vue-material-design-icons/LockOpenVariant';
-import OpenInNewIcon from 'vue-material-design-icons/OpenInNew';
 
 export default {
-    components: { SelectUser, LockIcon, LockOpenIcon, OpenInNewIcon },
+    components: { SelectUser },
 
     props: { editor: { type: Object, required: true } },
 

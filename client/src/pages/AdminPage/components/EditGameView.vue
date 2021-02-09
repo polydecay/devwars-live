@@ -12,7 +12,7 @@
 
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import EditGame from './EditGame';
 import EditTeam from './EditTeam';
 import ApplicationList from './ApplicationList';

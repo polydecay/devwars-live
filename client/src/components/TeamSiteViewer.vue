@@ -2,8 +2,8 @@
     <div class="TeamSiteViewer">
         <iframe ref="iframe" :src="url" frameborder="0" @load="onLoad"></iframe>
         <div class="actions">
-            <button @click="onOpen"><OpenIcon title="Open in new tab"/></button>
-            <button @click="onRefresh"><RefreshIcon title="Refresh site"/></button>
+            <button @click="onOpen"><VIcon icon="OpenInNew" title="Open in new tab"/></button>
+            <button @click="onRefresh"><VIcon icon="Refresh" title="Refresh site"/></button>
         </div>
     </div>
 </template>
@@ -11,12 +11,8 @@
 
 <script>
 import eventBus from '../services/eventBus';
-import OpenIcon from 'vue-material-design-icons/OpenInNew';
-import RefreshIcon from 'vue-material-design-icons/Refresh';
 
 export default {
-    components: { OpenIcon, RefreshIcon },
-
     props: { teamId: { type: Number, required: true } },
 
     computed: {

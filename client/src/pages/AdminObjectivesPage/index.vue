@@ -7,11 +7,11 @@
                     <span class="id">{{ obj.id }}.</span>
                     <input v-model="obj.description" type="text">
                     <button @click="onToggleBonus(obj)">
-                        <CheckAllIcon v-if="obj.bonus" class="bonus"/>
-                        <CheckIcon v-else/>
+                        <VIcon v-if="obj.bonus" icon="CheckAll" class="bonus"/>
+                        <VIcon v-else icon="Check"/>
                     </button>
                     <button class="delete" @click="onDelete(obj)">
-                        <CloseIcon/>
+                        <VIcon icon="Close"/>
                     </button>
                 </div>
                 <button class="add" @click="onAdd">Add Objective</button>
@@ -29,14 +29,9 @@
 import { mapState } from 'vuex';
 import cloneDeep from 'lodash/cloneDeep';
 import * as api from '../../api';
-import CheckIcon from 'vue-material-design-icons/Check';
-import CheckAllIcon from 'vue-material-design-icons/CheckAll';
-import CloseIcon from 'vue-material-design-icons/Close';
 
 export default {
     name: 'AdminObjectivesPage',
-
-    components: { CheckIcon, CheckAllIcon, CloseIcon },
 
     data: () => ({
         formObjectives: [],

@@ -5,6 +5,9 @@ import store from './store';
 import router from './router';
 import socket from './services/socket';
 
+import VIcon from './components/common/VIcon';
+Vue.component('VIcon', VIcon);
+
 Vue.config.productionTip = false;
 
 Vue.use(VueAwn, {

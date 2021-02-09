@@ -11,7 +11,6 @@
 import { mapState } from 'vuex';
 import AdminPanel from './AdminPanel';
 import ApplicationItem from './ApplicationItem';
-import * as api from '../../../api';
 
 export default {
     components: { AdminPanel, ApplicationItem },

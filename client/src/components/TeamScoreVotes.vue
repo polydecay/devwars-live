@@ -11,7 +11,6 @@
 
 
 <script>
-import { mapState } from 'vuex';
 import ProgressBar from './ProgressBar';
 
 export default {

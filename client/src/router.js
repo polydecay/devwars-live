@@ -6,8 +6,8 @@ const MainPage = () => import(/* webpackChunkName: "main" */ './pages/MainPage')
 const PlayPage = () => import(/* webpackChunkName: "play" */ './pages/PlayPage');
 const AdminPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage');
 // TODO Move these in to modals instead.
-const AdminEditorPage = () => import(/* webpackChunkName: "admin-editor" */ './pages/AdminEditorPage');
-const AdminObjectivesPage = () => import(/* webpackChunkName: "admin-objectives" */ './pages/AdminObjectivesPage');
+const AdminEditorPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminEditorPage');
+const AdminObjectivesPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminObjectivesPage');
 
 Vue.use(Router);
 

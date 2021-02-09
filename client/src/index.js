@@ -1,25 +1,16 @@
 import Vue from 'vue';
-import VueAwn from 'vue-awesome-notifications';
 import App from './App';
 import store from './store';
 import router from './router';
+import awn from './services/awn';
 import socket from './services/socket';
-
 import VIcon from './components/common/VIcon';
-Vue.component('VIcon', VIcon);
 
 Vue.config.productionTip = false;
 
-Vue.use(VueAwn, {
-    animationDuration: 150,
-    durations: { global: 5000 },
-    icons: { enabled: false },
-    labels: {
-        confirm: 'Confirmation',
-        confirmOk: 'Confirm',
-    },
-});
+Vue.component('VIcon', VIcon);
 
+Vue.use(awn);
 Vue.use(socket);
 
 window.app = new Vue({

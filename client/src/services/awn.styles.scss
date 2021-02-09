@@ -1,0 +1,65 @@
+// vue-awesome-notifications override styles.
+$awn-container-padding: 2rem;
+
+// Overwrite because AWN uses invalid values (0 without unit) for saturation by default.
+$awn-primary-color: hsl(0, 0%, 50%);
+$awn-primary-background: hsl(0, 0%, 92%);
+$awn-primary-border-color: hsl(0, 0%, 82%);
+
+$awn-success-color: #23b89a;
+$awn-success-background: #0d101f;
+$awn-success-border-color: #23b89a;
+
+$awn-info-color: #00c9ff;
+$awn-info-background: #0d101f;
+$awn-info-border-color: #00c9ff;
+
+$awn-alert-color: #d52647;
+$awn-alert-background: #0d101f;
+$awn-alert-border-color: #d52647;
+
+$awn-warning-color: #f3df58;
+$awn-warning-background: #0d101f;
+$awn-warning-border-color: #f3df58;
+
+$awn-toast-border-radius: 0;
+$awn-toast-title-font-size: 1.25rem !default;
+
+$awn-popup-wrapper-bg: rgba(#090b19, 0.75);
+$awn-popup-bg: var(--bg20);
+$awn-popup-font-size: 1rem !default;
+$awn-popup-padding: 2rem;
+$awn-popup-border-radius: 0;
+$awn-popup-btn-border-radius: 2.5px;
+
+@import 'awesome-notifications/src/styles/style.scss';
+
+.awn-toast-wrapper {
+    padding: 1rem;
+
+    .awn-toast-label {
+        line-height: 1.2;
+        margin-bottom: 0.25rem;
+    }
+
+    .awn-toast-content {
+        color: var(--fg00) !important;
+        font-size: 1rem;
+    }
+}
+
+#awn-popup-wrapper {
+    .awn-popup-title {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.75rem;
+        font-weight: 400;
+    }
+
+    .awn-buttons .awn-btn-cancel {
+        background-color: var(--bg30);
+        &:hover {
+            background-color: var(--bg30);
+        }
+    }
+}

@@ -15,11 +15,36 @@ const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
-        { path: '/', name: 'Home', component: MainPage },
-        { path: '/play', name: 'Play', component: PlayPage, meta: { requireAuth: true } },
-        { path: '/admin', name: 'Admin', component: AdminPage, meta: { requireAuth: true } },
-        { path: '/admin/editors/:id', name: 'AdminEditor', component: AdminEditorPage, meta: { requireAuth: true }, props: true },
-        { path: '/admin/objectives', name: 'AdminObjectives', component: AdminObjectivesPage, meta: { requireAuth: true } },
+        {
+            path: '/',
+            name: 'Home',
+            component: MainPage,
+        },
+        {
+            path: '/play',
+            name: 'Play',
+            component: PlayPage,
+            meta: { requireAuth: true, title: 'DevWars Live - Play' },
+        },
+        {
+            path: '/admin',
+            name: 'Admin',
+            component: AdminPage,
+            meta: { requireAuth: true, title: 'DevWars Live - Admin' },
+        },
+        {
+            path: '/admin/editors/:id',
+            name: 'AdminEditor',
+            component: AdminEditorPage,
+            props: true,
+            meta: { requireAuth: true, title: 'DevWars Live - Admin Editor' },
+        },
+        {
+            path: '/admin/objectives',
+            name: 'AdminObjectives',
+            component: AdminObjectivesPage,
+            meta: { requireAuth: true, title: 'DevWars Live - Admin Objectives' },
+        },
     ],
 });
 
@@ -34,6 +59,8 @@ router.beforeEach(async (to, from, next) => {
             return window.location.href = 'https://www.devwars.tv/login';
         }
     }
+
+    document.title = to.meta.title ?? 'DevWars Live';
 
     next();
 });

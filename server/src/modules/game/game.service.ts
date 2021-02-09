@@ -4,6 +4,7 @@ import { CreateGameDto } from './dto/createGame.dto';
 import { PatchGameDto } from './dto/patchGame.dto';
 import editorService from '../editor/editor.service';
 import voteService from '../vote/vote.service';
+import devwarsService from '../devwars/devwars.service';
 
 class GameService {
     async getGame(): Promise<Game> {
@@ -39,6 +40,12 @@ class GameService {
     async delete(): Promise<Game> {
         const game = await this.getGame();
         return await game.remove();
+    }
+
+    async archive(): Promise<Game> {
+        const game = await this.getGameWithRelations();
+        await devwarsService.archiveGame(game);
+        return game;
     }
 
     async nextStage(): Promise<Game> {

@@ -1,6 +1,6 @@
-import * as http from 'http';
-import * as _ from 'lodash';
-import * as io from 'socket.io';
+import http from 'http';
+import _ from 'lodash';
+import io from 'socket.io';
 import devWarsService from '../devwars/devwars.service';
 import { User, isModerator } from '../devwars/devwarsUser';
 import gameService from '../game/game.service';

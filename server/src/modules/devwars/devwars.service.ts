@@ -1,8 +1,8 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { IncomingHttpHeaders } from 'http';
 import fetch, { RequestInit } from 'node-fetch';
-import * as createError from 'http-errors';
-import * as cookie from 'cookie';
+import createError from 'http-errors';
+import cookie from 'cookie';
 import config from '../../config';
 import { Game } from '../game/game.model';
 import { User, UserRole, validateUser } from './devwarsUser';

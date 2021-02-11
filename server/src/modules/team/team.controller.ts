@@ -1,5 +1,5 @@
-import * as path from 'path';
-import * as Router from 'koa-router';
+import path from 'path';
+import Router from 'koa-router';
 import { RouterContext } from 'koa-router';
 import { moderatorGuard } from '../../common/middleware/roleGuards';
 import editorService from '../editor/editor.service';

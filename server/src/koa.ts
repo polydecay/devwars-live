@@ -1,6 +1,6 @@
-import * as Koa from 'koa';
-import * as bodyParser from 'koa-bodyparser';
-import * as Router from 'koa-router';
+import Koa from 'koa';
+import bodyParser from 'koa-bodyparser';
+import Router from 'koa-router';
 import authenticate from './common/middleware/authenticate';
 import errorHandler from './common/middleware/errorHandler';
 import gameController from './modules/game/game.controller';

@@ -1,4 +1,4 @@
-import * as http from 'http';
+import http from 'http';
 import { createConnection } from 'typeorm';
 import { createHttpTerminator } from 'http-terminator';
 import config from './config';

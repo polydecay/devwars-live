@@ -1,4 +1,4 @@
-import * as Router from 'koa-router';
+import Router from 'koa-router';
 import { RouterContext } from 'koa-router';
 import { moderatorGuard } from '../../common/middleware/roleGuards';
 import devwarsService from './devwars.service';

@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import io from 'socket.io';
 import { Editor } from './editor.model';
 import { PatchEditorDto } from './dto/patchEditor.dto';
 import { User } from '../devwars/devwarsUser';

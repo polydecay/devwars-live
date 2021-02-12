@@ -7,7 +7,7 @@
             <PlayerTabEditor/>
             <aside>
                 <TeamSiteViewer :teamId="team.id"/>
-                <EditorGroupView v-if="memberEditors.length > 0" :class="team.name" :editors="memberEditors"/>
+                <EditorGroup v-if="memberEditors.length > 0" :class="team.name" :editors="memberEditors"/>
             </aside>
         </div>
     </div>
@@ -16,14 +16,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import * as api from '../../../api';
 import GameHeader from '../../../components/GameHeader';
+import EditorGroup from '../../../components/EditorGroup';
 import TeamSiteViewer from '../../../components/TeamSiteViewer';
-import PlayerTabEditor from './PlayerTabEditor';
-import EditorGroupView from '../../../components/EditorGroupView';
+import PlayerTabEditor from '../components/PlayerTabEditor';
 
 export default {
-    components: { GameHeader, PlayerTabEditor, TeamSiteViewer, EditorGroupView },
+    components: { GameHeader, PlayerTabEditor, TeamSiteViewer, EditorGroup },
 
     computed: {
         ...mapState('app', ['user']),
@@ -79,7 +78,7 @@ export default {
                 flex: 5 1;
             }
 
-            .EditorGroupView {
+            .EditorGroup {
                 &.red { color: var(--red); }
                 &.blue { color: var(--blue); }
 

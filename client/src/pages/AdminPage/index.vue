@@ -12,8 +12,8 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import FullscreenMessage from '../../components/FullscreenMessage';
-import CreateGameView from './components/CreateGameView';
-import EditGameView from './components/EditGameView';
+import CreateGameView from './views/CreateGameView';
+import EditGameView from './views/EditGameView';
 
 export default {
     name: 'AdminPage',

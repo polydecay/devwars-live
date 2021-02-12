@@ -44,8 +44,8 @@
 
 
 <script>
-import * as api from '../../../api';
 import { mapState } from 'vuex';
+import * as api from '../../../api';
 
 export default {
     data: () => ({

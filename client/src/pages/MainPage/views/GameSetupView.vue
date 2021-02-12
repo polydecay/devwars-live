@@ -25,7 +25,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TeamSlotList from './TeamSlotList';
+import TeamSlotList from '../components/TeamSlotList';
 
 export default {
     components: { TeamSlotList },

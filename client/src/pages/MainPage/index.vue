@@ -9,28 +9,27 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import FullscreenMessage from '../../components/FullscreenMessage';
-import SetupView from './components/SetupView';
-import GameView from './components/GameView';
-import GameZenView from './components/GameZenView';
-import GameEndView from './components/GameEndView';
+import GameSetupView from './views/GameSetupView';
+import GamePlayView from './views/GamePlayView';
+import GameEndView from './views/GameEndView';
+import ZenPlayView from './views/ZenPlayView';
 
 export default {
     name: 'MainPage',
 
-    components: { FullscreenMessage, SetupView, GameView, GameZenView, GameEndView },
+    components: { FullscreenMessage, GameSetupView, GamePlayView, GameEndView, ZenPlayView },
 
     computed: {
         ...mapState('game', ['mode']),
         ...mapGetters('game', ['isActive', 'stage']),
 
         gameViewComponent() {
-            if (!this.isActive || !this.stage) return null;
+            if (!this.isActive) return null;
 
-            if (this.stage?.type === 'setup') return 'SetupView';
-            if (this.stage?.type === 'end') return 'GameEndView';
+            if (this.stage.type === 'setup') return 'GameSetupView';
+            if (this.stage.type === 'end') return 'GameEndView';
 
-            if (this.mode === 'zen') return 'GameZenView';
-            return 'GameView';
+            return this.mode === 'zen' ? 'ZenPlayView' : 'GamePlayView';
         },
     },
 };

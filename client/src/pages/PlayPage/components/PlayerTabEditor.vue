@@ -8,7 +8,7 @@
                 @click="onSelectEditor(editor)"
             >{{ editor.fileName }}</div>
         </nav>
-        <PlayerEditor v-if="curEditor" :key="curEditor.id" :editor="curEditor"/>
+        <EditorController v-if="curEditor" :key="curEditor.id" :editor="curEditor"/>
         <PlayerObjectives v-if="showObjectives"/>
         <div v-if="curEditor" class="actions">
             <button @click="onSave">Save</button>
@@ -20,11 +20,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import PlayerEditor from '../../../components/editors/PlayerEditor';
+import EditorController from '../../../components/editor/EditorController';
 import PlayerObjectives from './PlayerObjectives';
 
 export default {
-    components: { PlayerEditor, PlayerObjectives },
+    components: { EditorController, PlayerObjectives },
 
     data: () => ({
         curEditorId: null,

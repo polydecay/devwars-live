@@ -11,7 +11,7 @@
 
 
 <script>
-import ProgressBar from './ProgressBar';
+import ProgressBar from '../../../components/ProgressBar';
 
 export default {
     components: { ProgressBar },

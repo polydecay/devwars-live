@@ -1,5 +1,5 @@
 <template>
-    <div class="CreateGame">
+    <div class="CreateGameView">
         <h1>Create Game</h1>
 
         <div class="field">
@@ -50,7 +50,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.CreateGame {
+.CreateGameView {
     margin: 2rem;
     width: 16rem;
 

@@ -5,7 +5,7 @@
             <GameHeader/>
             <div class="editors">
                 <TeamView :team="blueTeam"/>
-                <EditorView class="zenEditor" :editor="templateEditor"/>
+                <EditorGroupItem class="zenEditor" :editor="templateEditor"/>
                 <TeamView :team="redTeam"/>
             </div>
         </main>
@@ -17,11 +17,11 @@
 import { mapGetters } from 'vuex';
 import TeamView from '../../../components/TeamView';
 import GameHeader from '../../../components/GameHeader';
-import GameSidebar from './GameSidebar';
-import EditorView from '../../../components/EditorView';
+import EditorGroupItem from '../../../components/EditorGroupItem';
+import GameSidebar from '../components/GameSidebar';
 
 export default {
-    components: { GameHeader, TeamView, GameSidebar, EditorView },
+    components: { GameHeader, TeamView, GameSidebar, EditorGroupItem },
 
     computed: {
         ...mapGetters('game', ['blueTeam', 'redTeam']),

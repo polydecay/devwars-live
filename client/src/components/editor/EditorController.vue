@@ -1,5 +1,5 @@
 <template>
-    <div class="PlayerEditor">
+    <div class="EditorController">
         <LiveEditor :editor="editor" editable/>
         <transition name="modal">
             <div v-if="editor.locked" class="modal">
@@ -19,8 +19,8 @@
 
 
 <script>
-import * as api from '../../api';
 import { mapState } from 'vuex';
+import * as api from '../../api';
 import LiveEditor from './LiveEditor';
 
 export default {
@@ -70,7 +70,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.PlayerEditor {
+.EditorController {
     position: relative;
     display: flex;
     flex: 1 1;

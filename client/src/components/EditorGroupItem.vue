@@ -1,17 +1,17 @@
 <template>
-    <div class="EditorView">
-        <EditorViewHeader :player="player" :language="editor.language" :connection="editor.connection"/>
+    <div class="EditorGroupItem">
+        <EditorGroupItemHeader :player="player" :language="editor.language" :connection="editor.connection"/>
         <LiveEditor :editor="editor"/>
     </div>
 </template>
 
 
 <script>
-import LiveEditor from './editors/LiveEditor';
-import EditorViewHeader from './EditorViewHeader';
+import LiveEditor from './editor/LiveEditor';
+import EditorGroupItemHeader from './EditorGroupItemHeader';
 
 export default {
-    components: { LiveEditor, EditorViewHeader },
+    components: { LiveEditor, EditorGroupItemHeader },
 
     props: {
         editor: { type: Object, required: true },
@@ -27,7 +27,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.EditorView {
+.EditorGroupItem {
     display: flex;
     flex-flow: column nowrap;
 

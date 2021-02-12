@@ -1,6 +1,6 @@
 <template>
-    <div class="EditorGroupView">
-        <EditorView
+    <div class="EditorGroup">
+        <EditorGroupItem
             v-for="editor in editors"
             :key="editor.id"
             :editor="editor"
@@ -10,10 +10,10 @@
 
 
 <script>
-import EditorView from './EditorView';
+import EditorGroupItem from './EditorGroupItem';
 
 export default {
-    components: { EditorView },
+    components: { EditorGroupItem },
     props: {
         editors: { type: Array, required: true },
     },
@@ -22,10 +22,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.EditorGroupView {
+.EditorGroup {
     display: flex;
 
-    .EditorView {
+    .EditorGroupItem {
         flex: 1 1;
         &:not(:first-child) {
             border-left: 2px solid var(--bg20);

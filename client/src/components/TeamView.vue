@@ -8,18 +8,18 @@
                 <VIcon icon="Monitor" title="View website"/>
             </button>
         </div>
-        <EditorGroupView v-if="curView === 'code'" :editors="editors"/>
+        <EditorGroup v-if="curView === 'code'" :editors="editors"/>
         <TeamSiteViewer v-else-if="curView === 'site'" :teamId="team.id"/>
     </div>
 </template>
 
 
 <script>
-import EditorGroupView from './EditorGroupView';
+import EditorGroup from './EditorGroup';
 import TeamSiteViewer from './TeamSiteViewer';
 
 export default {
-    components: { EditorGroupView, TeamSiteViewer },
+    components: { EditorGroup, TeamSiteViewer },
 
     props: {
         team: { type: Object, required: true },
@@ -68,7 +68,7 @@ export default {
         }
     }
 
-    .EditorGroupView {
+    .EditorGroup {
         flex: 1 1;
     }
 

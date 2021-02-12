@@ -11,8 +11,6 @@
 
 <script>
 export default {
-    components: {},
-
     data: () => ({
         src: process.env.VUE_APP_WIDGET_URL,
         loaded: false,

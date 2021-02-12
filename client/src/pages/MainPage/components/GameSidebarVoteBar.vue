@@ -20,8 +20,6 @@
 
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
     props: {
         category: { type: String, required: true },

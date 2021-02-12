@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TeamSlotList from '../pages/MainPage/components/TeamSlotList';
+import TeamSlotList from './TeamSlotList';
 import TeamScoreHeader from './TeamScoreHeader';
 import TeamScoreObjectives from './TeamScoreObjectives';
 import TeamScoreVotes from './TeamScoreVotes';

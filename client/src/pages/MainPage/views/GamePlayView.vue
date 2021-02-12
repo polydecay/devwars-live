@@ -14,7 +14,7 @@
 import { mapGetters } from 'vuex';
 import TeamView from '../../../components/TeamView';
 import GameHeader from '../../../components/GameHeader';
-import GameSidebar from './GameSidebar';
+import GameSidebar from '../components/GameSidebar';
 
 export default {
     components: { GameHeader, TeamView, GameSidebar },

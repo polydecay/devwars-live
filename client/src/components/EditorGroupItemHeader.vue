@@ -1,5 +1,5 @@
 <template>
-    <div class="EditorViewHeader">
+    <div class="EditorGroupItemHeader">
         <h1 class="username" :class="{ connection }">{{ username }}</h1>
         <h2 class="language">{{ language }}</h2>
     </div>
@@ -24,7 +24,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.EditorViewHeader {
+.EditorGroupItemHeader {
     display: flex;
     padding: 0 .75rem;
     height: 2.5rem;

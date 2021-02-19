@@ -1,5 +1,4 @@
-import Router from 'koa-router';
-import { RouterContext } from 'koa-router';
+import Router, { RouterContext } from 'koa-router';
 import { moderatorGuard } from '../../common/middleware/roleGuards';
 import voteService from './vote.service';
 import { validateCreateVoteDto } from './dto/createVote.dto';

@@ -12,14 +12,16 @@
         <PlayerObjectives v-if="showObjectives"/>
         <div v-if="curEditor" class="actions">
             <button @click="onSave">Save</button>
-            <button @click="showObjectives = !showObjectives">{{ showObjectives ? 'Hide' : 'Show' }} Objectives</button>
+            <button v-if="objectives.length" @click="onToggleObjectives">{{ showObjectives ? 'Hide' : 'Show' }} Objectives</button>
+            <button v-if="stage.type === 'setup'" :class="['readyBtn', { ready }]" @click="onReady">{{ ready ? 'Ready' : 'Not Ready' }}</button>
         </div>
     </div>
 </template>
 
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
+import * as api from '../../../api';
 import EditorController from '../../../components/editor/EditorController';
 import PlayerObjectives from './PlayerObjectives';
 
@@ -33,6 +35,16 @@ export default {
 
     computed: {
         ...mapState('app', ['user', 'socketId']),
+        ...mapState('game', ['objectives']),
+        ...mapGetters('game', ['stage']),
+
+        player() {
+            return this.$store.getters['game/playerById'](this.user.id);
+        },
+
+        ready() {
+            return this.player.ready;
+        },
 
         editors() {
             return this.$store.getters['game/editorsByUser'](this.user.id);
@@ -55,6 +67,14 @@ export default {
 
         onSave() {
             this.$socket.emit('e.save', { id: this.curEditorId });
+        },
+
+        onToggleObjectives() {
+            this.showObjectives = !this.showObjectives;
+        },
+
+        async onReady() {
+            await api.setPlayerReady(this.user.id, !this.player.ready);
         },
     },
 };
@@ -95,6 +115,13 @@ export default {
             margin: .5rem;
             &:not(:first-child) {
                 margin-left: 0;
+            }
+        }
+
+        .readyBtn {
+            background-color: var(--error);
+            &.ready {
+                background-color: var(--success);
             }
         }
     }

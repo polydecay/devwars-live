@@ -1,5 +1,4 @@
-import Router from 'koa-router';
-import { RouterContext } from 'koa-router';
+import Router, { RouterContext } from 'koa-router';
 import { adminGuard, moderatorGuard } from '../../common/middleware/roleGuards';
 import gameService from './game.service';
 import { validateCreateGameDto } from './dto/createGame.dto';

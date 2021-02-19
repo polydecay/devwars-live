@@ -43,6 +43,10 @@ export async function createPlayer(createDto) {
     return http.post('players', createDto)
 }
 
+export async function setPlayerReady(id, ready) {
+    return http.patch(`players/${id}/ready`, { ready });
+}
+
 // ---------------------------------------------------------
 // Editor
 

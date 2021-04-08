@@ -43,7 +43,7 @@ class GameService {
     }
 
     async archive(): Promise<Game> {
-        const game = await this.getGameWithRelations();
+        const game = await this.getGameWithRelations(true);
         await devwarsService.archiveGame(game);
         return game;
     }

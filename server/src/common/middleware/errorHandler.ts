@@ -9,6 +9,7 @@ export default function errorHandler() {
         } catch (error) {
             let status = error.status ?? error.statusCode ?? 500;
             let message = error.message ?? 'Internal server error';
+            let stack = undefined;
 
             if (error instanceof EntityNotFoundError) {
                 status = 404;
@@ -20,13 +21,13 @@ export default function errorHandler() {
                 message = 'Internal server error';
             }
 
-            ctx.status = status;
-            ctx.body = { error: { status, message } };
-
             // Include stack trace in development.
             if (config.env === 'development' && error.stack) {
-                ctx.body.error.stack = error.stack;
+                stack = error.stack;
             }
+
+            ctx.status = status;
+            ctx.body = { error: { status, message, stack } };
         }
     };
 }

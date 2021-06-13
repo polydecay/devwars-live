@@ -17,7 +17,7 @@
             </div>
         </main>
         <footer>
-            <p>Game is starting soon, stay tuned!</p>
+            <p>Waiting for enough players to start!</p>
         </footer>
     </div>
 </template>

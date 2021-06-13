@@ -53,7 +53,6 @@ export default {
         },
 
         onEditorSave(id) {
-            console.log('save', id);
             if (this.editors.some(e => e.id === id)) {
                 this.onRefresh();
             }

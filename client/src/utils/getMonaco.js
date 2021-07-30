@@ -1,3 +1,5 @@
+import { emmetHTML } from 'emmet-monaco-es';
+
 let MONACO = null;
 let PROMISE = null;
 
@@ -11,6 +13,8 @@ export default async function getMonaco() {
 async function loadMonaco() {
     MONACO = await import('monaco-editor/esm/vs/editor/editor.api.js');
     MONACO.editor.defineTheme('devwars', createDevwarsTheme());
+
+    emmetHTML(MONACO, ['html']);
 
     return MONACO;
 }

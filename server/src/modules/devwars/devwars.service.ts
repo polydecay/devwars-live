@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { IncomingHttpHeaders } from 'http';
 import fetch, { RequestInit } from 'node-fetch';
-import createError from 'http-errors';
+import createError, { HttpError } from 'http-errors';
 import cookie from 'cookie';
 import config from '../../config';
 import { Game } from '../game/game.model';
@@ -24,9 +24,12 @@ class DevwarsService {
 
     async getUserById(id: number): Promise<User | null> {
         try {
-            return validateUser(await this.apiRequest(`users/${id}`));
+            const user = await this.apiRequest(`users/${id}`);
+            return validateUser(user);
         } catch (error) {
-            if (error.status === 404) return null;
+            if (error instanceof HttpError && error.status === 404) {
+                return null;
+            }
 
             throw error;
         }

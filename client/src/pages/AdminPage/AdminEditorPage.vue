@@ -7,7 +7,7 @@
 
 
 <script>
-import EditorController from '../../components/editor/EditorController';
+import EditorController from '../../components/editor/EditorController.vue';
 
 export default {
     name: 'AdminEditorPage',

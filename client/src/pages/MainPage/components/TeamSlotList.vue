@@ -14,7 +14,8 @@
 
 
 <script>
-import TeamSlotItem from './TeamSlotItem';
+import TeamSlotItem from './TeamSlotItem.vue';
+
 export default {
     components: { TeamSlotItem },
 

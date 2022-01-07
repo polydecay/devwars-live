@@ -9,8 +9,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import AdminPanel from './AdminPanel';
-import ApplicationItem from './ApplicationItem';
+import AdminPanel from './AdminPanel.vue';
+import ApplicationItem from './ApplicationItem.vue';
 
 export default {
     components: { AdminPanel, ApplicationItem },

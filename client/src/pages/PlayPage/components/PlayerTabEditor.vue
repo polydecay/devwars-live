@@ -22,8 +22,8 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import * as api from '../../../api';
-import EditorController from '../../../components/editor/EditorController';
-import PlayerObjectives from './PlayerObjectives';
+import EditorController from '../../../components/editor/EditorController.vue';
+import PlayerObjectives from './PlayerObjectives.vue';
 
 export default {
     components: { EditorController, PlayerObjectives },

@@ -16,10 +16,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import GameHeader from '../../../components/GameHeader';
-import EditorGroup from '../../../components/EditorGroup';
-import TeamSiteViewer from '../../../components/TeamSiteViewer';
-import PlayerTabEditor from '../components/PlayerTabEditor';
+import GameHeader from '../../../components/GameHeader.vue';
+import EditorGroup from '../../../components/EditorGroup.vue';
+import TeamSiteViewer from '../../../components/TeamSiteViewer.vue';
+import PlayerTabEditor from '../components/PlayerTabEditor.vue';
 
 export default {
     components: { GameHeader, PlayerTabEditor, TeamSiteViewer, EditorGroup },

@@ -1,10 +1,10 @@
 import Vue from 'vue';
-import App from './App';
 import store from './store';
 import router from './router';
 import awn from './services/awn';
 import socket from './services/socket';
-import VIcon from './components/common/VIcon';
+import App from './App.vue';
+import VIcon from './components/common/VIcon.vue';
 
 Vue.config.productionTip = false;
 

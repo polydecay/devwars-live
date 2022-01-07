@@ -8,11 +8,11 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import FullscreenMessage from '../../components/FullscreenMessage';
-import GameSetupView from './views/GameSetupView';
-import GamePlayView from './views/GamePlayView';
-import GameEndView from './views/GameEndView';
-import ZenPlayView from './views/ZenPlayView';
+import FullscreenMessage from '../../components/FullscreenMessage.vue';
+import GameSetupView from './views/GameSetupView.vue';
+import GamePlayView from './views/GamePlayView.vue';
+import GameEndView from './views/GameEndView.vue';
+import ZenPlayView from './views/ZenPlayView.vue';
 
 export default {
     name: 'MainPage',

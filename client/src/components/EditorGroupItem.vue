@@ -7,8 +7,8 @@
 
 
 <script>
-import LiveEditor from './editor/LiveEditor';
-import EditorGroupItemHeader from './EditorGroupItemHeader';
+import LiveEditor from './editor/LiveEditor.vue';
+import EditorGroupItemHeader from './EditorGroupItemHeader.vue';
 
 export default {
     components: { LiveEditor, EditorGroupItemHeader },

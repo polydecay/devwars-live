@@ -28,7 +28,7 @@
 
 <script>
 import * as api from '../../../api';
-import SelectUser from './SelectUser';
+import SelectUser from './SelectUser.vue';
 
 export default {
     components: { SelectUser },

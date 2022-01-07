@@ -13,9 +13,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import EditGame from '../components/EditGame';
-import EditTeam from '../components/EditTeam';
-import ApplicationList from '../components/ApplicationList';
+import EditGame from '../components/EditGame.vue';
+import EditTeam from '../components/EditTeam.vue';
+import ApplicationList from '../components/ApplicationList.vue';
 
 export default {
     components: { EditGame, EditTeam, ApplicationList },

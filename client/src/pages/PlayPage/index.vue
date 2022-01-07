@@ -10,9 +10,9 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import FullscreenMessage from '../../components/FullscreenMessage';
-import GameApplicationView from './views/GameApplicationView';
-import PlayerView from './views/PlayerView';
+import FullscreenMessage from '../../components/FullscreenMessage.vue';
+import GameApplicationView from './views/GameApplicationView.vue';
+import PlayerView from './views/PlayerView.vue';
 
 export default {
     name: 'PlayPage',

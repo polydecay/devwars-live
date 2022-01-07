@@ -17,7 +17,7 @@
 <script>
 import { mapState } from 'vuex';
 import * as api from '../../../api';
-import AdminPanelSection from './AdminPanelSection';
+import AdminPanelSection from './AdminPanelSection.vue';
 
 export default {
     components: { AdminPanelSection },

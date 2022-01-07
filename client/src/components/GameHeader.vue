@@ -14,7 +14,7 @@
 
 
 <script>
-import GameHeaderStatus from './GameHeaderStatus';
+import GameHeaderStatus from './GameHeaderStatus.vue';
 export default {
     components: { GameHeaderStatus },
 };

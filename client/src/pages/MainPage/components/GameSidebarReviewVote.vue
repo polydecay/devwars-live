@@ -30,8 +30,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import GameSidebarVoteBar from './GameSidebarVoteBar';
-import CountdownTimer from '../../../components/CountdownTimer';
+import GameSidebarVoteBar from './GameSidebarVoteBar.vue';
+import CountdownTimer from '../../../components/CountdownTimer.vue';
 
 export default {
     components: { GameSidebarVoteBar, CountdownTimer },

@@ -1,7 +1,7 @@
 <template>
     <AdminPanel class="EditGame" title="Game">
         <button slot="actions" class="archiveButton" :disabled="stage.type !== 'end'" @click="onArchive">Archive</button>
-        <button slot="actions" class="destroyButton" :disabled="stage.type === 'end'"@click="onDestroy">Destroy</button>
+        <button slot="actions" class="destroyButton" :disabled="stage.type === 'end'" @click="onDestroy">Destroy</button>
 
         <main class="test">
             <!-- Info -->
@@ -63,9 +63,9 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import * as api from '../../../api';
-import AdminPanel from './AdminPanel';
-import AdminPanelSection from './AdminPanelSection';
-import CountdownTimer from '../../../components/CountdownTimer';
+import AdminPanel from './AdminPanel.vue';
+import AdminPanelSection from './AdminPanelSection.vue';
+import CountdownTimer from '../../../components/CountdownTimer.vue';
 
 export default {
     components: { AdminPanel, AdminPanelSection, CountdownTimer },

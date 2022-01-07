@@ -20,7 +20,7 @@ import { mapState, mapGetters } from 'vuex';
 import { TextOperation } from '../../../../server/src/modules/document/TextOperation';
 import { CursorSelection } from '../../../../server/src/modules/document/CursorSelection';
 import eventBus from '../../services/eventBus';
-import BaseEditor from './BaseEditor';
+import BaseEditor from './BaseEditor.vue';
 
 export default {
     components: { BaseEditor },

@@ -15,8 +15,8 @@
 
 
 <script>
-import EditorGroup from './EditorGroup';
-import TeamSiteViewer from './TeamSiteViewer';
+import EditorGroup from './EditorGroup.vue';
+import TeamSiteViewer from './TeamSiteViewer.vue';
 
 export default {
     components: { EditorGroup, TeamSiteViewer },

@@ -8,8 +8,8 @@
 
 
 <script>
-import EditEditor from './EditEditor';
-import AdminPanelSection from './AdminPanelSection';
+import EditEditor from './EditEditor.vue';
+import AdminPanelSection from './AdminPanelSection.vue';
 
 export default {
     components: { AdminPanelSection, EditEditor },

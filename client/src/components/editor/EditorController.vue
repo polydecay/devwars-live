@@ -21,7 +21,7 @@
 <script>
 import { mapState } from 'vuex';
 import * as api from '../../api';
-import LiveEditor from './LiveEditor';
+import LiveEditor from './LiveEditor.vue';
 
 export default {
     components: { LiveEditor },

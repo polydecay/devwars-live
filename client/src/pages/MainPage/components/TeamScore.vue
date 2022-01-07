@@ -16,10 +16,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TeamSlotList from './TeamSlotList';
-import TeamScoreHeader from './TeamScoreHeader';
-import TeamScoreObjectives from './TeamScoreObjectives';
-import TeamScoreVotes from './TeamScoreVotes';
+import TeamSlotList from './TeamSlotList.vue';
+import TeamScoreHeader from './TeamScoreHeader.vue';
+import TeamScoreObjectives from './TeamScoreObjectives.vue';
+import TeamScoreVotes from './TeamScoreVotes.vue';
 
 export default {
     components: {

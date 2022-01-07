@@ -10,7 +10,7 @@
 
 
 <script>
-import EditorGroupItem from './EditorGroupItem';
+import EditorGroupItem from './EditorGroupItem.vue';
 
 export default {
     components: { EditorGroupItem },

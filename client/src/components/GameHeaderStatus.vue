@@ -16,7 +16,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import CountdownTimer from './CountdownTimer';
+import CountdownTimer from './CountdownTimer.vue';
 
 export default {
     components: { CountdownTimer },

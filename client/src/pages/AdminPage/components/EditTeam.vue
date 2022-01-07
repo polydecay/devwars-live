@@ -13,9 +13,9 @@
 <script>
 import { mapState } from 'vuex';
 import * as api from '../../../api';
-import AdminPanel from './AdminPanel';
-import EditTeamEditors from './EditTeamEditors';
-import EditTeamObjectives from './EditTeamObjectives';
+import AdminPanel from './AdminPanel.vue';
+import EditTeamEditors from './EditTeamEditors.vue';
+import EditTeamObjectives from './EditTeamObjectives.vue';
 
 export default {
     components: { AdminPanel, EditTeamEditors, EditTeamObjectives },

@@ -12,9 +12,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import GameSidebarObjectives from './GameSidebarObjectives';
-import GameSidebarReviewVote from './GameSidebarReviewVote';
-import GameSidebarWidget from './GameSidebarWidget';
+import GameSidebarObjectives from './GameSidebarObjectives.vue';
+import GameSidebarReviewVote from './GameSidebarReviewVote.vue';
+import GameSidebarWidget from './GameSidebarWidget.vue';
 
 export default {
     components: { GameSidebarObjectives, GameSidebarReviewVote, GameSidebarWidget },

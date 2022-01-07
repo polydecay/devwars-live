@@ -12,9 +12,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TeamView from '../../../components/TeamView';
-import GameHeader from '../../../components/GameHeader';
-import GameSidebar from '../components/GameSidebar';
+import TeamView from '../../../components/TeamView.vue';
+import GameHeader from '../../../components/GameHeader.vue';
+import GameSidebar from '../components/GameSidebar.vue';
 
 export default {
     components: { GameHeader, TeamView, GameSidebar },

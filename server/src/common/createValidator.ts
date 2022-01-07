@@ -3,7 +3,7 @@ import Ajv, { JSONSchemaType } from 'ajv';
 const ajv = new Ajv({
     coerceTypes: true,
     removeAdditional: true,
-    // HACK: This was disabled becuase of the last two optional items
+    // HACK: This was disabled because of the last two optional items
     // in the DocumentTextOpDto schema.
     strictTuples: false,
 });

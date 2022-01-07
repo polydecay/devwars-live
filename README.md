@@ -10,7 +10,7 @@ The editor and live streaming portion of DevWars.
 *This repository holds two projects (client/server). For this reason you should never use npm in the root directory. Instead manage dependencies and npm script independently inside of each respective directory (client/server).*
 
 * Run `npm install` in both the client and server directory to install dependencies.
-* Make a copy of `.env.example` in both the client and server directroy and configure your environment variables to your liking.
+* Make a copy of `.env.example` in both the client and server directory and configure your environment variables to your liking.
 * Run `npm run dev` in both the client and server directory.
 
 ### Mocking DevWars API in Development

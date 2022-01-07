@@ -5,7 +5,7 @@
 
             <fieldset>
                 <h2>Language Preferences</h2>
-                <p>We'll try our best to match you to your preferd languages. Choose "<strong>NEVER</strong>" to ensure that you won't be picked for that language.</p>
+                <p>We'll try our best to match you to your preferred languages. Choose "<strong>NEVER</strong>" to ensure that you won't be picked for that language.</p>
                 <div class="languages">
                     <label>HTML</label>
                     <select v-model="preferences.html">

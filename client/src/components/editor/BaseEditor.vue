@@ -77,7 +77,7 @@ export default {
             id: 'save-action',
             label: 'Save',
             // eslint-disable-next-line no-bitwise
-            keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KEY_S],
+            keybindings: [this.monaco.KeyMod.CtrlCmd | this.monaco.KeyCode.KeyS],
             run: () => this.$emit('save'),
         });
 

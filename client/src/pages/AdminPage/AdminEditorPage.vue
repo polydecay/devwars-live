@@ -24,7 +24,7 @@ export default {
         },
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.$socket.emit('e.release', { id: Number(this.id) });
     },
 

@@ -26,11 +26,11 @@ export default {
     },
 
     mounted() {
-        eventBus.$on('editor.save', this.onEditorSave);
+        eventBus.on('editor.save', this.onEditorSave);
     },
 
-    beforeDestroy() {
-        eventBus.$off('editor.save', this.onEditorSave);
+    beforeUnmount() {
+        eventBus.off('editor.save', this.onEditorSave);
     },
 
     methods: {

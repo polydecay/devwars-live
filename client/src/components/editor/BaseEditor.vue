@@ -90,7 +90,7 @@ export default {
         this.$emit('loaded');
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.editor?.dispose();
     },
 
@@ -148,50 +148,46 @@ export default {
     overflow: hidden;
     background-color: var(--bg00);
 
-    ::v-deep {
-        .monaco-editor {
-            position: absolute;
-            top: 0;
-            left: 0;
+    :deep(.monaco-editor) {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    :deep(.scrollbar .slider) {
+        background: var(--bg40);
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 0.75;
         }
 
-        .monaco-scrollable-element {
-            > .scrollbar > .slider {
-                background: var(--bg40);
-                opacity: 0.5;
-
-                &:hover {
-                    opacity: 0.75;
-                }
-
-                &.active {
-                    opacity: 0.75;
-                    background: var(--fg40);
-                }
-            }
-
-            > .invisible.fade {
-                transition: opacity 150ms linear !important;
-            }
+        &.active {
+            opacity: 0.75;
+            background: var(--fg40);
         }
+    }
 
-        .CURSOR,
-        .SELECTION {
-            color: var(--primaryFg);
-        }
+    :deep(.invisible.fade) {
+        transition: opacity 150ms linear !important;
+    }
 
-        .CURSOR:after {
-            z-index: 1000;
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background-color: white;
-        }
+    :deep(.CURSOR),
+    :deep(.SELECTION) {
+        color: var(--primaryFg);
+    }
 
-        .SELECTION {
-            background-color: rgba(161, 168, 194, 0.15);
-        }
+    :deep(.CURSOR):after {
+        z-index: 1000;
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        background-color: white;
+    }
+
+    :deep(.SELECTION) {
+        background-color: rgba(161, 168, 194, 0.15);
     }
 }
 </style>

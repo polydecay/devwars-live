@@ -1,19 +1,15 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import store from "./store";
 
-const MainPage = () => import(/* webpackChunkName: "main" */ './pages/MainPage/index.vue');
-const PlayPage = () => import(/* webpackChunkName: "play" */ './pages/PlayPage/index.vue');
-const AdminPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage/index.vue');
+const MainPage = () => import('./pages/MainPage/index.vue');
+const PlayPage = () => import('./pages/PlayPage/index.vue');
+const AdminPage = () => import('./pages/AdminPage/index.vue');
 // TODO Move these in to modals instead.
-const AdminEditorPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage/AdminEditorPage.vue');
-const AdminObjectivesPage = () => import(/* webpackChunkName: "admin" */ './pages/AdminPage/AdminObjectivesPage.vue');
+const AdminEditorPage = () => import('./pages/AdminPage/AdminEditorPage.vue');
+const AdminObjectivesPage = () => import('./pages/AdminPage/AdminObjectivesPage.vue');
 
-Vue.use(Router);
-
-const router = new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/',

@@ -1,7 +1,9 @@
 <template>
     <div class="PlayerView">
         <GameHeader>
-            <h2 slot="left" :class="['team', team.name]">{{ team.name }} TEAM</h2>
+            <template #left>
+                <h2 :class="['team', team.name]">{{ team.name }} TEAM</h2>
+            </template>
         </GameHeader>
         <div class="main">
             <PlayerTabEditor/>

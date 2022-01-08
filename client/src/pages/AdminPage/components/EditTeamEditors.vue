@@ -29,10 +29,8 @@ export default {
 .EditTeamEditors {
     width: auto;
 
-    ::v-deep {
-        > main {
-            margin: 0;
-        }
+    :deep(main) {
+        margin: 0;
     }
 
     .editors {

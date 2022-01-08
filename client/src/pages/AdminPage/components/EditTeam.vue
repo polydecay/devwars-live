@@ -1,7 +1,8 @@
 <template>
-    <AdminPanel class="EditTeam" :class="team.name">
-        <h1 slot="title" :class="['title', team.name]">{{ `${team.id}. ${team.name}` }}</h1>
-        <!-- <button slot="actions" @click="onToggleEnabled">{{ team.enabled ? 'Disable' : 'Enable' }}</button> -->
+    <AdminPanel class="EditTeam" :class="team.name" :title="title">
+        <!-- <template #actions>
+            <button @click="onToggleEnabled">{{ team.enabled ? 'Disable' : 'Enable' }}</button>
+        </template> -->
         <main>
             <EditTeamObjectives v-if="objectives.length" :team="team"/>
             <EditTeamEditors :team="team"/>
@@ -24,6 +25,9 @@ export default {
 
     computed: {
         ...mapState('game', ['objectives']),
+        title() {
+            return `${this.team.id}. ${this.team.name}`;
+        },
     },
 
     // methods: {
@@ -45,10 +49,12 @@ export default {
         display: flex;
     }
 
-    .title {
-        text-transform: capitalize;
-        &.blue { color: var(--blue); }
-        &.red { color: var(--red); }
+    &.blue :deep(h1) {
+        color: var(--blue);
+    }
+
+    &.red :deep(h1) {
+        color: var(--red);
     }
 }
 </style>

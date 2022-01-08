@@ -1,22 +1,27 @@
 import { emmetHTML } from 'emmet-monaco-es';
 
 let MONACO = null;
-let PROMISE = null;
-
 export default async function getMonaco() {
     if (MONACO) return MONACO;
-    if (PROMISE) return PROMISE;
 
-    return PROMISE = loadMonaco();
+    MONACO = loadMonaco();
+    return MONACO;
 }
 
 async function loadMonaco() {
-    MONACO = await import('monaco-editor/esm/vs/editor/editor.api.js');
-    MONACO.editor.defineTheme('devwars', createDevwarsTheme());
+    // Vite doesn't work very well with the ESM version of monaco (especially in development mode).
+    // So we fallback to the AMD version instead.
 
-    emmetHTML(MONACO, ['html']);
+    // the window.require loader is imported from index.html
+    window.require.config({ paths: { vs: '/monaco/vs' } });
+    await new Promise(resolve => window.require(['vs/editor/editor.main'], resolve));
 
-    return MONACO;
+    const monaco = window.monaco;
+
+    monaco.editor.defineTheme('devwars', createDevwarsTheme());
+    emmetHTML(monaco, ['html']);
+
+    return monaco;
 }
 
 function createDevwarsTheme() {

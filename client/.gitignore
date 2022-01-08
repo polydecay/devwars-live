@@ -3,6 +3,7 @@
 
 # Build Output
 dist/
+public/monaco/
 
 # Dependencies
 node_modules/

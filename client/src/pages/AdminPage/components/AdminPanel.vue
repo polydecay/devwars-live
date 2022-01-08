@@ -1,7 +1,7 @@
 <template>
     <section class="AdminPanel">
-        <header>
-            <slot name="title"><h1>{{ title }}</h1></slot>
+        <header class="header">
+            <h1 class="title">{{ title }}</h1>
             <div class="actions">
                 <slot name="actions"/>
             </div>
@@ -24,15 +24,16 @@ export default {
 .AdminPanel {
     background-color: var(--bg10);
 
-    > header {
+    .header {
         display: flex;
         height: 3rem;
         align-items: center;
         background-color: var(--bg20);
 
-        h1 {
+        .title {
             margin-left: 1rem;
             margin-right: auto;
+            text-transform: capitalize;
             font-size: 1.5rem;
         }
 

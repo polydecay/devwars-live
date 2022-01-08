@@ -78,10 +78,10 @@ export default {
         },
     },
 
-    beforeDestroy() {
-        eventBus.$off(`editor.${this.editor.id}.text`, this.onSocketText);
-        eventBus.$off(`editor.${this.editor.id}.o`, this.onSocketOperation);
-        eventBus.$off(`editor.${this.editor.id}.s`, this.onSocketSelection);
+    beforeUnmount() {
+        eventBus.off(`editor.${this.editor.id}.text`, this.onSocketText);
+        eventBus.off(`editor.${this.editor.id}.o`, this.onSocketOperation);
+        eventBus.off(`editor.${this.editor.id}.s`, this.onSocketSelection);
     },
 
     methods: {
@@ -100,15 +100,17 @@ export default {
 
 
         onEditorLoaded() {
-            eventBus.$on(`editor.${this.editor.id}.text`, this.onSocketText);
-            eventBus.$on(`editor.${this.editor.id}.o`, this.onSocketOperation);
-            eventBus.$on(`editor.${this.editor.id}.s`, this.onSocketSelection);
+            eventBus.on(`editor.${this.editor.id}.text`, this.onSocketText);
+            eventBus.on(`editor.${this.editor.id}.o`, this.onSocketOperation);
+            eventBus.on(`editor.${this.editor.id}.s`, this.onSocketSelection);
 
             this.fetchText();
         },
 
         onEditorChange(contentChange) {
             if (this.ignoreChanges || this.locked || !this.hasControl) return;
+
+            if (!contentChange?.changes) return;
 
             for (const change of contentChange.changes) {
                 this.$socket.emit('e.o', {

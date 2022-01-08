@@ -1,7 +1,9 @@
 <template>
     <AdminPanel class="EditGame" title="Game">
-        <button slot="actions" class="archiveButton" :disabled="stage.type !== 'end'" @click="onArchive">Archive</button>
-        <button slot="actions" class="destroyButton" :disabled="stage.type === 'end'" @click="onDestroy">Destroy</button>
+        <template #actions>
+            <button class="archiveButton" :disabled="stage.type !== 'end'" @click="onArchive">Archive</button>
+            <button class="destroyButton" :disabled="stage.type === 'end'" @click="onDestroy">Destroy</button>
+        </template>
 
         <main class="test">
             <!-- Info -->

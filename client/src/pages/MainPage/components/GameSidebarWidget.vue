@@ -12,7 +12,7 @@
 <script>
 export default {
     data: () => ({
-        src: process.env.VUE_APP_WIDGET_URL,
+        src: import.meta.env.VUE_APP_WIDGET_URL,
         loaded: false,
     }),
 

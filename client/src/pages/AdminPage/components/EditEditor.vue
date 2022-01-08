@@ -20,7 +20,7 @@
         </div>
         <div class="row userActions">
             <h3 v-if="editor.hidden">Disabled</h3>
-            <SelectUser v-else @input="onSelectUser" :value="player"/>
+            <SelectUser v-else @selected="onSelectUser" :value="player"/>
         </div>
     </section>
 </template>

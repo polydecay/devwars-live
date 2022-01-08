@@ -11,7 +11,6 @@ const awn = new AWN({
     },
 });
 
-// Enables vue registration with Vue.use(awn).
-awn.install = (Vue) => Vue.prototype.$awn = awn;
+awn.install = (app) => app.config.globalProperties.$awn = awn;
 
 export default awn;

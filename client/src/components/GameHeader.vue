@@ -1,13 +1,13 @@
 <template>
     <div class="GameHeader">
         <div class="left">
-            <slot name="left"/>
+            <slot name="left"></slot>
         </div>
         <div class="center">
-            <GameHeaderStatus/>
+            <GameHeaderStatus />
         </div>
         <div class="right">
-            <slot name="right"/>
+            <slot name="right"></slot>
         </div>
     </div>
 </template>
@@ -15,6 +15,7 @@
 
 <script>
 import GameHeaderStatus from './GameHeaderStatus.vue';
+
 export default {
     components: { GameHeaderStatus },
 };

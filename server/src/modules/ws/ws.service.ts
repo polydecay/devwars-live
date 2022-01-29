@@ -1,7 +1,7 @@
 import http from 'http';
 import _ from 'lodash';
 import io from 'socket.io';
-import devWarsService from '../devwars/devwars.service';
+import devwarsService from '../devwars/devwars.service';
 import { User, isModerator } from '../devwars/devwarsUser';
 import gameService from '../game/game.service';
 import editorService from '../editor/editor.service';
@@ -11,7 +11,6 @@ import { TextOperation } from '../document/TextOperation';
 import { validateDocumentIdDto } from './dto/documentId.dto';
 import { validateDocumentTextOpDto } from './dto/documentTextOp.dto';
 import { PromiseQueue } from '../../common/promiseQueue';
-import devwarsService from '../devwars/devwars.service';
 import { validateEditorSelectionsDto } from './dto/editorSelections.dto';
 
 class WSService {
@@ -31,8 +30,8 @@ class WSService {
         const errorWrapper = (handler: (data: any) => Promise<void>) => {
             return (data: any) => {
                 handler(data).catch(error => console.error(error));
-            }
-        }
+            };
+        };
 
         socket.on('disconnect', async () => {
             this.usersBySocket.delete(socket);
@@ -112,7 +111,7 @@ class WSService {
         }));
 
         const token = devwarsService.getTokenFromHeaders(socket.handshake.headers as http.IncomingHttpHeaders);
-        devWarsService.getUserFromToken(token).then((user) => {
+        devwarsService.getUserFromToken(token).then((user) => {
             if (user) this.usersBySocket.set(socket, user);
             socket.emit('init', user);
         });
@@ -123,14 +122,14 @@ class WSService {
         if (!editor) return false;
 
         return editor.playerId === user.id || isModerator(user);
-    };
+    }
 
     private async isControllingEditor(socket: io.Socket, id: number): Promise<boolean> {
         const editor = await editorService.getById(id).catch(() => null);
         if (!editor?.connection?.socketId) return false;
 
         return editor.connection.socketId === socket.id;
-    };
+    }
 
     private async getGameState() {
         return gameService.getGameWithRelations().catch(() => null);

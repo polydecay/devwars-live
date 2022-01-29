@@ -3,10 +3,10 @@
         <header class="header">
             <h1 class="title">{{ title }}</h1>
             <div class="actions">
-                <slot name="actions"/>
+                <slot name="actions"></slot>
             </div>
         </header>
-        <slot/>
+        <slot></slot>
     </section>
 </template>
 

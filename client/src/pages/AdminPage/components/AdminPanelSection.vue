@@ -2,7 +2,7 @@
     <section class="AdminPanelSection">
         <slot name="title"><h2>{{ title }}</h2></slot>
         <main>
-            <slot/>
+            <slot></slot>
         </main>
     </section>
 </template>

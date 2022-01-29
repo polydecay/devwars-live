@@ -6,10 +6,10 @@
             </template>
         </GameHeader>
         <div class="main">
-            <PlayerTabEditor/>
+            <PlayerTabEditor />
             <aside>
-                <TeamSiteViewer :teamId="team.id"/>
-                <EditorGroup v-if="memberEditors.length > 0" :class="team.name" :editors="memberEditors"/>
+                <TeamSiteViewer :teamId="team.id" />
+                <EditorGroup v-if="memberEditors.length > 0" :class="team.name" :editors="memberEditors" />
             </aside>
         </div>
     </div>

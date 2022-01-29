@@ -1,7 +1,7 @@
+import { NotFound } from 'http-errors';
 import editorService from '../editor/editor.service';
 import { Document } from './Document';
 import { TextOperation } from './TextOperation';
-import { NotFound } from 'http-errors';
 
 class DocumentService {
     private readonly documents: Map<number, Document> = new Map();

@@ -4,8 +4,8 @@
             <button @click="onToggleEnabled">{{ team.enabled ? 'Disable' : 'Enable' }}</button>
         </template> -->
         <main>
-            <EditTeamObjectives v-if="objectives.length" :team="team"/>
-            <EditTeamEditors :team="team"/>
+            <EditTeamObjectives v-if="objectives.length" :team="team" />
+            <EditTeamEditors :team="team" />
         </main>
     </AdminPanel>
 </template>
@@ -13,7 +13,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import * as api from '../../../api';
+// import * as api from '../../../api';
 import AdminPanel from './AdminPanel.vue';
 import EditTeamEditors from './EditTeamEditors.vue';
 import EditTeamObjectives from './EditTeamObjectives.vue';

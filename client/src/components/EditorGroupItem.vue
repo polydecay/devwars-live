@@ -1,7 +1,7 @@
 <template>
     <div class="EditorGroupItem">
-        <EditorGroupItemHeader :player="player" :language="editor.language" :connection="editor.connection"/>
-        <LiveEditor :editor="editor"/>
+        <EditorGroupItemHeader :player="player" :language="editor.language" :connection="editor.connection" />
+        <LiveEditor :editor="editor" />
     </div>
 </template>
 

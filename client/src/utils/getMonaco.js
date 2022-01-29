@@ -30,7 +30,7 @@ function createDevwarsTheme() {
     const getStyleColor = (name) => {
         const color = style.getPropertyValue(name).trim().slice(1);
         return color.length === 3 ? color + color : color;
-    }
+    };
 
     const BG = getStyleColor('--bg00');
     const BG2 = getStyleColor('--bg10');

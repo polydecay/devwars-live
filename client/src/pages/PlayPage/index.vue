@@ -1,9 +1,9 @@
 <template>
     <div class="PlayPage">
-        <FullscreenMessage v-if="!isActive" title="No game is currently active"/>
-        <PlayerView v-else-if="isPlayer"/>
-        <GameApplicationView v-else-if="stage.type === 'setup'"/>
-        <FullscreenMessage v-else title="Game in progress"/>
+        <FullscreenMessage v-if="!isActive" title="No game is currently active" />
+        <PlayerView v-else-if="isPlayer" />
+        <GameApplicationView v-else-if="stage.type === 'setup'" />
+        <FullscreenMessage v-else title="Game in progress" />
     </div>
 </template>
 

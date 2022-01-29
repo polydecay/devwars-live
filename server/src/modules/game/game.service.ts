@@ -8,10 +8,10 @@ import devwarsService from '../devwars/devwars.service';
 
 class GameService {
     async getGame(): Promise<Game> {
-        return await Game.findOneOrFail(1);
+        return Game.findOneOrFail(1);
     }
 
-    async getGameWithRelations(withDocuments = false): Promise<Game>  {
+    async getGameWithRelations(withDocuments = false): Promise<Game> {
         const game = await Game.findOneOrFail(1, { relations: ['teams', 'editors', 'players'] });
         (game as any).teamVoteResults = await voteService.getTeamResults();
 
@@ -39,7 +39,7 @@ class GameService {
 
     async delete(): Promise<Game> {
         const game = await this.getGame();
-        return await game.remove();
+        return game.remove();
     }
 
     async archive(): Promise<Game> {

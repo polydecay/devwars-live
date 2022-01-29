@@ -2,9 +2,9 @@
     <div class="GameEndView">
         <img class="logo" src="/logo-text.svg" alt="DevWars Logo">
         <main>
-            <TeamScore :team="blueTeam"/>
+            <TeamScore :team="blueTeam" />
             <div class="center"></div>
-            <TeamScore :team="redTeam" :flip="true"/>
+            <TeamScore :team="redTeam" :flip="true" />
         </main>
     </div>
 </template>
@@ -12,11 +12,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import TeamSlotList from '../components/TeamSlotList.vue';
 import TeamScore from '../components/TeamScore.vue';
 
 export default {
-    components: { TeamScore, TeamSlotList },
+    components: { TeamScore },
 
     computed: {
         ...mapGetters('game', ['blueTeam', 'redTeam']),

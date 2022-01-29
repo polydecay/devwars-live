@@ -2,14 +2,14 @@
     <div class="TeamView" :class="[team.name]">
         <div class="sidebar">
             <button :class="{ active: curView === 'code'}" @click="curView = 'code'">
-                <VIcon icon="CodeTags" title="View editors"/>
+                <VIcon icon="CodeTags" title="View editors" />
             </button>
             <button :class="{ active: curView === 'site'}" @click="curView = 'site'">
-                <VIcon icon="Monitor" title="View website"/>
+                <VIcon icon="Monitor" title="View website" />
             </button>
         </div>
-        <EditorGroup v-if="curView === 'code'" :editors="editors"/>
-        <TeamSiteViewer v-else-if="curView === 'site'" :teamId="team.id"/>
+        <EditorGroup v-if="curView === 'code'" :editors="editors" />
+        <TeamSiteViewer v-else-if="curView === 'site'" :teamId="team.id" />
     </div>
 </template>
 

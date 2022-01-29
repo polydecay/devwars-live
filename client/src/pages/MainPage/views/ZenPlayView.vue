@@ -1,12 +1,12 @@
 <template>
     <div class="GameZenView">
-        <GameSidebar/>
+        <GameSidebar />
         <main>
-            <GameHeader/>
+            <GameHeader />
             <div class="editors">
-                <TeamView :team="blueTeam"/>
-                <EditorGroupItem class="zenEditor" :editor="templateEditor"/>
-                <TeamView :team="redTeam"/>
+                <TeamView :team="blueTeam" />
+                <EditorGroupItem class="zenEditor" :editor="templateEditor" />
+                <TeamView :team="redTeam" />
             </div>
         </main>
     </div>
@@ -27,7 +27,7 @@ export default {
         ...mapGetters('game', ['blueTeam', 'redTeam']),
         templateEditor() {
             return this.$store.getters['game/editorById'](1);
-        }
+        },
     },
 };
 </script>

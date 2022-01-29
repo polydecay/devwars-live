@@ -11,7 +11,7 @@ const mutations = {
         admin = admin ?? initialState;
         for (const [key, value] of Object.entries(admin)) {
             if (!isEqual(state[key], value)) state[key] = value;
-        };
+        }
     },
 };
 

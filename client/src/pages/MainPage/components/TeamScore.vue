@@ -1,8 +1,8 @@
 <template>
     <div class="TeamScore" :class="[team.name, { winner, tie }]">
-        <TeamScoreHeader :team="team" :winner="winner" :tie="tie" :flip="flip"/>
-        <TeamSlotList :team="team" :flip="flip"/>
-        <TeamScoreObjectives :team="team"/>
+        <TeamScoreHeader :team="team" :winner="winner" :tie="tie" :flip="flip" />
+        <TeamSlotList :team="team" :flip="flip" />
+        <TeamScoreObjectives :team="team" />
         <TeamScoreVotes
             v-for="category in voteCategories"
             :key="category"

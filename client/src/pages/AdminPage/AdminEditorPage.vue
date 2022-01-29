@@ -1,6 +1,6 @@
 <template>
     <div class="AdminEditorPage">
-        <EditorController v-if="editor" :editor="editor" :autoControl="false"/>
+        <EditorController v-if="editor" :editor="editor" :autoControl="false" />
         <h1 v-else>No editor with id "{{ id }}" found!</h1>
     </div>
 </template>

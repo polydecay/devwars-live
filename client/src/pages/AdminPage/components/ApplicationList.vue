@@ -1,7 +1,7 @@
 <template>
     <AdminPanel class="ApplicationList" title="Applications">
         <div class="list">
-            <ApplicationItem v-for="app in applications" :key="app.id" :application="app"/>
+            <ApplicationItem v-for="app in applications" :key="app.id" :application="app" />
         </div>
     </AdminPanel>
 </template>

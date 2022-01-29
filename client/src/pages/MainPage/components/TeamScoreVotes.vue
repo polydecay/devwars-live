@@ -3,7 +3,7 @@
         <h1>{{ category }}</h1>
         <div class="main" :class="[team.name, { flip }]">
             <div class="score">{{ score }}</div>
-            <ProgressBar :value="percent" :flip="flip"/>
+            <ProgressBar :value="percent" :flip="flip" />
             <div class="percent">{{ percent }}%</div>
         </div>
     </div>
@@ -29,7 +29,7 @@ export default {
 
         percent() {
             if (!this.result) return 0;
-            return Math.floor(this.result.votes / this.result.total * 100);
+            return Math.floor((this.result.votes / this.result.total) * 100);
         },
 
         score() {

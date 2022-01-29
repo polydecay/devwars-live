@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import store from "./store";
+import store from './store';
 
 const MainPage = () => import('./pages/MainPage/index.vue');
 const PlayPage = () => import('./pages/PlayPage/index.vue');
@@ -52,7 +52,8 @@ router.beforeEach(async (to, from, next) => {
         }
 
         if (!store.state.app.user) {
-            return window.location.href = 'https://www.devwars.tv/login';
+            window.location.href = 'https://www.devwars.tv/login';
+            return;
         }
     }
 

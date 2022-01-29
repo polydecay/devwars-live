@@ -80,7 +80,7 @@ const getters = {
                 return result.teamId === id ? total + result.score : total;
             }, 0);
 
-           return objectiveScore + voteScore;
+            return objectiveScore + voteScore;
         };
     },
 
@@ -126,7 +126,7 @@ const mutations = {
         game = game ?? initialState;
         for (const [key, value] of Object.entries(game)) {
             if (!isEqual(state[key], value)) state[key] = value;
-        };
+        }
     },
 };
 

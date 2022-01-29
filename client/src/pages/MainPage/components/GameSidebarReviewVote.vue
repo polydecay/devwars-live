@@ -6,10 +6,10 @@
         </div>
         <div v-if="stage.type === 'vote'" class="vote">
             <div class="timer">
-                <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="30000"/>
+                <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="30000" />
                 <span v-else>-- : --</span>
             </div>
-            <GameSidebarVoteBar :category="stage.meta.category"/>
+            <GameSidebarVoteBar :category="stage.meta.category" />
             <p>Vote by typing <span class="red">!red</span> or <span class="blue">!blue</span> in the Twitch chat!</p>
         </div>
         <div class="guidelines">

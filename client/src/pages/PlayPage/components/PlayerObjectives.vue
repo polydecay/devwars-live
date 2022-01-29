@@ -3,6 +3,7 @@
         <ol>
             <li
                 v-for="obj in objectives"
+                :key="obj.description"
                 class="objective"
                 :class="{
                     bonus: obj.bonus,

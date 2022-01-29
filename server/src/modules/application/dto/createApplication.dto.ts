@@ -16,9 +16,9 @@ export const validateCreateApplicationDto = createValidator<CreateApplicationDto
         preferences: {
             type: 'object',
             properties: {
-                html: { type:'string', enum: ['never', 'bad', 'good', 'best'] },
-                css: { type:'string', enum: ['never', 'bad', 'good', 'best'] },
-                js: { type:'string', enum: ['never', 'bad', 'good', 'best'] },
+                html: { type: 'string', enum: ['never', 'bad', 'good', 'best'] },
+                css: { type: 'string', enum: ['never', 'bad', 'good', 'best'] },
+                js: { type: 'string', enum: ['never', 'bad', 'good', 'best'] },
             },
             required: ['html', 'css', 'js'],
             additionalProperties: false,

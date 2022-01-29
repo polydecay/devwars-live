@@ -29,7 +29,8 @@ export default {
 
         objectivesWithState() {
             return this.objectives.map((obj) => {
-                return { ...obj, complete: this.team.completeObjectives.some(id => id === obj.id) };
+                const complete = this.team.completeObjectives.some(id => id === obj.id);
+                return { ...obj, complete };
             });
         },
     },

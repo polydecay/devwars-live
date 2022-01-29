@@ -4,7 +4,7 @@
             Score <strong>{{ blueTeamScore }}</strong>
         </div>
         <h1>
-            <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/>
+            <CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000" />
             <span v-else>-- : --</span>
         </h1>
         <div class="score red">

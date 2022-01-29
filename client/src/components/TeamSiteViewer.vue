@@ -2,8 +2,12 @@
     <div class="TeamSiteViewer">
         <iframe ref="iframe" :src="url" frameborder="0" @load="onLoad"></iframe>
         <div class="actions">
-            <button @click="onOpen"><VIcon icon="OpenInNew" title="Open in new tab"/></button>
-            <button @click="onRefresh"><VIcon icon="Refresh" title="Refresh site"/></button>
+            <button @click="onOpen">
+                <VIcon icon="OpenInNew" title="Open in new tab" />
+            </button>
+            <button @click="onRefresh">
+                <VIcon icon="Refresh" title="Refresh site" />
+            </button>
         </div>
     </div>
 </template>

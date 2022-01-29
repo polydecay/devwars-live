@@ -4,7 +4,12 @@
             <div class="username">{{ application.username }}</div>
             <p class="message">{{ application.message }}</p>
         </div>
-        <div v-for="val, lang in application.preferences" class="preference" :class="val">
+        <div
+            v-for="val, lang in application.preferences"
+            :key="val"
+            class="preference"
+            :class="val"
+        >
             <div class="language">{{ lang }}</div>
             <div class="value">{{ val }}</div>
         </div>

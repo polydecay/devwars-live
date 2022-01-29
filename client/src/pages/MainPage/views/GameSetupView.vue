@@ -8,12 +8,12 @@
         <main>
             <div class="team">
                 <h1 class="blue">Blue Team</h1>
-                <TeamSlotList :team="blueTeam"/>
+                <TeamSlotList :team="blueTeam" />
             </div>
             <div class="center">VS</div>
             <div class="team flip">
                 <h1 class="red">Red Team</h1>
-                <TeamSlotList :team="redTeam" :flip="true"/>
+                <TeamSlotList :team="redTeam" :flip="true" />
             </div>
         </main>
         <footer>

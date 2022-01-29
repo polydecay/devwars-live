@@ -9,7 +9,7 @@
         viewBox="0 0 24 24"
     >
         <title v-if="title">{{ title }}</title>
-        <path :d="icons[icon]"/>
+        <path :d="icons[icon]" />
     </svg>
 </template>
 

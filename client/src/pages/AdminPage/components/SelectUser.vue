@@ -18,12 +18,14 @@
 
 
 <script>
-import * as api from '../../../api';
 import vSelect from 'vue-select';
 import debounce from 'lodash/debounce';
+import * as api from '../../../api';
 import 'vue-select/dist/vue-select.css';
 
 export default {
+    emits: ['selected'],
+
     props: {
         value: { type: Object, default: null },
     },

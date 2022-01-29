@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <dt>Timer:</dt>
-                        <dd><CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000"/></dd>
+                        <dd><CountdownTimer v-if="stageEndAt" :endAt="stageEndAt" :warnAt="60000" /></dd>
                     </div>
                 </dl>
                 <div class="timerActions">
@@ -87,14 +87,14 @@ export default {
 
         runtime() {
             return this.stages.find(stage => stage.type === 'running')?.meta?.runtime;
-        }
+        },
     },
 
     methods: {
         async onDestroy() {
             this.$awn.confirm('Are you sure you want to destroy the game?', () => {
                 api.destroyGame();
-            }, null, { labels: { confirm: 'Warning' }});
+            }, null, { labels: { confirm: 'Warning' } });
         },
 
         async onArchive() {
@@ -102,7 +102,7 @@ export default {
                 const res = await api.archiveGame();
                 if (res.ok) this.$awn.success('Game archived!');
                 else this.$awn.alert('Failed to archive game!');
-            }, null, { labels: { confirm: 'Archive' }});
+            }, null, { labels: { confirm: 'Archive' } });
         },
 
         async onPrevStage() {
@@ -120,26 +120,20 @@ export default {
         },
 
         onOpenObjectives() {
-            window.open(`/admin/objectives`, '_blank');
+            window.open('/admin/objectives', '_blank');
         },
 
         async onLockEditors() {
-            await Promise.all(this.editors.map((editor) => {
-                return api.patchEditor(editor.id, { locked: true })
-            }));
+            await Promise.all(this.editors.map((editor) => api.patchEditor(editor.id, { locked: true })));
         },
 
         async onUnlockEditors() {
-            await Promise.all(this.editors.map((editor) => {
-                return api.patchEditor(editor.id, { locked: false })
-            }));
+            await Promise.all(this.editors.map((editor) => api.patchEditor(editor.id, { locked: false })));
         },
 
         async onResetEditors() {
             this.$awn.confirm('Are you sure you want to reset all editors?', () => {
-                this.editors.map((editor) => {
-                    return api.resetEditor(editor.id);
-                });
+                this.editors.map((editor) => api.resetEditor(editor.id));
             }, null, { labels: { confirm: 'Warning' } });
         },
     },

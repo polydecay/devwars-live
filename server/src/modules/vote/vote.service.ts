@@ -11,10 +11,12 @@ interface TeamVoteResult {
 
 class VoteService {
     async createOrUpdate(createDto: any): Promise<Vote> {
-        let vote = await Vote.findOne({ where: {
-            category: createDto.category,
-            twitchId: createDto.twitchId,
-        }});
+        let vote = await Vote.findOne({
+            where: {
+                category: createDto.category,
+                twitchId: createDto.twitchId,
+            },
+        });
 
         // Skip update if the vote didn't change.
         if (vote && vote.teamId === createDto.teamId) {
@@ -27,7 +29,7 @@ class VoteService {
         }
 
         Object.assign(vote, createDto);
-        return await vote.save();
+        return vote.save();
     }
 
     async getAll(): Promise<Vote[]> {
@@ -51,12 +53,12 @@ class VoteService {
 
         function scoreFromPercent(percent: number): number {
             if (percent >= 80) return 2;
-            else if (percent > 50) return 1;
+            if (percent > 50) return 1;
             return 0;
         }
 
         for (const result of results) {
-            result.score = scoreFromPercent(result.votes / result.total * 100);
+            result.score = scoreFromPercent((result.votes / result.total) * 100);
         }
 
         return results;

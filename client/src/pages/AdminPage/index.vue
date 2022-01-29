@@ -3,8 +3,8 @@
         <FullscreenMessage v-if="!isModerator" title="You're not an administrator">
             <a href="https://www.devwars.tv/login">Go to login page</a>
         </FullscreenMessage>
-        <CreateGameView v-else-if="!isActive"/>
-        <EditGameView v-else/>
+        <CreateGameView v-else-if="!isActive" />
+        <EditGameView v-else />
     </div>
 </template>
 

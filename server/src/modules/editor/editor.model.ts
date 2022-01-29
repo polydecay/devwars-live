@@ -46,9 +46,9 @@ export class Editor extends BaseEntity {
     teamId!: number;
 
     @ManyToOne(() => Player, player => player.editors)
-    player!: Player
+    player!: Player;
     @Column({ nullable: true })
-    playerId!: Number | null;
+    playerId!: number | null;
 
 
     @AfterInsert()

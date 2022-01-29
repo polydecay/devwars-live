@@ -7,11 +7,11 @@
                     <span class="id">{{ obj.id }}.</span>
                     <input v-model="obj.description" type="text">
                     <button @click="onToggleBonus(obj)">
-                        <VIcon v-if="obj.bonus" icon="CheckAll" class="bonus"/>
-                        <VIcon v-else icon="Check"/>
+                        <VIcon v-if="obj.bonus" icon="CheckAll" class="bonus" />
+                        <VIcon v-else icon="Check" />
                     </button>
                     <button class="delete" @click="onDelete(obj)">
-                        <VIcon icon="Close"/>
+                        <VIcon icon="Close" />
                     </button>
                 </div>
                 <button class="add" @click="onAdd">Add Objective</button>
@@ -73,7 +73,7 @@ export default {
                 });
         },
 
-        onAdd(objective) {
+        onAdd() {
             this.formObjectives.push({
                 id: this.formObjectives.length + 1,
                 description: '',

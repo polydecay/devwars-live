@@ -1,7 +1,9 @@
 <template>
     <div ref="mount" class="BaseEditor">
         <transition name="fade" appear>
-            <div v-if="loading" class="loading"><span class="spinner"></span></div>
+            <div v-if="loading" class="loading">
+                <span class="spinner"></span>
+            </div>
         </transition>
     </div>
 </template>
@@ -13,6 +15,8 @@ import getMonaco from '../../utils/getMonaco';
 export default {
     monaco: null,
     editor: null,
+
+    emits: ['blur', 'loaded', 'change', 'focus', 'save', 'selection'],
 
     props: {
         text: { type: String, default: '' },
@@ -114,13 +118,13 @@ export default {
 
                 decorations.push({
                     range: cursor,
-                    options: { className: `CURSOR`},
+                    options: { className: 'CURSOR' },
                 });
 
                 if (cursorSelection.hasSelection()) {
                     decorations.push({
                         range: selection,
-                        options: { className: `SELECTION` },
+                        options: { className: 'SELECTION' },
                     });
                 }
             }
@@ -133,7 +137,7 @@ export default {
             if (revealCursor) {
                 const { cursorRow, cursorCol } = cursorSelections[0];
                 this.editor.revealPositionInCenterIfOutsideViewport(
-                    new this.monaco.Position(cursorRow, cursorCol)
+                    new this.monaco.Position(cursorRow, cursorCol),
                 );
             }
         },

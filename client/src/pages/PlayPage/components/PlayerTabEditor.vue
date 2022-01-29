@@ -8,12 +8,16 @@
                 @click="onSelectEditor(editor)"
             >{{ editor.fileName }}</div>
         </nav>
-        <EditorController v-if="curEditor" :key="curEditor.id" :editor="curEditor"/>
-        <PlayerObjectives v-if="showObjectives"/>
+        <EditorController v-if="curEditor" :key="curEditor.id" :editor="curEditor" />
+        <PlayerObjectives v-if="showObjectives" />
         <div v-if="curEditor" class="actions">
             <button @click="onSave">Save</button>
-            <button v-if="objectives.length" @click="onToggleObjectives">{{ showObjectives ? 'Hide' : 'Show' }} Objectives</button>
-            <button v-if="stage.type === 'setup'" :class="['readyBtn', { ready }]" @click="onReady">{{ ready ? `You're ready` : `Press when ready` }}</button>
+            <button v-if="objectives.length" @click="onToggleObjectives">
+                {{ showObjectives ? 'Hide' : 'Show' }} Objectives
+            </button>
+            <button v-if="stage.type === 'setup'" :class="['readyBtn', { ready }]" @click="onReady">
+                {{ ready ? `You're ready` : `Press when ready` }}
+            </button>
         </div>
     </div>
 </template>

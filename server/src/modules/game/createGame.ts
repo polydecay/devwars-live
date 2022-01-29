@@ -22,14 +22,14 @@ function createClassicGame(createDto: CreateGameDto) {
         description: 'Base your vote on the overall look and feel of the website.',
         lookFor: 'Design, Animations, Responsiveness',
         ignore: 'Functionality, Features, Bugs',
-    }
+    };
 
     const functionMeta = {
         category: 'function',
         description: 'Base your vote on the websites features and functionality.',
         lookFor: 'Functionality, Features, Bugs',
         ignore: 'Design, Animations, Responsiveness',
-    }
+    };
 
     game.stages = [
         { type: 'setup' },
@@ -153,7 +153,7 @@ function createTeam(id: number, name: string): Team {
     return team;
 }
 
-function createEditor(id: number, teamId: number, language: string, fileName: string, template: string = ''): Editor {
+function createEditor(id: number, teamId: number, language: string, fileName: string, template = ''): Editor {
     const editor = new Editor();
     editor.id = id;
     editor.teamId = teamId;

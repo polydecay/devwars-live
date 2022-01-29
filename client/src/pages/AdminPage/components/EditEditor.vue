@@ -8,19 +8,19 @@
         </div>
         <div class="row actions">
             <button v-if="editor.locked" class="small danger" @click="onToggleLocked">
-                <VIcon icon="Lock" title="Unlock Editor"/>
+                <VIcon icon="Lock" title="Unlock Editor" />
             </button>
             <button v-else class="small" @click="onToggleLocked">
-                <VIcon icon="LockOpen" title="Lock Editor"/>
+                <VIcon icon="LockOpen" title="Lock Editor" />
             </button>
             <button class="small" @click="onOpenEditor">
-                <VIcon icon="OpenInNew" title="Open Editor"/>
+                <VIcon icon="OpenInNew" title="Open Editor" />
             </button>
             <button @click="onReset">Reset</button>
         </div>
         <div class="row userActions">
             <h3 v-if="editor.hidden">Disabled</h3>
-            <SelectUser v-else @selected="onSelectUser" :value="player"/>
+            <SelectUser v-else @selected="onSelectUser" :value="player" />
         </div>
     </section>
 </template>
@@ -62,7 +62,8 @@ export default {
 
         async onSelectUser(sparseUser) {
             if (!sparseUser) {
-                return await api.deleteEditorPlayer(this.editor.id);
+                api.deleteEditorPlayer(this.editor.id);
+                return;
             }
 
             const res = await api.getUserById(sparseUser.id);

@@ -12,14 +12,14 @@ class DevwarsService {
         const res = await fetch(`${config.devwarsApi.url}/${url}`, options);
         if (!res.ok) {
             const body = await res.json();
-            throw createError(res.status, 'DevWars API: ' + body?.error);
+            throw createError(res.status, `DevWars API: ${body?.error}`);
         }
 
         return res.json();
     }
 
     private async apiRequest(url: string, options?: RequestInit) {
-        return this.request(url, _.merge({ headers: { apikey: config.devwarsApi.apiKey }}, options));
+        return this.request(url, _.merge({ headers: { apikey: config.devwarsApi.apiKey } }, options));
     }
 
     async getUserById(id: number): Promise<User | null> {
@@ -59,6 +59,7 @@ class DevwarsService {
             const users: any[] = await this.apiRequest(`search/users?username=${encodeURIComponent(search)}&limit=5`);
             return users.map(user => ({ id: user.id, username: user.username }));
         } catch (error) {
+            console.error('DevWars API:', error);
             throw error;
         }
     }
@@ -71,7 +72,7 @@ class DevwarsService {
                 body: JSON.stringify(game),
             });
         } catch (error) {
-            console.error(error);
+            console.error('DevWars API:', error);
             throw error;
         }
     }

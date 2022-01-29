@@ -1,6 +1,6 @@
 <template>
     <div class="EditorController">
-        <LiveEditor :editor="editor" editable/>
+        <LiveEditor :editor="editor" editable />
         <transition name="modal">
             <div v-if="editor.locked" class="modal">
                 <h1>Editor Is Locked</h1>
@@ -28,7 +28,7 @@ export default {
 
     props: {
         editor: { type: Object, required: true },
-        autoControl: { type: Boolean, default: true }
+        autoControl: { type: Boolean, default: true },
     },
 
     computed: {
@@ -63,7 +63,7 @@ export default {
 
         async onUnlock() {
             await api.patchEditor(this.editor.id, { locked: false });
-        }
+        },
     },
 };
 </script>

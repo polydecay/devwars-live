@@ -1,7 +1,7 @@
 <template>
     <AdminPanelSection class="EditTeamEditors" title="Editors">
         <div class="editors">
-            <EditEditor v-for="editor in editors" :key="editor.id" :editor="editor"/>
+            <EditEditor v-for="editor in editors" :key="editor.id" :editor="editor" />
         </div>
     </AdminPanelSection>
 </template>

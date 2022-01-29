@@ -1,11 +1,9 @@
 <template>
     <div class="GameSidebar">
         <img class="logo" src="/logo-text.svg" alt="DevWars Logo">
-
-        <GameSidebarObjectives v-if="showObjectives"/>
-        <GameSidebarReviewVote v-if="showReviewVote"/>
-
-        <GameSidebarWidget/>
+        <GameSidebarObjectives v-if="showObjectives" />
+        <GameSidebarReviewVote v-if="showReviewVote" />
+        <GameSidebarWidget />
     </div>
 </template>
 

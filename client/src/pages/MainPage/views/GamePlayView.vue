@@ -1,10 +1,10 @@
 <template>
     <div class="GameView">
-        <GameSidebar/>
+        <GameSidebar />
         <main>
-            <GameHeader/>
-            <TeamView :team="blueTeam"/>
-            <TeamView :team="redTeam"/>
+            <GameHeader />
+            <TeamView :team="blueTeam" />
+            <TeamView :team="redTeam" />
         </main>
     </div>
 </template>

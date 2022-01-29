@@ -1,4 +1,14 @@
-import { Entity, BaseEntity, PrimaryColumn, Column, ManyToOne, OneToMany, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import {
+    Entity,
+    BaseEntity,
+    PrimaryColumn,
+    Column,
+    ManyToOne,
+    OneToMany,
+    AfterInsert,
+    AfterUpdate,
+    AfterRemove,
+} from 'typeorm';
 import { Game } from '../game/game.model';
 import { Team } from '../team/team.model';
 import { Editor } from '../editor/editor.model';

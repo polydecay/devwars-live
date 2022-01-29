@@ -1,6 +1,7 @@
 import Router, { RouterContext } from 'koa-router';
 import { moderatorGuard } from '../../common/middleware/roleGuards';
 import devwarsService from './devwars.service';
+
 const router = new Router();
 
 router.get('/users/:id', moderatorGuard(), async (ctx: RouterContext) => {

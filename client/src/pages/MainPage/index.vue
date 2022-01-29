@@ -1,7 +1,7 @@
 <template>
     <div class="MainPage">
-        <FullscreenMessage title="No game is currently active" v-if="!isActive"/>
-        <component v-else :is="gameViewComponent"/>
+        <FullscreenMessage title="No game is currently active" v-if="!isActive" />
+        <component v-else :is="gameViewComponent" />
     </div>
 </template>
 

@@ -25,6 +25,8 @@ import BaseEditor from './BaseEditor.vue';
 export default {
     components: { BaseEditor },
 
+    emits: ['hasControl'],
+
     props: {
         editor: { type: Object, required: true },
         editable: { type: Boolean, default: false },
@@ -98,7 +100,6 @@ export default {
         },
 
 
-
         onEditorLoaded() {
             eventBus.on(`editor.${this.editor.id}.text`, this.onSocketText);
             eventBus.on(`editor.${this.editor.id}.o`, this.onSocketOperation);
@@ -125,12 +126,12 @@ export default {
 
             const selections = [
                 selectionChange.selection,
-                ...selectionChange.secondarySelections
+                ...selectionChange.secondarySelections,
             ];
 
             this.$socket.emit('e.s', {
                 id: this.editor.id,
-                s: selections.map(selection => CursorSelection.fromMonacoSelection(selection).toDto())
+                s: selections.map(selection => CursorSelection.fromMonacoSelection(selection).toDto()),
             });
         },
 
@@ -139,7 +140,6 @@ export default {
                 this.$socket.emit('e.save', { id: this.editor.id });
             }
         },
-
 
 
         onSocketText(text) {
@@ -163,10 +163,7 @@ export default {
 
         onSocketSelection(cursorSelectionsDto) {
             if (!this.hasControl) {
-                const cursorSelections = cursorSelectionsDto.map(selection => {
-                    return CursorSelection.fromDto(selection);
-                })
-
+                const cursorSelections = cursorSelectionsDto.map(selection => CursorSelection.fromDto(selection));
                 this.$refs.editor.applySelectionDecorators(cursorSelections, !this.focused);
             }
         },

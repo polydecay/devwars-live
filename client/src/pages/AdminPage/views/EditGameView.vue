@@ -1,11 +1,11 @@
 <template>
     <div class="EditGameView">
-        <EditGame/>
+        <EditGame />
         <div class="split">
             <div class="teams">
-                <EditTeam v-for="team of teams" :key="team.id" :team="team"/>
+                <EditTeam v-for="team of teams" :key="team.id" :team="team" />
             </div>
-            <ApplicationList/>
+            <ApplicationList />
         </div>
     </div>
 </template>
@@ -22,7 +22,7 @@ export default {
 
     computed: {
         ...mapState('game', ['teams']),
-    }
+    },
 };
 </script>
 

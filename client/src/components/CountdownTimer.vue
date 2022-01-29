@@ -18,8 +18,8 @@ export default {
         displayTime() {
             if (this.now >= this.endAt) return '00:00';
 
-            const sec = Math.trunc((this.endAt - this.now) / 1000 % 60);
-            const min = Math.trunc((this.endAt - this.now) / 1000 / 60);
+            const sec = Math.trunc(((this.endAt - this.now) / 1000) % 60);
+            const min = Math.trunc(((this.endAt - this.now) / 1000) / 60);
 
             const secStr = String(sec).padStart(2, '0');
             const minStr = String(min).padStart(2, '0');

@@ -35,4 +35,4 @@ import documentService from './modules/document/document.service';
     process.on('SIGINT', handleShutdown);
     process.on('SIGTERM', handleShutdown);
     process.on('SIGABRT', handleShutdown);
-})();
+}());

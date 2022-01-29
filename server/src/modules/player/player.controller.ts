@@ -40,7 +40,7 @@ router.patch('/:id/ready', userGuard(), async (ctx: RouterContext) => {
         ctx.throw(403);
     }
 
-    const patchReadyDto = validatePatchPlayerReadyDto(ctx.request.body)
+    const patchReadyDto = validatePatchPlayerReadyDto(ctx.request.body);
     ctx.body = await playerService.patch(id, patchReadyDto);
 });
 

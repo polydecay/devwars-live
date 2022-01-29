@@ -1,5 +1,5 @@
 export class PromiseQueue {
-    private busy: boolean = false;
+    private busy = false;
     private readonly queue: (() => Promise<any>)[] = [];
 
     add(handler: () => Promise<any>): void {

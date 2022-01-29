@@ -20,5 +20,8 @@ You can then set a cookie in your browser with the key `token` and one of the fo
 
 ## Production
 * Run `npm run build` in both the client and server directory.
-* Configure your favorite web server to serve the `client/dist` directory.
-* Run `npm run start` in the server directory, and preferably proxy it through your web server.
+* Configure your web server to serve the `client/dist` directory.
+* Reroute `/admin` and `/play` to `client/dist/index.html` to handle SPA routes.
+* Run `node server/dist/index.js` and preferably proxy it through a web server.
+
+__NOTE:__ The server does not use the `.env` in production!

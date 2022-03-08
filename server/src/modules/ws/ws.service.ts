@@ -97,8 +97,12 @@ class WSService {
             const { id, o } = validateDocumentTextOpDto(data);
             editorOperationQueue.add(async () => {
                 if (await this.isControllingEditor(socket, id)) {
-                    documentService.applyTextOperation(id, TextOperation.fromDto(o));
-                    socket.broadcast.emit('e.o', { id, o });
+                    try {
+                        documentService.applyTextOperation(id, TextOperation.fromDto(o));
+                        socket.broadcast.emit('e.o', { id, o });
+                    } catch (error) {
+                        console.error('Failed to apply text operation:', error);
+                    }
                 }
             });
         }));

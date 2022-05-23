@@ -6,7 +6,7 @@
         </div>
         <div
             v-for="val, lang in application.preferences"
-            :key="val"
+            :key="lang"
             class="preference"
             :class="val"
         >

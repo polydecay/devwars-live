@@ -1,6 +1,16 @@
 <template>
     <router-view />
+    <ConnectionIndicator />
 </template>
+
+
+<script>
+import ConnectionIndicator from './components/ConnectionIndicator.vue';
+
+export default {
+    components: { ConnectionIndicator },
+};
+</script>
 
 
 <style lang="scss">

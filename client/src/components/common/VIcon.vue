@@ -16,15 +16,16 @@
 
 <script>
 import {
-    mdiMonitorCellphone as Monitor,
-    mdiCheckAll as CheckAll,
     mdiCheck as Check,
+    mdiCheckAll as CheckAll,
     mdiClose as Close,
     mdiCodeTags as CodeTags,
     mdiLock as Lock,
     mdiLockOpen as LockOpen,
+    mdiMonitorCellphone as Monitor,
     mdiOpenInNew as OpenInNew,
     mdiRefresh as Refresh,
+    mdiWebOff as Disconnected,
 } from '@mdi/js';
 
 export default {
@@ -36,15 +37,16 @@ export default {
 
     data: () => ({
         icons: {
-            Monitor,
-            CheckAll,
             Check,
+            CheckAll,
             Close,
             CodeTags,
             Lock,
             LockOpen,
+            Monitor,
             OpenInNew,
             Refresh,
+            Disconnected,
         },
     }),
 };

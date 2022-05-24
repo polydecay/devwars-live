@@ -22,9 +22,10 @@ router.get('/:id/files/:fileName', async (ctx: RouterContext) => {
     const id = Number(ctx.params.id);
     const fileName = ctx.params.fileName;
 
-    const editor = await editorService.getByName(id, fileName);
+    const editor = await editorService.getByFileName(id, fileName);
+
     ctx.type = path.extname(editor.fileName);
-    ctx.body = editor.fileText;
+    ctx.body = editor.outputText;
 });
 
 export default router;

@@ -40,8 +40,8 @@ socket.on('e.s', ({ id, s: cursorSelections }) => {
     eventBus.emit(`editor.${id}.s`, cursorSelections);
 });
 
-socket.on('e.save', ({ id }) => {
-    eventBus.emit(`editor.save`, id);
+socket.on('e.output', ({ id }) => {
+    eventBus.emit(`editor.output`, id);
 });
 
 export default socket;

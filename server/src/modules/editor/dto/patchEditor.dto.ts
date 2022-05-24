@@ -5,7 +5,6 @@ export interface PatchEditorDto {
     template?: string;
     locked?: boolean;
     hidden?: boolean;
-    fileText?: string;
 }
 
 export const validatePatchEditorDto = createValidator<PatchEditorDto>({
@@ -15,7 +14,6 @@ export const validatePatchEditorDto = createValidator<PatchEditorDto>({
         template: { type: 'string', nullable: true },
         locked: { type: 'boolean', nullable: true },
         hidden: { type: 'boolean', nullable: true },
-        fileText: { type: 'string', nullable: true },
     },
     required: [],
     additionalProperties: false,

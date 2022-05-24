@@ -1,6 +1,10 @@
 <template>
     <div class="EditorController">
         <LiveEditor :editor="editor" editable />
+        <div v-if="editor.outputError" class="outputError">
+            <h1 class="title">Compilation Error</h1>
+            <pre class="message">{{ editor.outputError }}</pre>
+        </div>
         <transition name="modal">
             <div v-if="editor.locked" class="modal">
                 <h1>Editor Is Locked</h1>
@@ -78,6 +82,22 @@ export default {
 
     .LiveEditor {
         flex: 1 1;
+    }
+
+    .outputError {
+        padding: 1rem;
+        background-color: var(--bg10);
+
+        .title {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            color: var(--error);
+        }
+
+        .message {
+            margin: 0;
+            font-size: 0.875rem;
+        }
     }
 
     .modal {

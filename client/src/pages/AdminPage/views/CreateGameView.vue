@@ -21,6 +21,14 @@
             <input type="number" v-model="runtime">
         </div>
 
+        <div class="field">
+            <label>Stylesheet Language</label>
+            <select v-model="styleLang">
+                <option value="css" selected>CSS</option>
+                <option value="scss">SCSS</option>
+            </select>
+        </div>
+
         <button @click="onCreate">Create</button>
     </div>
 </template>
@@ -34,6 +42,7 @@ export default {
         mode: 'classic',
         title: '',
         runtime: 30,
+        styleLang: 'css',
     }),
 
     methods: {
@@ -42,6 +51,7 @@ export default {
                 mode: this.mode,
                 title: this.title,
                 runtime: this.runtime * 60 * 1000,
+                scss: this.styleLang === 'scss',
             });
         },
     },

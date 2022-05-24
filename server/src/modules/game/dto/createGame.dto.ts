@@ -10,6 +10,7 @@ export interface CreateGameDto {
         bonus: boolean;
     }>;
     htmlTemplate?: string;
+    scss?: boolean;
 }
 
 export const validateCreateGameDto = createValidator<CreateGameDto>({
@@ -33,6 +34,7 @@ export const validateCreateGameDto = createValidator<CreateGameDto>({
             },
         },
         htmlTemplate: { type: 'string', nullable: true },
+        scss: { type: 'boolean', nullable: true },
     },
     required: ['mode', 'title', 'runtime'],
     additionalProperties: false,

@@ -6,7 +6,7 @@
                 :key="editor.id"
                 :class="['tab', { selected: editor.id === curEditorId }]"
                 @click="onSelectEditor(editor)"
-            >{{ editor.fileName }}</div>
+            >{{ getEditorDisplayFileName(editor) }}</div>
         </nav>
         <EditorController v-if="curEditor" :key="curEditor.id" :editor="curEditor" />
         <PlayerObjectives v-if="showObjectives" />
@@ -80,6 +80,10 @@ export default {
         async onReady() {
             await api.setPlayerReady(this.user.id, !this.player.ready);
         },
+
+        getEditorDisplayFileName(editor) {
+            return editor.fileName.replace(/\.\w+$/, `.${editor.language}`);
+        }
     },
 };
 </script>

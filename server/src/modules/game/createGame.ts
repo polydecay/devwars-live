@@ -62,12 +62,13 @@ function createClassicGame(createDto: CreateGameDto) {
         createTeam(2, 'red'),
     ];
 
+    const css = createDto.scss ? 'scss' : 'css';
     game.editors = [
         createEditor(1, 1, 'html', 'index.html', htmlTemplate),
-        createEditor(2, 1, 'css', 'game.css'),
+        createEditor(2, 1, css, 'game.css'),
         createEditor(3, 1, 'js', 'game.js'),
         createEditor(4, 2, 'html', 'index.html', htmlTemplate),
-        createEditor(5, 2, 'css', 'game.css'),
+        createEditor(5, 2, css, 'game.css'),
         createEditor(6, 2, 'js', 'game.js'),
     ];
 
@@ -113,28 +114,31 @@ function createZenGame(createDto: CreateGameDto) {
         { type: 'end' },
     ];
 
+    const htmlTemplate = createDto.htmlTemplate ?? [
+        '<!DOCTYPE html>',
+        '<html>',
+        '<head>',
+        '    <meta charset="utf-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+        '    <link rel="stylesheet" href="game.css">',
+        '</head>',
+        '<body>',
+        '    <script src="game.js"></script>',
+        '</body>',
+        '</html>',
+    ].join('\n');
+
     game.teams = [
         createTeam(1, 'blue'),
         createTeam(2, 'red'),
     ];
 
+    const css = createDto.scss ? 'scss' : 'css';
     game.editors = [
-        createEditor(1, 1, 'html', 'index.html', createDto.htmlTemplate ?? [
-            '<!DOCTYPE html>',
-            '<html>',
-            '<head>',
-            '    <meta charset="utf-8">',
-            '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
-            '    <link rel="stylesheet" href="game.css">',
-            '</head>',
-            '<body>',
-            '    <script src="game.js"></script>',
-            '</body>',
-            '</html>',
-        ].join('\n')),
-        createEditor(2, 1, 'css', 'game.css'),
-        createEditor(3, 2, 'html', 'index.html', createDto.htmlTemplate ?? ''),
-        createEditor(4, 2, 'css', 'game.css'),
+        createEditor(1, 1, 'html', 'index.html', htmlTemplate),
+        createEditor(2, 1, css, 'game.css'),
+        createEditor(3, 2, 'html', 'index.html', htmlTemplate),
+        createEditor(4, 2, css, 'game.css'),
     ];
 
     // Hide html editors.
@@ -159,7 +163,9 @@ function createEditor(id: number, teamId: number, language: string, fileName: st
     editor.teamId = teamId;
     editor.language = language;
     editor.fileName = fileName;
-    editor.template = template;
     editor.fileText = template;
+    editor.outputText = template;
+    editor.outputError = null;
+    editor.template = template;
     return editor;
 }

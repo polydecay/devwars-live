@@ -162,8 +162,8 @@ class WSService {
         this.server.emit('e.text', { id, text });
     }
 
-    async broadcastEditorSave(id: number) {
-        this.server.emit('e.save', { id });
+    async broadcastEditorOutput(id: number) {
+        this.server.emit('e.output', { id });
     }
 }
 

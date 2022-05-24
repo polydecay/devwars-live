@@ -30,11 +30,11 @@ export default {
     },
 
     mounted() {
-        eventBus.on('editor.save', this.onEditorSave);
+        eventBus.on('editor.output', this.onEditorOutput);
     },
 
     beforeUnmount() {
-        eventBus.off('editor.save', this.onEditorSave);
+        eventBus.off('editor.output', this.onEditorOutput);
     },
 
     methods: {
@@ -56,7 +56,7 @@ export default {
             this.$refs.iframe.src += '';
         },
 
-        onEditorSave(id) {
+        onEditorOutput(id) {
             if (this.editors.some(e => e.id === id)) {
                 this.onRefresh();
             }

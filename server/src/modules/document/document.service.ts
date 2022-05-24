@@ -34,6 +34,10 @@ class DocumentService {
         return this.getById(id).getText();
     }
 
+    setText(id: number, text: string) {
+        return this.getById(id).setText(text);
+    }
+
     applyTextOperation(id: number, textOperation: TextOperation): boolean {
         this.getById(id).applyTextOperation(textOperation);
         return true;
@@ -41,7 +45,7 @@ class DocumentService {
 
     async save(id: number): Promise<void> {
         const fileText = this.getText(id);
-        await editorService.patch(id, { fileText });
+        await editorService.setFileText(id, fileText);
     }
 }
 

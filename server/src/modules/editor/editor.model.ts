@@ -15,14 +15,23 @@ export class Editor extends BaseEntity {
     @PrimaryColumn()
     id!: number;
 
-    @Column({ enum: ['html', 'css', 'js'] })
+    @Column({ enum: ['html', 'css', 'scss', 'js'] })
     language!: string;
 
     @Column()
     fileName!: string;
 
     @Column({ default: '' })
+    fileText!: string;
+
+    @Column({ default: '' })
     template!: string;
+
+    @Column({ default: '' })
+    outputText!: string;
+
+    @Column({ type: 'text', nullable: true })
+    outputError!: string | null;
 
     @Column({ default: true })
     locked!: boolean;
@@ -30,8 +39,6 @@ export class Editor extends BaseEntity {
     @Column({ default: false })
     hidden!: boolean;
 
-    @Column({ default: '' })
-    fileText!: string;
 
     @Column({ type: 'simple-json', nullable: true })
     connection!: EditorConnection | null;

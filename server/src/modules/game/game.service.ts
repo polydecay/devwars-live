@@ -17,8 +17,9 @@ class GameService {
 
         if (!withDocuments) {
             game.editors.forEach((editor: any) => {
-                delete editor.template;
                 delete editor.fileText;
+                delete editor.outputText;
+                delete editor.template;
             });
         }
 

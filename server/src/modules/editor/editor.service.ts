@@ -1,10 +1,11 @@
 import io from 'socket.io';
-import { Editor } from './editor.model';
-import { PatchEditorDto } from './dto/patchEditor.dto';
-import { User } from '../devwars/devwarsUser';
+import sass from 'sass';
 import playerService from '../player/player.service';
 import documentService from '../document/document.service';
+import { User } from '../devwars/devwarsUser';
 import wsService from '../ws/ws.service';
+import { Editor } from './editor.model';
+import { PatchEditorDto } from './dto/patchEditor.dto';
 
 class EditorService {
     async getAll(): Promise<Editor[]> {
@@ -15,7 +16,7 @@ class EditorService {
         return Editor.findOneOrFail(id);
     }
 
-    async getByName(teamId: number, fileName: string): Promise<Editor> {
+    async getByFileName(teamId: number, fileName: string): Promise<Editor> {
         return Editor.findOneOrFail({ where: { teamId, fileName } });
     }
 
@@ -24,9 +25,31 @@ class EditorService {
         Object.assign(editor, patchDto);
         editor = await editor.save();
 
-        if (patchDto.fileText) {
-            wsService.broadcastEditorSave(editor.id);
+        return editor;
+    }
+
+    async setFileText(id: number, fileText: string): Promise<Editor> {
+        let editor = await this.getById(id);
+        editor.fileText = fileText;
+
+        if (editor.language === 'scss') {
+            try {
+                const { css } = await sass.compileStringAsync(fileText, {
+                    alertColor: false,
+                    logger: sass.Logger.silent,
+                });
+
+                editor.outputText = css;
+                editor.outputError = null;
+            } catch (error: any) {
+                editor.outputError = error.message;
+            }
+        } else {
+            editor.outputText = editor.fileText;
         }
+
+        await editor.save();
+        wsService.broadcastEditorOutput(editor.id);
 
         return editor;
     }

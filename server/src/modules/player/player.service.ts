@@ -17,7 +17,7 @@ class PlayerService {
     }
 
     async getById(id: number): Promise<Player> {
-        return Player.findOneOrFail(id);
+        return Player.findOneByOrFail({ id });
     }
 
     async patch(id: number, patchDto: PatchPlayerDto): Promise<Player> {

@@ -13,11 +13,11 @@ class EditorService {
     }
 
     async getById(id: number): Promise<Editor> {
-        return Editor.findOneOrFail(id);
+        return Editor.findOneByOrFail({ id });
     }
 
     async getByFileName(teamId: number, fileName: string): Promise<Editor> {
-        return Editor.findOneOrFail({ where: { teamId, fileName } });
+        return Editor.findOneByOrFail({ teamId, fileName });
     }
 
     async patch(id: number, patchDto: PatchEditorDto): Promise<Editor> {

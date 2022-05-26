@@ -8,11 +8,19 @@ import devwarsService from '../devwars/devwars.service';
 
 class GameService {
     async getGame(): Promise<Game> {
-        return Game.findOneOrFail(1);
+        return Game.findOneByOrFail({ id: 1 });
     }
 
     async getGameWithRelations(withDocuments = false): Promise<Game> {
-        const game = await Game.findOneOrFail(1, { relations: ['teams', 'editors', 'players'] });
+        const game = await Game.findOneOrFail({
+            where: { id: 1 },
+            relations: {
+                teams: true,
+                editors: true,
+                players: true,
+            },
+        });
+
         (game as any).teamVoteResults = await voteService.getTeamResults();
 
         if (!withDocuments) {

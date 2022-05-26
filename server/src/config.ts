@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { ConnectionOptions } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 
 const { env } = process;
 env.NODE_ENV = env.NODE_ENV ?? 'development';
@@ -11,7 +11,7 @@ const app = {
     apiKey: env.API_KEY ?? '',
 };
 
-const database: ConnectionOptions = {
+const dataSource: DataSourceOptions = {
     type: 'better-sqlite3',
     database: env.DATABASE_PATH ?? ':memory:',
     // HACK: TypeORM is destroying tables even when the models haven't changed.
@@ -30,6 +30,6 @@ const devwarsApi = {
 export default {
     env: env.NODE_ENV,
     app,
-    database,
+    dataSource,
     devwarsApi,
 };

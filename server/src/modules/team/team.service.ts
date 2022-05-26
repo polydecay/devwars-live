@@ -4,7 +4,7 @@ import gameService from '../game/game.service';
 
 class TeamService {
     async getById(id: number): Promise<Team> {
-        return Team.findOneOrFail(id);
+        return Team.findOneByOrFail({ id });
     }
 
     async patch(id: number, patchDto: PatchTeamDto): Promise<Team> {

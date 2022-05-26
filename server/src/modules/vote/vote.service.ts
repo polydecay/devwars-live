@@ -11,11 +11,9 @@ interface TeamVoteResult {
 
 class VoteService {
     async createOrUpdate(createDto: any): Promise<Vote> {
-        let vote = await Vote.findOne({
-            where: {
-                category: createDto.category,
-                twitchId: createDto.twitchId,
-            },
+        let vote = await Vote.findOneBy({
+            category: createDto.category,
+            twitchId: createDto.twitchId,
         });
 
         // Skip update if the vote didn't change.

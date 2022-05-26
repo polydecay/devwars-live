@@ -17,7 +17,7 @@ class ApplicationService {
     }
 
     async getById(id: number): Promise<Application> {
-        return Application.findOneOrFail(id);
+        return Application.findOneByOrFail({ id });
     }
 
     async delete(id: number): Promise<Application> {

@@ -1,5 +1,5 @@
 import http from 'http';
-import { createConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { createHttpTerminator } from 'http-terminator';
 import config from './config';
 import koa from './koa';
@@ -12,7 +12,9 @@ import documentService from './modules/document/document.service';
 
     const httpTerminator = createHttpTerminator({ server, gracefulTerminationTimeout: 2000 });
 
-    const database = await createConnection(config.database);
+    const dataSource = new DataSource(config.dataSource);
+    await dataSource.initialize();
+
     await documentService.syncWithEditors();
 
     server.listen(config.app.port, config.app.host, () => {
@@ -26,7 +28,7 @@ import documentService from './modules/document/document.service';
             new Promise(r => setTimeout(r, 2500)),
         ]);
 
-        await database.close();
+        await dataSource.destroy();
 
         console.log('  Server shutdown gracefully');
         process.exit(0);
